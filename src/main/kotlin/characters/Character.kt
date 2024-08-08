@@ -28,17 +28,18 @@ open class Character {
     var alive = true
     open var race = "lol"
 
-    //displays charact  er stats
+    //displays character stats
     //might need to shorten/rearrange stuff
     fun displayStats(): String {
-        return "Name: $name        Race: $race\n" +
-                "Level: $level     Skill Points: $skillPoints\n" +
-                "Hp: $hp/$maxHp    Exp: $exp/$explimit \n" +
-                "Str: $str      Mag: $mag \n" +
-                "Def: $def      Res: $res \n" +
-                "Spd: $spd      Stamina: $stamina\n" +
-                "Acc: $acc      Stealth: $stealth\n" +
-                "Lck: $lck      Intel: $intel\n"
+
+        return  "Name: $name        Race: $race\n" +
+                "Level: $level        Skill Points: $skillPoints\n" +
+                "Hp: $hp/$maxHp     Exp: " + String.format("%.1f", exp) + "/$explimit\n" +
+                "Str: $str         Mag: $mag \n" +
+                "Def: $def        Res: $res \n" +
+                "Spd: $spd        Stamina: $stamina\n" +
+                "Acc: $acc        Stealth: $stealth\n" +
+                "Lck: $lck        Intel: $intel\n"
     }
 
     //gain exp

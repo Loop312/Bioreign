@@ -19,6 +19,7 @@ import characters.*
 @Preview
 fun App() {
     //movableBox()
+    lol()
 }
 
 fun main() = application {
