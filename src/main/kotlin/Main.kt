@@ -7,23 +7,29 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.window.*
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.*
+import androidx.compose.ui.awt.ComposeWindow
 import androidx.compose.ui.platform.*
 import androidx.compose.ui.input.key.*
 import androidx.compose.ui.res.*
 import androidx.compose.ui.unit.dp
 //project imports
 import characters.*
+
 //import demo.src.main.resources.drawable
 
 @Composable
 @Preview
 fun App() {
-    //movableBox()
-    lol()
+    movableBox()
+    //lol()
 }
 
 fun main() = application {
-    Window(onCloseRequest = ::exitApplication) {
+    Window(onCloseRequest = ::exitApplication, onKeyEvent = { event: KeyEvent ->
+        when (event.key) {
+            Key.A -> println("lol")
+        }
+        true }) {
         App()
     }
     val player = Human()
@@ -55,12 +61,13 @@ fun movableBox() {
         contentDescription = "lol",
         modifier = Modifier
             .offset (x, y)
+            .size(100.dp)
             .onKeyEvent {event: KeyEvent ->
             if (event.type == KeyEventType.KeyUp){
-                x += 10.dp
+                x += 50.dp
             }
             if (event.type == KeyEventType.KeyDown){
-                y += 10.dp
+                y += 50.dp
             }
             false
         }
