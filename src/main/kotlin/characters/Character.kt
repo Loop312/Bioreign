@@ -34,7 +34,7 @@ open class Character {
 
         return  "Name: $name        Race: $race\n" +
                 "Level: $level        Skill Points: $skillPoints\n" +
-                "Hp: $hp/$maxHp     Exp: " + String.format("%.1f", exp) + "/$explimit\n" +
+                "Hp: $hp/$maxHp     "+ getExp() +
                 "Str: $str         Mag: $mag \n" +
                 "Def: $def        Res: $res \n" +
                 "Spd: $spd        Stamina: $stamina\n" +
@@ -45,6 +45,9 @@ open class Character {
     //gain exp
     open fun gainExp(num: Float){
         exp += num
+    }
+    fun getExp(){
+        return "Exp: " + String.format("%.1f", exp) + "/$explimit\n"
     }
     //levels up character
     //need to figure out how I want to implement lvl ups
