@@ -46,7 +46,7 @@ open class Character {
     open fun gainExp(num: Float){
         exp += num
     }
-    fun getExp(){
+    fun getExp(): String {
         return "Exp: " + String.format("%.1f", exp) + "/$explimit\n"
     }
     //levels up character
