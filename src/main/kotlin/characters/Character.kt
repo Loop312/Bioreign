@@ -1,5 +1,7 @@
 package characters
 
+import androidx.compose.runtime.*
+
 open class Character {
     //health values
     open var maxHp = 10      //max health
@@ -27,6 +29,8 @@ open class Character {
     //status tracker
     var alive = true
     open var race = "lol"
+    var x by mutableStateOf(0)
+    var y by mutableStateOf(0)
 
     //displays character stats
     //might need to shorten/rearrange stuff
