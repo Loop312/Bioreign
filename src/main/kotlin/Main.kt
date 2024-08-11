@@ -17,22 +17,44 @@ import characters.*
 
 //import demo.src.main.resources.drawable
 
+val player = Human()
+
+
+@Composable
+fun test(){
+    var x by remember { mutableStateOf(0) }
+    var y by remember { mutableStateOf(0) }
+    Image(
+        painter = painterResource("TestCircle.png"),
+        contentDescription = "lol",
+        modifier = Modifier
+            .offset (player.x.dp, player.y.dp)
+            .size(100.dp)
+    )
+}
+
+
+
 @Composable
 @Preview
 fun App() {
-    movableBox()
+    //movableBox()
     //lol()
+    test()
 }
 
 fun main() = application {
     Window(onCloseRequest = ::exitApplication, onKeyEvent = { event: KeyEvent ->
         when (event.key) {
-            Key.A -> println("lol")
+            Key.A -> {player.x -= 5}
+            Key.D -> {player.x += 5}
+            Key.W -> {player.y -= 5}
+            Key.S -> {player.y += 5}
+            (Key.L) -> {player.x += 5}
         }
-        true }) {
+        false }) {
         App()
     }
-    val player = Human()
     player.displayStats()
 
     println("LEVEL UP SIMULATOR TEST\n\n")
