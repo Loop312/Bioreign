@@ -1,0 +1,57 @@
+name: Build Gradle project
+
+on:
+  push:
+
+jobs:
+  build-gradle-project:
+    runs-on: windows-latest
+    steps:
+    
+    - name: Checkout project sources
+      uses: actions/checkout@v4
+
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@v3
+      with:
+        build-scan-publish: true
+        build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
+        build-scan-terms-of-use-agree: "yes"
+
+    - name: Make gradlew executable
+      run: chmod +x ./gradlew
+
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'corretto'  # or 'microsoft' or 'corretto' or temurin
+        java-version: '21'  # or specify a different version
+
+#    - name: Run build
+#      run: ./gradlew build
+
+    - name: run createDistributable
+      run: ./gradlew createDistributable
+
+#    - name: Zip Release
+    # You may pin to the exact commit or the version.
+    # uses: TheDoctor0/zip-release@b57d897cb5d60cb78b51a507f63fa184cfe35554
+#      uses: TheDoctor0/zip-release@0.7.6
+#      with:
+        # Filename for archive
+#        filename: Bioreign.zip # default is release.zip
+        # Working directory before zipping
+#        directory: /home/runner/work/Bioreign/Bioreign/build/compose/binaries/main/app # optional, default is .
+
+#    - name: Upload Release
+#      uses: ncipollo/release-action@v1.14.0
+#      with:
+#          artifacts: "Bioreign.zip"
+#          tag: v1.0.5
+#          token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Upload
+      uses: actions/upload-artifact@v4
+      with:
+        name: Bioreign
+        path: D:\a\Bioreign\Bioreign\build\compose\binaries\main\app
