@@ -44,7 +44,7 @@ fun App() {
 }
 
 fun main() = application {
-    Window(onCloseRequest = ::exitApplication, onKeyEvent = { event: KeyEvent ->
+    Window(onCloseRequest = ::exitApplication, title = "Bioreign", onKeyEvent = { event: KeyEvent ->
         when (event.key) {
             Key.A -> {player.x -= 5}
             Key.D -> {player.x += 5}

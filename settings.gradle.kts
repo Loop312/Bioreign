@@ -13,4 +13,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = "demo"
+rootProject.name = "Bioreign"
