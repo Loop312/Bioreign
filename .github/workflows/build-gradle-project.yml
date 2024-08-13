@@ -39,7 +39,7 @@ jobs:
       uses: TheDoctor0/zip-release@0.7.6
       with:
         # Filename for archive
-        filename: Bioreign # default is release.zip
+        filename: Bioreign.zip # default is release.zip
         # Working directory before zipping
         directory: /home/runner/work/Bioreign/Bioreign/build/compose/binaries/main/app # optional, default is .
 
