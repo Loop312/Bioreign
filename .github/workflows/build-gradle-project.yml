@@ -21,6 +21,12 @@ jobs:
     - name: Make gradlew executable
       run: chmod +x ./gradlew
 
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'corretto'  # or 'microsoft' or 'corretto' or temurin
+        java-version: '21'  # or specify a different version
+
     - name: Run build
       run: ./gradlew build
 
