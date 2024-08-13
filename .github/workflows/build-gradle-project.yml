@@ -54,4 +54,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: Bioreign
-        path: /home/runner/work/Bioreign/Bioreign/build/compose/binaries/main/app/demo
+        path: D:\a\Bioreign\Bioreign\build\compose\binaries\main\app
