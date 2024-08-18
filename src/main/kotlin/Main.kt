@@ -10,7 +10,7 @@ import androidx.compose.ui.res.*
 import androidx.compose.ui.unit.dp
 import characters.*
 
-val player = Human()
+val player = Player()
 val gameLoop = GameLoop()
 
 @Composable
@@ -45,18 +45,7 @@ fun main() = application {
         true
     }) {
         App()
-        if (Key.A in pressedKeys || Key.DirectionLeft in pressedKeys) {
-            player.x -= 5
-        }
-        if (Key.D in pressedKeys || Key.DirectionRight in pressedKeys) {
-            player.x += 5
-        }
-        if (Key.W in pressedKeys || Key.DirectionUp in pressedKeys) {
-            player.y -= 5
-        }
-        if (Key.S in pressedKeys || Key.DirectionDown in pressedKeys) {
-            player.y += 5
-        }
+        player.move(pressedKeys)
     }
 
     //println("LEVEL UP SIMULATOR TEST\n\n")

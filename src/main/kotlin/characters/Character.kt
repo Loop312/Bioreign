@@ -1,6 +1,6 @@
 package characters
-
 import androidx.compose.runtime.*
+
 //later add a parameter for their sprite
 open class Character() {
     //health values
