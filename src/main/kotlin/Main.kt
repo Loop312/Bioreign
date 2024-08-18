@@ -22,8 +22,6 @@ val player = Human()
 
 @Composable
 fun test(){
-    var x by remember { mutableStateOf(0) }
-    var y by remember { mutableStateOf(0) }
     Image(
         painter = painterResource("TestCircle.png"),
         contentDescription = "lol",
@@ -44,17 +42,25 @@ fun App() {
 }
 
 fun main() = application {
+    var pressedKeys by remember { mutableStateOf<Set<Key>>(emptySet()) }
     Window(onCloseRequest = ::exitApplication, title = "Bioreign", onKeyEvent = { event: KeyEvent ->
-        when (event.key) {
-            Key.A -> {player.x -= 5}
-            Key.D -> {player.x += 5}
-            Key.W -> {player.y -= 5}
-            Key.S -> {player.y += 5}
-            (Key.L) -> {player.x += 5}
+        when (event.type) {
+            KeyEventType.KeyDown -> {
+                pressedKeys += event.key
+            }
+            KeyEventType.KeyUp -> {
+                pressedKeys -= event.key
+            }
         }
-        false }) {
+        true
+    }) {
         App()
     }
+    if (Key.A in pressedKeys) {player.x -= 5}
+    if (Key.D in pressedKeys) {player.x += 5}
+    if (Key.W in pressedKeys) {player.y -= 5}
+    if (Key.S in pressedKeys) {player.y += 5}
+
     player.displayStats()
 
     println("LEVEL UP SIMULATOR TEST\n\n")
