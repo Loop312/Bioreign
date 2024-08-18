@@ -43,16 +43,16 @@ fun main() = application {
         true
     }) {
         App()
-        if (Key.A in pressedKeys) {
+        if (Key.A in pressedKeys || Key.DirectionLeft in pressedKeys) {
             player.x -= 5
         }
-        if (Key.D in pressedKeys) {
+        if (Key.D in pressedKeys || Key.DirectionRight in pressedKeys) {
             player.x += 5
         }
-        if (Key.W in pressedKeys) {
+        if (Key.W in pressedKeys || Key.DirectionUp in pressedKeys) {
             player.y -= 5
         }
-        if (Key.S in pressedKeys) {
+        if (Key.S in pressedKeys || Key.DirectionDown in pressedKeys) {
             player.y += 5
         }
     }
