@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.dp
 import characters.*
 
 val player = Human()
+val gameLoop = GameLoop()
 
 @Composable
 fun test(){
@@ -29,8 +30,6 @@ fun App() {
     test()
     gameLoop.GameScreen(player)
 }
-
-
 
 fun main() = application {
     var pressedKeys by remember { mutableStateOf<Set<Key>>(emptySet()) }

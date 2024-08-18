@@ -1,8 +1,8 @@
 package characters
 
 import androidx.compose.runtime.*
-
-open class Character {
+//later add a parameter for their sprite
+open class Character() {
     //health values
     open var maxHp = 10      //max health
     open var hp = 10         //current health

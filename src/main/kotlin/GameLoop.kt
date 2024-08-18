@@ -3,6 +3,7 @@ import characters.*
 import kotlinx.coroutines.*
 
 class GameLoop() {
+    //might add array of characters, maps, and other stuff as parameters
     @Composable
     fun GameScreen(player: Character) {
         var gameState by remember { mutableStateOf(true) }
@@ -24,7 +25,7 @@ class GameLoop() {
                 lastFrameTime = currentTime
 
                 // Handle potential delays or throttling
-                delay(16) // Adjust delay for target frame rate
+                delay(10) // Adjust delay for target frame rate
             }
         }
         // Compose UI for rendering the game state
