@@ -27,7 +27,10 @@ fun test(){
 @Preview
 fun App() {
     test()
+    gameLoop.GameScreen(player)
 }
+
+
 
 fun main() = application {
     var pressedKeys by remember { mutableStateOf<Set<Key>>(emptySet()) }
