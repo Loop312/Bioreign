@@ -29,6 +29,7 @@ open class Character() {
     //status tracker
     var alive = true
     open var race = "lol"
+    var sprint = false
     var x by mutableStateOf(0)
     var y by mutableStateOf(0)
 
@@ -92,7 +93,13 @@ open class Character() {
     }
 
     fun move(dx: Int, dy: Int) {
-        x += dx
-        y += dy
+        if (sprint == false) {
+            x += (dx * spd / 2)
+            y += (dy * spd / 2)
+        }
+        else {
+            x += (dx * spd)
+            y += (dy * spd)
+        }
     }
 }

@@ -18,7 +18,7 @@ class GameLoop() {
 
                 // Update game state based on deltaTime
                 //gameState = updateGameState(gameState, deltaTime)
-                player.x += 1
+                if (player.x < 500) player.x += 1
                 // Render the game state
                 // ...
 
