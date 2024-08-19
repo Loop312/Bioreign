@@ -90,4 +90,9 @@ open class Character() {
         }
         return displayStats()
     }
+
+    fun move(dx: Int, dy: Int) {
+        x += dx
+        y += dy
+    }
 }

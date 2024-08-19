@@ -12,6 +12,7 @@ import characters.*
 
 val player = Player()
 val gameLoop = GameLoop()
+val keyListener = KeyListener()
 
 @Composable
 fun test(){
@@ -45,7 +46,7 @@ fun main() = application {
         true
     }) {
         App()
-        player.move(pressedKeys)
+        keyListener.listen(pressedKeys, player)
     }
 
     //println("LEVEL UP SIMULATOR TEST\n\n")
