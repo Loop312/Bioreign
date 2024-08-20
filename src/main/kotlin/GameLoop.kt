@@ -1,11 +1,10 @@
 import androidx.compose.runtime.*
-import characters.*
 import kotlinx.coroutines.*
 
 class GameLoop() {
     //might add array of characters, maps, and other stuff as parameters
     @Composable
-    fun GameScreen(player: Character) {
+    fun GameScreen() {
         var gameState by remember { mutableStateOf(true) }
 
         LaunchedEffect(Unit) {
@@ -19,7 +18,7 @@ class GameLoop() {
                 // Update game state based on deltaTime
                 //gameState = updateGameState(gameState, deltaTime)
 
-                //if (player.x < 500) player.x += 1
+                if (player.x < 500) player.x += 1
 
 
                 // Render the game state

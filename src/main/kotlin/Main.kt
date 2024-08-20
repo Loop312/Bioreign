@@ -36,7 +36,7 @@ fun test(){
 @Preview
 fun App() {
     test()
-    gameLoop.GameScreen(player)
+    gameLoop.GameScreen()
 }
 
 fun main() = application {
