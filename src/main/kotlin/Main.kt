@@ -8,21 +8,28 @@ import androidx.compose.ui.*
 import androidx.compose.ui.input.key.*
 import androidx.compose.ui.res.*
 import androidx.compose.ui.unit.dp
+
 import characters.*
+import maps.*
 
 val player = Player()
 val gameLoop = GameLoop()
 val keyListener = KeyListener()
+val map = Map("maps/Placeholder.jpg")
 
 @Composable
 fun test(){
-    Image(
-        painter = painterResource("TestCircle.png"),
-        contentDescription = "lol",
-        modifier = Modifier
-            .offset (player.x.dp, player.y.dp)
-            .size(100.dp)
-    )
+    Box {
+        map.load()
+        Image(
+            painter = painterResource("TestCircle.png"),
+            contentDescription = "lol",
+            modifier = Modifier
+                //.offset (player.x.dp, player.y.dp)
+                .size(100.dp)
+                .align(Alignment.Center)
+        )
+    }
 }
 
 @Composable
