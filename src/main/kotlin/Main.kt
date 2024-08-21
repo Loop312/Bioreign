@@ -25,7 +25,7 @@ fun test(){
             painter = painterResource("TestCircle.png"),
             contentDescription = "lol",
             modifier = Modifier
-                //.offset (player.x.dp, player.y.dp)
+                .offset (player.x.dp, player.y.dp)
                 .size(100.dp)
                 .align(Alignment.Center)
         )
@@ -53,7 +53,7 @@ fun main() = application {
         true
     }) {
         App()
-        keyListener.listen(pressedKeys, player)
+        keyListener.listen(pressedKeys)
     }
 
     //println("LEVEL UP SIMULATOR TEST\n\n")

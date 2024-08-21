@@ -1,5 +1,4 @@
 import androidx.compose.ui.input.key.*
-import characters.*
 
 class KeyListener () {
 
@@ -11,7 +10,7 @@ class KeyListener () {
         Key.ShiftLeft               //Sprint: 8
     )
 
-    fun listen(pressedKeys: Set<Key>, player: Character) {
+    fun listen(pressedKeys: Set<Key>) {
         if (keys[0] in pressedKeys || keys[1] in pressedKeys) {
             player.move(-1, 0)
         }

@@ -1,5 +1,6 @@
 package characters
 import androidx.compose.runtime.*
+import map
 
 //later add a parameter for their sprite
 open class Character() {
@@ -93,13 +94,25 @@ open class Character() {
     }
 
     fun move(dx: Int, dy: Int) {
-        if (sprint == false) {
-            x += (dx * spd / 2)
-            y += (dy * spd / 2)
+        if (map.mapEdge == true) {
+
+            if (sprint == false) {
+                x += (dx * spd / 2)
+                y += (dy * spd / 2)
+            } else {
+                x += (dx * spd)
+                y += (dy * spd)
+            }
+
         }
         else {
-            x += (dx * spd)
-            y += (dy * spd)
+            if (sprint == false) {
+                map.x -= (dx * spd / 2)
+                map.y -= (dy * spd / 2)
+            } else {
+                map.x -= (dx * spd)
+                map.y -= (dy * spd)
+            }
         }
     }
 }
