@@ -96,22 +96,22 @@ open class Character() {
     fun move(dx: Int, dy: Int) {
         if (map.mapEdge == true) {
 
-            if (sprint == false) {
-                x += (dx * spd / 2)
-                y += (dy * spd / 2)
-            } else {
+            if (sprint == true) {
                 x += (dx * spd)
                 y += (dy * spd)
+            } else {
+                x += (dx * spd/2)
+                y += (dy * spd/2)
             }
 
         }
         else {
-            if (sprint == false) {
-                map.x -= (dx * spd / 2)
-                map.y -= (dy * spd / 2)
-            } else {
+            if (sprint == true) {
                 map.x -= (dx * spd)
                 map.y -= (dy * spd)
+            } else {
+                map.x -= (dx * spd/2)
+                map.y -= (dy * spd/2)
             }
         }
     }
