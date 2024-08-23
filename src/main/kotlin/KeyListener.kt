@@ -12,21 +12,30 @@ class KeyListener () {
 
     fun listen(pressedKeys: Set<Key>) {
         if (keys[0] in pressedKeys || keys[1] in pressedKeys) {
-            player.move(-1, 0)
+            if (map.canMoveLeft) {
+                player.move(-1, 0)
+            }
         }
         if (keys[2] in pressedKeys || keys[3] in pressedKeys) {
-            player.move(1, 0)
+            if (map.canMoveRight) {
+                player.move(1, 0)
+            }
         }
         if (keys[4] in pressedKeys || keys[5] in pressedKeys) {
-            player.move(0, -1)
+            if (map.canMoveUp) {
+                player.move(0, -1)
+            }
         }
         if (keys[6] in pressedKeys || keys[7] in pressedKeys) {
-            player.move(0, 1)
+            if (map.canMoveDown) {
+                player.move(0, 1)
+            }
         }
+
         if (Key.ShiftLeft in pressedKeys) {
-            player.sprint = true
+            player.sprinting = true
         } else {
-            player.sprint = false
+            player.sprinting = false
         }
     }
 }
