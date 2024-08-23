@@ -3,7 +3,7 @@ import androidx.compose.runtime.*
 import map
 
 //later add a parameter for their sprite
-open class Character() {
+open class Character {
     //health values
     open var maxHp = 10      //max health
     open var hp = 10         //current health
@@ -59,7 +59,7 @@ open class Character() {
     //need to figure out how I want to implement lvl ups
     open fun lvlup(){
         level += 1
-        exp = exp - explimit
+        exp -= explimit
         explimit *= 2
         skillPoints += 5
     }
@@ -96,7 +96,7 @@ open class Character() {
     fun move(dx: Int, dy: Int) {
         if (map.mapEdge == true) {
 
-            if (sprint == true) {
+            if (sprint) { //apparently u can write this instead of == true
                 x += (dx * spd)
                 y += (dy * spd)
             } else {
@@ -106,7 +106,7 @@ open class Character() {
 
         }
         else {
-            if (sprint == true) {
+            if (sprint) {
                 map.x -= (dx * spd)
                 map.y -= (dy * spd)
             } else {
