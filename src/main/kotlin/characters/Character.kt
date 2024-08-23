@@ -30,7 +30,7 @@ open class Character {
     //status tracker
     var alive = true
     open var race = "lol"
-    var sprint = false
+    var sprinting = false
     var x by mutableStateOf(0)
     var y by mutableStateOf(0)
 
@@ -96,7 +96,7 @@ open class Character {
     fun move(dx: Int, dy: Int) {
         if (map.mapEdge == true) {
 
-            if (sprint) { //apparently u can write this instead of == true
+            if (sprinting) { //apparently u can write this instead of == true
                 x += (dx * spd)
                 y += (dy * spd)
             } else {
@@ -106,7 +106,7 @@ open class Character {
 
         }
         else {
-            if (sprint) {
+            if (sprinting) {
                 map.x -= (dx * spd)
                 map.y -= (dy * spd)
             } else {
