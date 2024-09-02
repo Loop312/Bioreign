@@ -67,12 +67,14 @@ open class Character {
     //has the character take damage
     //physical damage
     fun strDmg (dmg: Int){
-        hp = hp - (dmg - def)
+        //same as: hp = hp - (dmg - def)
+        hp -= (dmg - def)
         checkHp()
     }
     //magic damage
     fun magDmg (dmg: Int){
-        hp = hp - (dmg - res)
+        //same as: hp = hp - (dmg - res)
+        hp -= (dmg - res)
         checkHp()
     }
     //checks if hp < 0 and sets alive to false
@@ -93,6 +95,7 @@ open class Character {
         return displayStats()
     }
 
+    //handles character movement
     fun move(dx: Int, dy: Int) {
         if (map.mapEdge == true) {
 

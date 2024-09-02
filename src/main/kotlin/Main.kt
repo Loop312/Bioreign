@@ -40,8 +40,12 @@ fun App() {
 }
 
 fun main() = application {
+    //initialize a set for handling key inputs
     var pressedKeys by remember { mutableStateOf<Set<Key>>(emptySet()) }
+
+    //initialize window
     Window(onCloseRequest = ::exitApplication, title = "Bioreign", onKeyEvent = { event: KeyEvent ->
+        //when a button is pressed add it to pressedKeys
         when (event.type) {
             KeyEventType.KeyDown -> {
                 pressedKeys += event.key

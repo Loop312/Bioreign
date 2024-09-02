@@ -11,6 +11,7 @@ class KeyListener () {
     )
 
     fun listen(pressedKeys: Set<Key>) {
+        //MOVEMENT
         if (keys[0] in pressedKeys || keys[1] in pressedKeys) {
             if (map.canMoveLeft) {
                 player.move(-1, 0)
@@ -37,5 +38,9 @@ class KeyListener () {
         } else {
             player.sprinting = false
         }
+
+        //ATTACK AND SPELLS
     }
+
+    //create a function for handling keybind changes
 }
