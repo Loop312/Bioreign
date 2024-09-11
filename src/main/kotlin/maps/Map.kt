@@ -20,7 +20,8 @@ class Map(val theMap: String) {
     var canMoveRight = true
     var canMoveUp = true
     var canMoveDown = true
-    var collisions = emptySet<Int>() //after figuring out how they'll be implemented, change data type
+    //after figuring out how they'll be implemented, change data type
+    var collisions = mutableListOf< Pair< Pair<Dp,Dp> , Pair<Dp,Dp> >>()
 
     @Composable
     fun load() {
@@ -36,13 +37,17 @@ class Map(val theMap: String) {
     }
 
     //make edits later
-    fun addCollider(): Int {
-        return 1
+    fun addCollider(xy1: Pair<Dp, Dp>, xy2: Pair<Dp,Dp>) {
+        collisions.add(Pair(xy1,xy2))
     }
 
     //make edits later
     fun checkCollisions() {
-        if (player.x in collisions){
+        //need to figure out how this'll work
+        //the 1st "first" means the 1st location given
+        //the 2nd "first" means the x of the first location given
+        //maybe try something else that's easier to understand...
+        if (player.x.dp > collisions[1].first.first){
             canMoveLeft = false
         }
         else{
