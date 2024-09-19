@@ -21,7 +21,7 @@ class Map(val theMap: String) {
     var canMoveUp = true
     var canMoveDown = true
     //after figuring out how they'll be implemented, change data type
-    var collisions = mutableListOf< Pair< Pair<Dp,Dp> , Pair<Dp,Dp> >>()
+    var collisions = mutableListOf<Array<Int>>()
 
     @Composable
     fun load() {
@@ -37,24 +37,35 @@ class Map(val theMap: String) {
     }
 
     //make edits later
-    fun addCollider(xy1: Pair<Dp, Dp>, xy2: Pair<Dp,Dp>) {
-        collisions.add(Pair(xy1,xy2))
+    fun addCollider(coordinates: Array<Int>) {
+        collisions.add(coordinates)
     }
 
     //make edits later
     fun checkCollisions() {
-        //need to figure out how this'll work
-        //the 1st "first" means the 1st location given
-        //the 2nd "first" means the x of the first location given
-        //maybe try something else that's easier to understand...
-        if (player.x.dp > collisions[1].first.first){
-            canMoveLeft = false
-        }
-        else{
-            canMoveUp = true
-            canMoveDown = true
-            canMoveLeft = true
-            canMoveRight = true
+        //iterates over the list of collisions going through coordinates
+        //[0] = 1st x
+        //[1] = 2nd y
+        //[2] = 1st x
+        //[3] = 2nd y
+        canMoveLeft = true
+        canMoveRight = true
+        canMoveUp = true
+        canMoveDown = true
+        for (collider in collisions) {
+            //makes things easier to discern
+            val (colliderLeft, colliderTop, colliderRight, colliderBottom) = collider
+
+            // check x then y
+            if (x > colliderLeft && x < colliderRight) {
+                if (y < colliderTop) { canMoveDown = false }
+                else if (y > colliderBottom) { canMoveUp = false }
+            }
+            // check y then x
+            if (y > colliderTop && y < colliderBottom) {
+                if (x < colliderLeft) { canMoveRight = false }
+                else if (x > colliderRight) { canMoveDown = false }
+            }
         }
     }
 }

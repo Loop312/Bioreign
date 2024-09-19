@@ -42,6 +42,7 @@ fun App() {
 fun main() = application {
     //initialize a set for handling key inputs
     var pressedKeys by remember { mutableStateOf<Set<Key>>(emptySet()) }
+    map.addCollider(arrayOf(-100,100,100,-100))
 
     //initialize window
     Window(onCloseRequest = ::exitApplication, title = "Bioreign", onKeyEvent = { event: KeyEvent ->
@@ -54,10 +55,12 @@ fun main() = application {
                 pressedKeys -= event.key
             }
         }
+        println("player Coordinates (" + map.x + ", " + map.y + ")")
         true
     }) {
         App()
         keyListener.listen(pressedKeys)
+        map.checkCollisions()
     }
 
     //println("LEVEL UP SIMULATOR TEST\n\n")
