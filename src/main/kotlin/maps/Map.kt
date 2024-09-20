@@ -21,7 +21,10 @@ class Map(val theMap: String) {
     var canMoveUp = true
     var canMoveDown = true
     //after figuring out how they'll be implemented, change data type
-    var collisions = mutableListOf<Array<Int>>()
+    var upColliders = mutableListOf<Array<Int>>()
+    var downColliders = mutableListOf<Array<Int>>()
+    var leftColliders = mutableListOf<Array<Int>>()
+    var rightColliders = mutableListOf<Array<Int>>()
 
     @Composable
     fun load() {
@@ -37,34 +40,55 @@ class Map(val theMap: String) {
     }
 
     //make edits later
-    fun addCollider(coordinates: Array<Int>) {
-        collisions.add(coordinates)
+    //coordinates must be in the following format
+    //[0] = axis
+    //[1 and 2] = locations on that axis
+    fun addCollider(type: String, coordinates: Array<Int>) {
+        if (coordinates.size == 3) {
+            if (type == "up") upColliders.add(coordinates)
+            else if (type == "down") downColliders.add(coordinates)
+            else if (type == "left") leftColliders.add(coordinates)
+            else if (type == "right") rightColliders.add(coordinates)
+            else println("Collider type spelt incorrectly")
+        }
+        else println("invalid array size for collider")
     }
 
     //make edits later
+    //[0] = axis
+    //[1 and 2] = locations on that axis
+    //make sure > and < are right
     fun checkCollisions() {
-        //iterates over the list of collisions going through coordinates
-        //[0] = 1st x
-        //[1] = 2nd y
-        //[2] = 1st x
-        //[3] = 2nd y
         canMoveLeft = true
         canMoveRight = true
         canMoveUp = true
         canMoveDown = true
-        for (collider in collisions) {
-            //makes things easier to discern
-            val (colliderLeft, colliderTop, colliderRight, colliderBottom) = collider
-
-            // check x then y
-            if (x > colliderLeft && x < colliderRight) {
-                if (y < colliderTop) { canMoveDown = false }
-                else if (y > colliderBottom) { canMoveUp = false }
+        if (player.movingUp) {
+            for (colliders in upColliders) {
+                if(y == colliders[0] && x > colliders[1] && x < colliders[2]){
+                    canMoveUp = false
+                }
             }
-            // check y then x
-            if (y > colliderTop && y < colliderBottom) {
-                if (x < colliderLeft) { canMoveRight = false }
-                else if (x > colliderRight) { canMoveDown = false }
+        }
+        else if (player.movingDown) {
+            for (colliders in downColliders) {
+                if(y == colliders[0] && x > colliders[1] && x < colliders[2]){
+                    canMoveDown = false
+                }
+            }
+        }
+        else if (player.movingLeft) {
+            for (colliders in leftColliders) {
+                if(x == colliders[0] && y < colliders[1] && y > colliders[2]){
+                    canMoveLeft = false
+                }
+            }
+        }
+        else if (player.movingRight) {
+            for (colliders in rightColliders) {
+                if(x == colliders[0] && y < colliders[1] && y > colliders[2]){
+                    canMoveRight = false
+                }
             }
         }
     }
