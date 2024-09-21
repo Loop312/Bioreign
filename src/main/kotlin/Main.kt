@@ -11,12 +11,14 @@ import androidx.compose.ui.unit.dp
 
 import characters.*
 import maps.*
+import menus.*
 
 val player = Player()
 val gameLoop = GameLoop()
 val keyListener = KeyListener()
 val map = Map("maps/Placeholder.jpg")
 val hud = HUD()
+val gameMenu = InGameMenu()
 
 @Composable
 fun test(){
@@ -34,6 +36,7 @@ fun test(){
             hud.healthBar()
             hud.staminaBar()
         }
+        gameMenu.stats()
     }
 }
 

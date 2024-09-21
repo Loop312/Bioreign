@@ -1,3 +1,4 @@
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.input.key.*
 
 class KeyListener () {
@@ -9,6 +10,7 @@ class KeyListener () {
         Key.S, Key.DirectionDown,   //Down: 6,7
         Key.ShiftLeft               //Sprint: 8
     )
+    var esc = true
 
     fun listen(pressedKeys: Set<Key>) {
         //MOVEMENT
@@ -32,7 +34,6 @@ class KeyListener () {
                 player.move(0, 1)
             }
         }
-
         if (Key.ShiftLeft in pressedKeys && player.stamina > 0) {
             player.sprinting = true
             player.stamina -= 0.1
@@ -42,6 +43,14 @@ class KeyListener () {
         }
 
         //ATTACK AND SPELLS
+
+
+        //access menu
+        if(Key.Escape in pressedKeys && esc){
+            gameMenu.isOpen = !gameMenu.isOpen
+            println("Toggle menu")
+            esc = false
+        }
     }
 
     //create a function for handling keybind changes

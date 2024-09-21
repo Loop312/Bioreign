@@ -25,13 +25,17 @@ class GameLoop() {
 
                 lastFrameTime = currentTime
                 if (player.hp > 0) {
-                    player.strDmg(11)
+                    player.physDmg(11)
                     println("player hp: " + player.hp)
                 }
                 println("player stamina: " + player.stamina)
 
                 if(!player.sprinting && player.stamina < player.maxStamina){
                     player.stamina += 1
+                }
+
+                if (keyListener.esc == false){
+                    keyListener.esc = true
                 }
 
                 // Handle potential delays or throttling
