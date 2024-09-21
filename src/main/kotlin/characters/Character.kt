@@ -5,8 +5,8 @@ import map
 //later add a parameter for their sprite
 open class Character {
     //health values
-    open var maxHp = 10      //max health
-    open var hp = 10         //current health
+    open var maxHp by mutableStateOf(10)      //max health
+    open var hp by mutableStateOf(10)         //current health
     //damage values
     open var str = 10        //physical damage (strength)
     open var mag = 10        //magic damage
@@ -72,15 +72,17 @@ open class Character {
     //has the character take damage
     //physical damage
     fun strDmg (dmg: Int){
-        //same as: hp = hp - (dmg - def)
-        hp -= (dmg - def)
-        checkHp()
+        if (dmg > def) {
+            hp -= (dmg - def)
+            checkHp()
+        }
     }
     //magic damage
     fun magDmg (dmg: Int){
-        //same as: hp = hp - (dmg - res)
-        hp -= (dmg - res)
-        checkHp()
+        if (dmg > res) {
+            hp -= (dmg - res)
+            checkHp()
+        }
     }
     //checks if hp < 0 and sets alive to false
     fun checkHp() {

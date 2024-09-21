@@ -16,6 +16,7 @@ val player = Player()
 val gameLoop = GameLoop()
 val keyListener = KeyListener()
 val map = Map("maps/Placeholder.jpg")
+val ui = UI()
 
 @Composable
 fun test(){
@@ -29,6 +30,7 @@ fun test(){
                 .size(100.dp)
                 .align(Alignment.Center)
         )
+        ui.healthBar()
     }
 }
 

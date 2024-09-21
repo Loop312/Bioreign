@@ -24,9 +24,11 @@ class GameLoop() {
                 // ...
 
                 lastFrameTime = currentTime
+                player.strDmg(11)
+                println(player.hp)
 
                 // Handle potential delays or throttling
-                delay(10) // Adjust delay for target frame rate
+                delay(1000) // Adjust delay for target frame rate
             }
         }
         // Compose UI for rendering the game state
