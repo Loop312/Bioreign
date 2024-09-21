@@ -23,4 +23,22 @@ class UI {
             )
         }
     }
+
+    @Composable
+    fun staminaBar(){
+        Box(modifier = Modifier
+            //.fillMaxWidth()
+            .height(20.dp)
+            .width((player.maxStamina*10).dp)
+            .padding(top = 10.dp)
+            .border(width = 2.dp, color = Color.Gray)
+        ){
+            Box(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .width((player.stamina*10).dp)
+                    .background(Color.Yellow)
+            )
+        }
+    }
 }

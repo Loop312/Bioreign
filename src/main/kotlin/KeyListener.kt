@@ -33,9 +33,11 @@ class KeyListener () {
             }
         }
 
-        if (Key.ShiftLeft in pressedKeys) {
+        if (Key.ShiftLeft in pressedKeys && player.stamina > 0) {
             player.sprinting = true
-        } else {
+            player.stamina -= 0.1
+        }
+        else {
             player.sprinting = false
         }
 

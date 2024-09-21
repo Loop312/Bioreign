@@ -30,7 +30,10 @@ fun test(){
                 .size(100.dp)
                 .align(Alignment.Center)
         )
-        ui.healthBar()
+        Column {
+            ui.healthBar()
+            ui.staminaBar()
+        }
     }
 }
 
@@ -63,7 +66,7 @@ fun main() = application {
         App()
         keyListener.listen(pressedKeys)
         map.checkCollisions()
-        println("player Coordinates (" + map.x + ", " + map.y + ")")
+        //println("player Coordinates (" + map.x + ", " + map.y + ")")
     }
 
     //println("LEVEL UP SIMULATOR TEST\n\n")

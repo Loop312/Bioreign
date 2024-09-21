@@ -15,7 +15,8 @@ open class Character {
     open var res = 10        //magic resistance
     //movement values
     open var spd = 10        //speed
-    open var stamina = 10    //stamina
+    open var maxStamina by mutableStateOf(10.0)
+    open var stamina by mutableStateOf(10.0)    //stamina
     //unique values
     open var name = "Bob"    //character's name
     open var stealth = 10    //stealth

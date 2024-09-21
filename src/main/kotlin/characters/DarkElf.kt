@@ -10,7 +10,8 @@ class DarkElf : Character() {
     //Strengths
     override var spd = 15
     override var stealth = 15
-    override var stamina = 15
+    override var maxStamina = 15.0
+    override var stamina = 15.0
 
     //weaknesses
     override var str = 5

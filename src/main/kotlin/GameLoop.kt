@@ -24,8 +24,15 @@ class GameLoop() {
                 // ...
 
                 lastFrameTime = currentTime
-                player.strDmg(11)
-                println(player.hp)
+                if (player.hp > 0) {
+                    player.strDmg(11)
+                    println("player hp: " + player.hp)
+                }
+                println("player stamina: " + player.stamina)
+
+                if(!player.sprinting && player.stamina < player.maxStamina){
+                    player.stamina += 1
+                }
 
                 // Handle potential delays or throttling
                 delay(1000) // Adjust delay for target frame rate
