@@ -72,7 +72,7 @@ open class Character {
 
     //has the character take damage
     //physical damage
-    fun strDmg (dmg: Int){
+    fun physDmg (dmg: Int){
         if (dmg > def) {
             hp -= (dmg - def)
             checkHp()
