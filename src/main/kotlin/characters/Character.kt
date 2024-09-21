@@ -34,6 +34,11 @@ open class Character {
     var x by mutableStateOf(0)
     var y by mutableStateOf(0)
 
+    var movingUp = false
+    var movingDown = false
+    var movingLeft = false
+    var movingRight = false
+
     //displays character stats
     //might need to shorten/rearrange stuff
     fun displayStats(): String {
