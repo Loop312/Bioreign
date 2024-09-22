@@ -24,7 +24,6 @@ val pregameMenu = PregameMenu()
 @Composable
 fun game(){
     //open the pregame menu and wait to start the game
-    pregameMenu.open()
     if (gameLoop.isplaying) {
         Box {
             map.load()
@@ -71,10 +70,13 @@ fun main() = application {
         }
         true
     }) {
-        App()
-        keyListener.listen(pressedKeys)
-        map.checkCollisions()
-        //println("player Coordinates (" + map.x + ", " + map.y + ")")
+        pregameMenu.open()
+        if (gameLoop.isplaying) {
+            App()
+            keyListener.listen(pressedKeys)
+            map.checkCollisions()
+            //println("player Coordinates (" + map.x + ", " + map.y + ")")
+        }
     }
 
     //println("LEVEL UP SIMULATOR TEST\n\n")
