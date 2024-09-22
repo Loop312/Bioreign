@@ -2,6 +2,7 @@ import androidx.compose.runtime.*
 import kotlinx.coroutines.*
 
 class GameLoop() {
+    var isplaying by mutableStateOf(false)
     //might add array of characters, maps, and other stuff as parameters
     @Composable
     fun GameScreen() {
@@ -12,30 +13,32 @@ class GameLoop() {
             var lastFrameTime = startTime
 
             while (true) {
-                val currentTime = System.nanoTime()
-                val deltaTime = (currentTime - lastFrameTime) / 1_000_000_000.0 // seconds
+                if(isplaying) {
+                    val currentTime = System.nanoTime()
+                    val deltaTime = (currentTime - lastFrameTime) / 1_000_000_000.0 // seconds
 
-                // Update game state based on deltaTime
-                //gameState = updateGameState(gameState, deltaTime)
+                    // Update game state based on deltaTime
+                    //gameState = updateGameState(gameState, deltaTime)
 
-                //if (player.x > 500) map.mapEdge = true
+                    //if (player.x > 500) map.mapEdge = true
 
-                // Render the game state
-                // ...
+                    // Render the game state
+                    // ...
 
-                lastFrameTime = currentTime
-                if (player.hp > 0) {
-                    player.physDmg(11)
-                    println("player hp: " + player.hp)
-                }
-                println("player stamina: " + player.stamina)
+                    lastFrameTime = currentTime
+                    if (player.hp > 0) {
+                        player.physDmg(11)
+                        println("player hp: " + player.hp)
+                    }
+                    println("player stamina: " + player.stamina)
 
-                if(!player.sprinting && player.stamina < player.maxStamina){
-                    player.stamina += 1
-                }
+                    if (!player.sprinting && player.stamina < player.maxStamina) {
+                        player.stamina += 1
+                    }
 
-                if (keyListener.esc == false){
-                    keyListener.esc = true
+                    if (keyListener.esc == false) {
+                        keyListener.esc = true
+                    }
                 }
 
                 // Handle potential delays or throttling

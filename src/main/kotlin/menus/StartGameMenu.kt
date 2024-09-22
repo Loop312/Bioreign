@@ -1,4 +1,0 @@
-package menus
-
-class StartGameMenu {
-}

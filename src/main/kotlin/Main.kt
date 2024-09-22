@@ -1,13 +1,13 @@
 //compose imports
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.window.*
 import androidx.compose.ui.*
 import androidx.compose.ui.input.key.*
 import androidx.compose.ui.res.*
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.*
 
 import characters.*
 import maps.*
@@ -19,31 +19,36 @@ val keyListener = KeyListener()
 val map = Map("maps/Placeholder.jpg")
 val hud = HUD()
 val gameMenu = InGameMenu()
+val pregameMenu = PregameMenu()
 
 @Composable
-fun test(){
-    Box {
-        map.load()
-        Image(
-            painter = painterResource("TestCircle.png"),
-            contentDescription = "lol",
-            modifier = Modifier
-                .offset (player.x.dp, player.y.dp)
-                .size(100.dp)
-                .align(Alignment.Center)
-        )
-        Column {
-            hud.healthBar()
-            hud.staminaBar()
+fun game(){
+    //open the pregame menu and wait to start the game
+    pregameMenu.open()
+    if (gameLoop.isplaying) {
+        Box {
+            map.load()
+            Image(
+                painter = painterResource("TestCircle.png"),
+                contentDescription = "lol",
+                modifier = Modifier
+                    .offset(player.x.dp, player.y.dp)
+                    .size(100.dp)
+                    .align(Alignment.Center)
+            )
+            Column {
+                hud.healthBar()
+                hud.staminaBar()
+            }
+            gameMenu.stats()
         }
-        gameMenu.stats()
     }
 }
 
 @Composable
 @Preview
 fun App() {
-    test()
+    game()
     gameLoop.GameScreen()
 }
 
