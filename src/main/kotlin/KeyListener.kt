@@ -3,11 +3,11 @@ import androidx.compose.ui.input.key.*
 class KeyListener () {
 
     var keys = arrayOf(
-        Key.A, Key.DirectionLeft,  //Left: 0,1
-        Key.D, Key.DirectionRight, //Right: 2,3
-        Key.W, Key.DirectionUp,    //Up: 4,5
-        Key.S, Key.DirectionDown,   //Down: 6,7
-        Key.ShiftLeft               //Sprint: 8
+        Key.A, Key.DirectionLeft,       //Left: 0,1
+        Key.D, Key.DirectionRight,      //Right: 2,3
+        Key.W, Key.DirectionUp,         //Up: 4,5
+        Key.S, Key.DirectionDown,       //Down: 6,7
+        Key.ShiftLeft, Key.ShiftRight   //Sprint: 8,9
     )
     var esc = true
 
@@ -33,7 +33,7 @@ class KeyListener () {
                 player.move(0, 1)
             }
         }
-        if (Key.ShiftLeft in pressedKeys && player.stamina > 0) {
+        if (Key.ShiftLeft in pressedKeys || Key.ShiftRight in pressedKeys && player.stamina > 0) {
             player.sprinting = true
             player.stamina -= 0.1
         } else {
@@ -52,4 +52,7 @@ class KeyListener () {
     }
 
     //create a function for handling keybind changes
+    fun editKeybinds(original: Int, newKey: Key){
+        keys[original] = newKey
+    }
 }

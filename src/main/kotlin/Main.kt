@@ -71,6 +71,7 @@ fun main() = application {
         true
     }) {
         pregameMenu.open()
+        //pregameMenu.editKeys()
         if (gameLoop.isplaying) {
             App()
             keyListener.listen(pressedKeys)
