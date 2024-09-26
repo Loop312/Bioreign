@@ -45,11 +45,13 @@ class Map(val theMap: String) {
     //[1 and 2] = locations on that axis
     fun addCollider(type: String, coordinates: Array<Int>) {
         if (coordinates.size == 3) {
-            if (type == "up") upColliders.add(coordinates)
-            else if (type == "down") downColliders.add(coordinates)
-            else if (type == "left") leftColliders.add(coordinates)
-            else if (type == "right") rightColliders.add(coordinates)
-            else println("Collider type spelt incorrectly")
+            when (type) {
+                "up" -> upColliders.add(coordinates)
+                "down" -> downColliders.add(coordinates)
+                "left" -> leftColliders.add(coordinates)
+                "right" -> rightColliders.add(coordinates)
+                else -> println("Collider type spelt incorrectly")
+            }
         }
         else println("invalid array size for collider")
     }

@@ -2,10 +2,13 @@ package menus
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.unit.dp
 import keyListener
 import pregameMenu
 
@@ -15,10 +18,14 @@ class EditKeysMenu: Menu() {
     override fun open() {
         if (isOpen) {
             Column {
-                for (i in 0..<keyListener.keys.size) {
+                for (i in 0..<keyListener.keys.size step 2) {
                     Row {
+                        Text(keyListener.temp[i/2], modifier = Modifier.padding(10.dp))
                         Button(onClick = { keyListener.editKeybinds(i, Key.A) }) {
                             Text(keyListener.keys[i].toString())
+                        }
+                        Button(onClick = { keyListener.editKeybinds(i+1, Key.A) }) {
+                            Text(keyListener.keys[i+1].toString())
                         }
                     }
                 }

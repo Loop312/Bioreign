@@ -1,14 +1,19 @@
+import androidx.compose.runtime.*
 import androidx.compose.ui.input.key.*
 
 class KeyListener () {
 
-    var keys = arrayOf(
+    var keys by mutableStateOf(
+        arrayOf(
         Key.A, Key.DirectionLeft,       //Left: 0,1
         Key.D, Key.DirectionRight,      //Right: 2,3
         Key.W, Key.DirectionUp,         //Up: 4,5
         Key.S, Key.DirectionDown,       //Down: 6,7
         Key.ShiftLeft, Key.ShiftRight   //Sprint: 8,9
+        )
     )
+    val temp = arrayOf("LEFT", "RIGHT", "UP", "DOWN", "SPRINT")
+
     var esc = true
 
     fun listen(pressedKeys: Set<Key>) {
@@ -33,7 +38,7 @@ class KeyListener () {
                 player.move(0, 1)
             }
         }
-        if (Key.ShiftLeft in pressedKeys || Key.ShiftRight in pressedKeys && player.stamina > 0) {
+        if (keys[8] in pressedKeys || keys[9] in pressedKeys && player.stamina > 0) {
             player.sprinting = true
             player.stamina -= 0.1
         } else {
