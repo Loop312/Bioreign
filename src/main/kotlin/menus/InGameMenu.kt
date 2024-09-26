@@ -5,10 +5,9 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import player
 
-class InGameMenu {
-    var isOpen by mutableStateOf(false)
+class InGameMenu: Menu() {
     @Composable
-    fun stats(){
+    override fun open(){
         if (isOpen) {
             Box {
                 Text(player.displayStats())

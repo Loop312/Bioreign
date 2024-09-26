@@ -20,6 +20,7 @@ val map = Map("maps/Placeholder.jpg")
 val hud = HUD()
 val gameMenu = InGameMenu()
 val pregameMenu = PregameMenu()
+val editKeysMenu = EditKeysMenu()
 
 @Composable
 fun game(){
@@ -39,7 +40,7 @@ fun game(){
                 hud.healthBar()
                 hud.staminaBar()
             }
-            gameMenu.stats()
+            gameMenu.open()
         }
     }
 }
@@ -71,7 +72,7 @@ fun main() = application {
         true
     }) {
         pregameMenu.open()
-        //pregameMenu.editKeys()
+        editKeysMenu.open()
         if (gameLoop.isplaying) {
             App()
             keyListener.listen(pressedKeys)
