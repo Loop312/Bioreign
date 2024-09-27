@@ -13,4 +13,8 @@ open class Menu {
             Text("MENU IS OPEN")
         }
     }
+    fun refresh(){
+        isOpen = !isOpen
+        isOpen = !isOpen
+    }
 }

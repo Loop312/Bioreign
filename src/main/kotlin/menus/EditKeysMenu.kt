@@ -21,10 +21,10 @@ class EditKeysMenu: Menu() {
                 for (i in 0..<keyListener.keys.size step 2) {
                     Row {
                         Text(keyListener.temp[i/2], modifier = Modifier.padding(10.dp))
-                        Button(onClick = { keyListener.editKeybinds(i, Key.A) }) {
+                        Button(onClick = { keyListener.editKeybinds(i, Key.A); refresh()}) {
                             Text(keyListener.keys[i].toString())
                         }
-                        Button(onClick = { keyListener.editKeybinds(i+1, Key.A) }) {
+                        Button(onClick = { keyListener.editKeybinds(i+1, Key.A); refresh()}) {
                             Text(keyListener.keys[i+1].toString())
                         }
                     }
