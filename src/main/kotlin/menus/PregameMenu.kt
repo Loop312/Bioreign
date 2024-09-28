@@ -5,6 +5,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import editKeysMenu
 import gameLoop
+import keyListener
 
 
 class PregameMenu: Menu() {
@@ -13,10 +14,10 @@ class PregameMenu: Menu() {
     override fun open(){
         if(!gameLoop.isplaying && isOpen) {
             Column {
-                Button(onClick = {gameLoop.isplaying = true; isOpen = false}) {
+                Button(onClick = {gameLoop.isplaying = true; isOpen = false; keyListener.edit = false}) {
                     Text("Start Game")
                 }
-                Button(onClick = {editKeysMenu.isOpen = true; isOpen = false}){
+                Button(onClick = {editKeysMenu.isOpen = true; isOpen = false; keyListener.edit = true}){
                     Text("Edit Keys")
                 }
             }

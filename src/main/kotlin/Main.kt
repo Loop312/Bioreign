@@ -73,9 +73,9 @@ fun main() = application {
     }) {
         pregameMenu.open()
         editKeysMenu.open()
+        keyListener.listen()
         if (gameLoop.isplaying) {
             App()
-            keyListener.listen()
             map.checkCollisions()
             //println("player Coordinates (" + map.x + ", " + map.y + ")")
         }

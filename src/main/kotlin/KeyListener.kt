@@ -3,6 +3,7 @@ import androidx.compose.ui.input.key.*
 
 class KeyListener () {
     var pressedKeys by mutableStateOf<Set<Key>>(emptySet())
+    var edit = true
     var keys by mutableStateOf(
         arrayOf(
         Key.A, Key.DirectionLeft,       //Left: 0,1
@@ -17,37 +18,37 @@ class KeyListener () {
     var esc = true
 
     fun listen() {
-        //MOVEMENT
-        if (keys[0] in pressedKeys || keys[1] in pressedKeys) {
-            if (map.canMoveLeft) {
-                player.move(-1, 0)
+        if (!edit) {
+            //MOVEMENT
+            if (keys[0] in pressedKeys || keys[1] in pressedKeys) {
+                if (map.canMoveLeft) {
+                    player.move(-1, 0)
+                }
             }
-        }
-        if (keys[2] in pressedKeys || keys[3] in pressedKeys) {
-            if (map.canMoveRight) {
-                player.move(1, 0)
+            if (keys[2] in pressedKeys || keys[3] in pressedKeys) {
+                if (map.canMoveRight) {
+                    player.move(1, 0)
+                }
             }
-        }
-        if (keys[4] in pressedKeys || keys[5] in pressedKeys) {
-            if (map.canMoveUp) {
-                player.move(0, -1)
+            if (keys[4] in pressedKeys || keys[5] in pressedKeys) {
+                if (map.canMoveUp) {
+                    player.move(0, -1)
+                }
             }
-        }
-        if (keys[6] in pressedKeys || keys[7] in pressedKeys) {
-            if (map.canMoveDown) {
-                player.move(0, 1)
+            if (keys[6] in pressedKeys || keys[7] in pressedKeys) {
+                if (map.canMoveDown) {
+                    player.move(0, 1)
+                }
             }
-        }
-        if (keys[8] in pressedKeys || keys[9] in pressedKeys && player.stamina > 0) {
-            player.sprinting = true
-            player.stamina -= 0.1
-        } else {
-            player.sprinting = false
-        }
+            if (keys[8] in pressedKeys || keys[9] in pressedKeys && player.stamina > 0) {
+                player.sprinting = true
+                player.stamina -= 0.1
+            } else {
+                player.sprinting = false
+            }
 
-        //ATTACK AND SPELLS
-
-
+            //ATTACK AND SPELLS
+        }
         //access menu
         if (Key.Escape in pressedKeys && esc) {
             gameMenu.isOpen = !gameMenu.isOpen
