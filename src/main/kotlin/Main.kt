@@ -54,7 +54,7 @@ fun App() {
 
 fun main() = application {
     //initialize a set for handling key inputs
-    var pressedKeys by remember { mutableStateOf<Set<Key>>(emptySet()) }
+
     map.addCollider("up", arrayOf(100,-100,100))
     player.movingUp = true
 
@@ -63,10 +63,10 @@ fun main() = application {
         //when a button is pressed add it to pressedKeys
         when (event.type) {
             KeyEventType.KeyDown -> {
-                pressedKeys += event.key
+                keyListener.pressedKeys += event.key
             }
             KeyEventType.KeyUp -> {
-                pressedKeys -= event.key
+                keyListener.pressedKeys -= event.key
             }
         }
         true
@@ -75,7 +75,7 @@ fun main() = application {
         editKeysMenu.open()
         if (gameLoop.isplaying) {
             App()
-            keyListener.listen(pressedKeys)
+            keyListener.listen()
             map.checkCollisions()
             //println("player Coordinates (" + map.x + ", " + map.y + ")")
         }
