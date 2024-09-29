@@ -21,6 +21,7 @@ val hud = HUD()
 val gameMenu = InGameMenu()
 val pregameMenu = PregameMenu()
 val editKeysMenu = EditKeysMenu()
+val debugger = DebugWindow()
 
 @Composable
 fun game(){
@@ -80,7 +81,7 @@ fun main() = application {
             //println("player Coordinates (" + map.x + ", " + map.y + ")")
         }
     }
-
+    debugger.open()
     //println("LEVEL UP SIMULATOR TEST\n\n")
     //player.lvlupSim(5)
 }
