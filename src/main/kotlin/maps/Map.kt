@@ -94,4 +94,23 @@ class Map(val theMap: String) {
             }
         }
     }
+
+    fun displayColliders(type: String): String{
+        var returnedValue = "["
+        val colliders = if (type == "up") upColliders
+                        else if (type == "down") downColliders
+                        else if (type == "left") leftColliders
+                        else if (type == "right") rightColliders
+                        else emptyList<Array<Int>>()
+
+        for (i in colliders.indices) {
+            for (j in 0..2){
+                returnedValue += colliders[i][j]
+                returnedValue += ","
+            }
+            returnedValue += "]"
+            if (i != colliders.size - 1) returnedValue += "["
+        }
+        return returnedValue
+    }
 }
