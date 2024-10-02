@@ -3,7 +3,7 @@ import androidx.compose.ui.input.key.*
 
 class KeyListener () {
     var pressedKeys by mutableStateOf<Set<Key>>(emptySet())
-    var edit = false
+    var edit = true
     var keys by mutableStateOf(
         arrayOf(
         Key.A, Key.DirectionLeft,       //Left: 0,1
