@@ -5,4 +5,5 @@ plugins {
 
 android {
     namespace = "com.example.bioreign"
+    compileSdk = 34
 }
