@@ -38,7 +38,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: Bioreign Windows
-        path: D:\a\Bioreign\Bioreign\build\compose\binaries\main\app
+        path: D:\a\Bioreign\Bioreign\composeApp\build\compose\binaries\main\app
 
 
 #   ANDROID
@@ -49,4 +49,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: Bioreign Android
-        path: D:\a\Bioreign\Bioreign\build\outputs\apk\debug
+        path: D:\a\Bioreign\Bioreign\composeApp\build\outputs\apk\debug
