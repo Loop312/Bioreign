@@ -7,7 +7,7 @@ jobs:
   # Build job
   build:
     # Specify runner +  build & upload the static files as an artifact
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
 
       - name: Checkout project sources
