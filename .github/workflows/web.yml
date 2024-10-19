@@ -37,7 +37,8 @@ jobs:
         id: deployment
         uses: actions/upload-pages-artifact@v3 # or specific "vX.X.X" version tag for this action
         with:
-          path: D:\a\Bioreign\Bioreign\build\js\packages\composeApp\kotlin
+          path: D:\a\Bioreign\Bioreign\composeApp\build\processedResources\wasmJs\main
+          
 
   # Deployment job
   deploy:
