@@ -54,7 +54,7 @@ fun game(){
 
 @Composable
 @Preview
-fun App() {
+fun theApp() {
     game()
     gameLoop.GameScreen()
 }
@@ -82,7 +82,7 @@ fun main() = application {
         editKeysMenu.open()
         keyListener.listen()
         if (gameLoop.isplaying) {
-            App()
+            theApp()
             map.checkCollisions()
             //println("player Coordinates (" + map.x + ", " + map.y + ")")
         }
