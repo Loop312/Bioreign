@@ -12,6 +12,7 @@ import androidx.compose.ui.res.*
 import androidx.compose.ui.unit.*
 
 val debugger = DebugWindow()
+val gameLoop = GameLoop()
 @Composable
 fun game(){
     //open the pregame menu and wait to start the game
