@@ -2,14 +2,14 @@ package org.example.bioreign
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -48,5 +48,44 @@ fun App() {
                 }
             }
         }
+    }
+}
+
+
+//copied and pasted from windows
+
+@Composable
+fun game(){
+    //open the pregame menu and wait to start the game
+    if (gameLoop.isplaying) {
+        Box {
+            map.load()
+            Image(
+                painter = painterResource(Res.drawable.compose_multiplatform),
+                contentDescription = "lol",
+                modifier = Modifier
+                    .offset(player.x.dp, player.y.dp)
+                    .size(100.dp)
+                    .align(Alignment.Center)
+            )
+            Column {
+                hud.healthBar()
+                hud.staminaBar()
+            }
+            gameMenu.open()
+        }
+    }
+}
+
+@Composable
+@Preview
+fun theApp() {
+    pregameMenu.open()
+    editKeysMenu.open()
+    keyListener.listen()
+    if (gameLoop.isplaying) {
+        game()
+        gameLoop.GameScreen()
+        map.checkCollisions()
     }
 }

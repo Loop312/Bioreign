@@ -1,17 +1,11 @@
 package org.example.bioreign
 
 //compose imports
-import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.*
-import androidx.compose.foundation.layout.*
-import androidx.compose.runtime.*
 import androidx.compose.ui.window.*
-import androidx.compose.ui.*
 import androidx.compose.ui.input.key.*
-import androidx.compose.ui.res.*
-import androidx.compose.ui.unit.*
 
 val debugger = DebugWindow()
+/*
 @Composable
 fun game(){
     //open the pregame menu and wait to start the game
@@ -41,6 +35,7 @@ fun theApp() {
     game()
     gameLoop.GameScreen()
 }
+*/
 
 fun main() = application {
     //initialize a set for handling key inputs
@@ -61,6 +56,7 @@ fun main() = application {
         }
         true
     }) {
+        /*
         pregameMenu.open()
         editKeysMenu.open()
         keyListener.listen()
@@ -69,6 +65,8 @@ fun main() = application {
             map.checkCollisions()
             //println("player Coordinates (" + map.x + ", " + map.y + ")")
         }
+         */
+        theApp()
     }
     debugger.open()
     //println("LEVEL UP SIMULATOR TEST\n\n")
