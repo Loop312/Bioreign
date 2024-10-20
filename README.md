@@ -1,8 +1,17 @@
-This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop.
+Bioreign is a 2D-Topdown RPG, Kotlin Multiplatform project targeting Android, iOS, Web, Desktop.
 
+This is our most ambitious project yet, making a game available on all platforms using just
+a graphics library to make a complete rpg. this means that we are creating our own engine as
+we create our game.
+
+Help with art and spritesheets are very much appreciated and feel free to help us out.
+
+‎
+
+USELESS INFO FOR MOST (came with the file structure)
 * `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
   It contains several subfolders:
-  - `commonMain` is for code that’s common for all targets.
+  - `commonMain` is for code that’s common for all targets (platforms).
   - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
     For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
     `iosMain` would be the right folder for such calls.
