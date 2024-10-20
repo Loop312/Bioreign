@@ -25,12 +25,11 @@ import menus.PregameMenu
 val player = Player()
 val gameLoop = GameLoop()
 val keyListener = KeyListener()
-val map = Map("maps/Placeholder.jpg")
+val map = Map(Res.drawable.compose_multiplatform)
 val hud = HUD()
 val gameMenu = InGameMenu()
 val pregameMenu = PregameMenu()
 val editKeysMenu = EditKeysMenu()
-val debugger = DebugWindow()
 
 @Composable
 @Preview
