@@ -15,6 +15,22 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 import bioreign.composeapp.generated.resources.Res
 import bioreign.composeapp.generated.resources.compose_multiplatform
+import characters.Player
+import maps.Map
+import menus.EditKeysMenu
+import menus.InGameMenu
+import menus.PregameMenu
+
+
+val player = Player()
+val gameLoop = GameLoop()
+val keyListener = KeyListener()
+val map = Map("maps/Placeholder.jpg")
+val hud = HUD()
+val gameMenu = InGameMenu()
+val pregameMenu = PregameMenu()
+val editKeysMenu = EditKeysMenu()
+val debugger = DebugWindow()
 
 @Composable
 @Preview

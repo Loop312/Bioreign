@@ -1,9 +1,5 @@
 package org.example.bioreign
 
-import DebugWindow
-import GameLoop
-import HUD
-import KeyListener
 //compose imports
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.*
@@ -15,19 +11,6 @@ import androidx.compose.ui.input.key.*
 import androidx.compose.ui.res.*
 import androidx.compose.ui.unit.*
 
-import characters.*
-import maps.*
-import menus.*
-
-val player = Player()
-val gameLoop = GameLoop()
-val keyListener = KeyListener()
-val map = Map("maps/Placeholder.jpg")
-val hud = HUD()
-val gameMenu = InGameMenu()
-val pregameMenu = PregameMenu()
-val editKeysMenu = EditKeysMenu()
-val debugger = DebugWindow()
 
 @Composable
 fun game(){

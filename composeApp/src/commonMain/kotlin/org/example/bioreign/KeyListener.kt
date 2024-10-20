@@ -1,3 +1,5 @@
+package org.example.bioreign
+
 import androidx.compose.runtime.*
 import androidx.compose.ui.input.key.*
 import org.example.bioreign.gameMenu

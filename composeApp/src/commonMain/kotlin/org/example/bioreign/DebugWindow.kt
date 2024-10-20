@@ -1,12 +1,11 @@
+package org.example.bioreign
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.*
-import org.example.bioreign.keyListener
-import org.example.bioreign.map
-import org.example.bioreign.player
 
 class DebugWindow {
     var open by mutableStateOf(false)
