@@ -1,6 +1,7 @@
 package characters
 import androidx.compose.runtime.*
 import org.example.bioreign.map
+import kotlin.math.roundToInt
 
 //later add a parameter for their sprite
 open class Character {
@@ -59,7 +60,7 @@ open class Character {
         exp += num
     }
     fun getExp(): String {
-        return "Exp: " + String.format("%.1f", exp) + "/$explimit\n"
+        return "Exp: " + exp.roundToInt() + "/$explimit\n"
     }
     //levels up character
     //need to figure out how I want to implement lvl ups

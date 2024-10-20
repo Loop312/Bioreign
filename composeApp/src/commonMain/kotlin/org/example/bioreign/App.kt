@@ -23,6 +23,7 @@ import menus.PregameMenu
 
 
 val player = Player()
+val gameLoop = GameLoop()
 val keyListener = KeyListener()
 val map = Map(Res.drawable.compose_multiplatform)
 val hud = HUD()
