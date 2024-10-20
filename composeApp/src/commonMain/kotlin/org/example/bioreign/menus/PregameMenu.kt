@@ -3,7 +3,6 @@ package menus
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
-import org.example.bioreign.debugger
 import org.example.bioreign.editKeysMenu
 import org.example.bioreign.gameLoop
 import org.example.bioreign.keyListener
@@ -21,9 +20,11 @@ class PregameMenu: Menu() {
                 Button(onClick = {editKeysMenu.isOpen = true; isOpen = false; keyListener.edit = true}){
                     Text("Edit Keys")
                 }
+                /*
                 Button(onClick = {debugger.open = true}){
                     Text("Open Debugger")
                 }
+                */
             }
         }
     }

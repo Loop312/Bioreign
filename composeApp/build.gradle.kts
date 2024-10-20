@@ -105,6 +105,8 @@ android {
 
 dependencies {
     debugImplementation(compose.uiTooling)
+    implementation (libs.kotlin.stdlib.jdk8)
+    implementation (libs.jetbrains.kotlinx.datetime)
 }
 
 compose.desktop {

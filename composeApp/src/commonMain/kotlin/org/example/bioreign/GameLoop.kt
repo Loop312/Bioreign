@@ -1,6 +1,7 @@
 package org.example.bioreign
 
 import androidx.compose.runtime.*
+import java.lang.System.nanoTime
 import kotlinx.coroutines.*
 import org.example.bioreign.keyListener
 import org.example.bioreign.player
