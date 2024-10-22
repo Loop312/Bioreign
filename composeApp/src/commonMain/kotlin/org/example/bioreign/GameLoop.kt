@@ -35,7 +35,7 @@ class GameLoop() {
                     println("player stamina: " + player.stamina)
 
                     if (!player.sprinting && player.stamina < player.maxStamina) {
-                        player.stamina += 1
+                        player.stamina += .05
                     }
 
                     if (keyListener.esc == false) {
@@ -44,7 +44,7 @@ class GameLoop() {
                 }
 
                 // Handle potential delays or throttling
-                delay(1000) // Adjust delay for target frame rate
+                delay(1000/60) // Adjust delay for target frame rate
             }
         }
         // Compose UI for rendering the game state
