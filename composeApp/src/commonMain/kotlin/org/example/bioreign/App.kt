@@ -9,6 +9,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.key.*
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -56,7 +57,6 @@ fun App() {
 
 @Composable
 fun game(){
-    //open the pregame menu and wait to start the game
     if (gameLoop.isplaying) {
         Box {
             map.load()
@@ -88,4 +88,8 @@ fun theApp() {
         gameLoop.GameScreen()
         map.checkCollisions()
     }
+    Text(keyListener.pressedKeys.toString())
+    //there's an issue with the focus after clicking the "Start Game"
+    //button in PregameMenu, this button is a temporary workaround
+    Button(onClick = {},Modifier.onKeyEvent(keyListener.listener)){}
 }

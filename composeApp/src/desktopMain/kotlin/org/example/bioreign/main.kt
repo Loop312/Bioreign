@@ -2,7 +2,7 @@ package org.example.bioreign
 
 //compose imports
 import androidx.compose.ui.window.*
-import androidx.compose.ui.input.key.*
+//import androidx.compose.ui.input.key.*
 
 val debugger = DebugWindow()
 /*
@@ -44,7 +44,7 @@ fun main() = application {
     player.movingUp = true
 
     //initialize window
-    Window(onCloseRequest = ::exitApplication, title = "Bioreign", onKeyEvent = { event: KeyEvent ->
+    Window(onCloseRequest = ::exitApplication, title = "Bioreign",/* onKeyEvent = { event: KeyEvent ->
         //when a button is pressed add it to pressedKeys
         when (event.type) {
             KeyEventType.KeyDown -> {
@@ -55,7 +55,7 @@ fun main() = application {
             }
         }
         true
-    }) {
+    }*/) {
         /*
         pregameMenu.open()
         editKeysMenu.open()

@@ -2,9 +2,6 @@ package org.example.bioreign
 
 import androidx.compose.runtime.*
 import androidx.compose.ui.input.key.*
-import org.example.bioreign.gameMenu
-import org.example.bioreign.map
-import org.example.bioreign.player
 
 class KeyListener () {
     var pressedKeys by mutableStateOf<Set<Key>>(emptySet())
@@ -65,5 +62,19 @@ class KeyListener () {
     //create a function for handling keybind changes
     fun editKeybinds(original: Int, newKey: Key){
         keys[original] = newKey
+    }
+
+    val listener = { event: KeyEvent ->
+        //when a button is pressed add it to pressedKeys
+        when (event.type) {
+            KeyEventType.KeyDown -> {
+                keyListener.pressedKeys += event.key
+            }
+
+            KeyEventType.KeyUp -> {
+                keyListener.pressedKeys -= event.key
+            }
+        }
+        true
     }
 }
