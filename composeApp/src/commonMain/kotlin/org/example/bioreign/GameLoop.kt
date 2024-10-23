@@ -28,11 +28,13 @@ class GameLoop() {
                     // ...
 
                     //lastFrameTime = currentTime
+                    /*
                     if (player.hp > 0) {
                         player.physDmg(11)
                         println("player hp: " + player.hp)
                     }
                     println("player stamina: " + player.stamina)
+                    */
 
                     if (!player.sprinting && player.stamina < player.maxStamina) {
                         player.stamina += .05

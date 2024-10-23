@@ -33,8 +33,8 @@ open class Character {
     var alive = true
     open var race = "lol"
     var sprinting = false
-    var x by mutableStateOf(0)
-    var y by mutableStateOf(0)
+    var x by mutableStateOf(0F)
+    var y by mutableStateOf(0F)
 
     var movingUp = false
     var movingDown = false
@@ -105,7 +105,7 @@ open class Character {
     }
 
     //handles character movement
-    fun move(dx: Int, dy: Int) {
+    fun move(dx: Float, dy: Float) {
         if (map.mapEdge == true) {
 
             if (sprinting) { //apparently u can write this instead of == true

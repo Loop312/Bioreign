@@ -1,4 +1,4 @@
-package maps
+package org.example.bioreign.maps
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -12,8 +12,8 @@ import org.jetbrains.compose.resources.*
 
 class Map(val theMap: DrawableResource) {
     var size = 1000.dp
-    var x by mutableStateOf(0)
-    var y by mutableStateOf(0)
+    var x by mutableStateOf(0F)
+    var y by mutableStateOf(0F)
     var mapEdge by mutableStateOf(false)
 
     var canMoveLeft = true
@@ -67,28 +67,28 @@ class Map(val theMap: DrawableResource) {
         canMoveDown = true
         if (player.movingUp) {
             for (colliders in upColliders) {
-                if(y == colliders[0] && x > colliders[1] && x < colliders[2]){
+                if(y.toInt() == colliders[0] && x > colliders[1] && x < colliders[2]){
                     canMoveUp = false
                 }
             }
         }
         else if (player.movingDown) {
             for (colliders in downColliders) {
-                if(y == colliders[0] && x > colliders[1] && x < colliders[2]){
+                if(y.toInt() == colliders[0] && x > colliders[1] && x < colliders[2]){
                     canMoveDown = false
                 }
             }
         }
         else if (player.movingLeft) {
             for (colliders in leftColliders) {
-                if(x == colliders[0] && y < colliders[1] && y > colliders[2]){
+                if(x.toInt() == colliders[0] && y < colliders[1] && y > colliders[2]){
                     canMoveLeft = false
                 }
             }
         }
         else if (player.movingRight) {
             for (colliders in rightColliders) {
-                if(x == colliders[0] && y < colliders[1] && y > colliders[2]){
+                if(x.toInt() == colliders[0] && y < colliders[1] && y > colliders[2]){
                     canMoveRight = false
                 }
             }
@@ -97,11 +97,13 @@ class Map(val theMap: DrawableResource) {
 
     fun displayColliders(type: String): String{
         var returnedValue = "["
-        val colliders = if (type == "up") upColliders
-                        else if (type == "down") downColliders
-                        else if (type == "left") leftColliders
-                        else if (type == "right") rightColliders
-                        else emptyList<Array<Int>>()
+        val colliders = when (type) {
+            "up" -> upColliders
+            "down" -> downColliders
+            "left" -> leftColliders
+            "right" -> rightColliders
+            else -> emptyList()
+        }
 
         for (i in colliders.indices) {
             for (j in 0..2){

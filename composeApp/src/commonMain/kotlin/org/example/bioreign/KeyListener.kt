@@ -24,22 +24,22 @@ class KeyListener () {
             //MOVEMENT
             if (keys[0] in pressedKeys || keys[1] in pressedKeys) {
                 if (map.canMoveLeft) {
-                    player.move(-1, 0)
+                    player.move(-1F, 0F)
                 }
             }
             if (keys[2] in pressedKeys || keys[3] in pressedKeys) {
                 if (map.canMoveRight) {
-                    player.move(1, 0)
+                    player.move(1F, 0F)
                 }
             }
             if (keys[4] in pressedKeys || keys[5] in pressedKeys) {
                 if (map.canMoveUp) {
-                    player.move(0, -1)
+                    player.move(0F, -1F)
                 }
             }
             if (keys[6] in pressedKeys || keys[7] in pressedKeys) {
                 if (map.canMoveDown) {
-                    player.move(0, 1)
+                    player.move(0F, 1F)
                 }
             }
             if (keys[8] in pressedKeys || keys[9] in pressedKeys && player.stamina > 0) {

@@ -17,7 +17,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 import bioreign.composeapp.generated.resources.Res
 import bioreign.composeapp.generated.resources.compose_multiplatform
 import characters.Player
-import maps.Map
+import org.example.bioreign.maps.Map
 import menus.EditKeysMenu
 import menus.InGameMenu
 import menus.PregameMenu
