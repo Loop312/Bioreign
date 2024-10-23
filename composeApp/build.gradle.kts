@@ -58,6 +58,7 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation (libs.jetstick)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -119,4 +120,9 @@ compose.desktop {
             packageVersion = "1.0.0"
         }
     }
+}
+repositories {
+    google()
+    mavenCentral()
+    maven ("https://jitpack.io")
 }
