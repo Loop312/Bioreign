@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
                 size = 150.dp,
                 dotSize = 30.dp
             ){ x: Float, y: Float ->
-                player.move(x.toInt(),y.toInt())
+                player.move(x,y)
             }
         }
     }
