@@ -71,6 +71,7 @@ fun game(){
             Column {
                 hud.healthBar()
                 hud.staminaBar()
+                hud.expBar()
             }
             gameMenu.open()
         }

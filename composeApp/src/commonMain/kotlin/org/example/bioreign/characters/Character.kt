@@ -25,9 +25,9 @@ open class Character {
     open var intel by mutableStateOf(10)      //intelligence
     open var lck by mutableStateOf(10)        //luck
     //exp system 
-    open var exp by mutableStateOf(10F)       //experience
+    open var exp by mutableStateOf(0F)       //experience
     open var explimit by mutableStateOf(10F) //experience need to lvlup
-    open var level by mutableStateOf(1)       //Player level
+    open var lvl by mutableStateOf(1)       //Player level
     open var skillPoints by mutableStateOf(0) //used to upgrade character
     //status tracker
     var alive = true
@@ -46,7 +46,7 @@ open class Character {
     fun displayStats(): String {
 
         return  "Name: $name        Race: $race\n" +
-                "Level: $level        Skill Points: $skillPoints\n" +
+                "Level: $lvl        Skill Points: $skillPoints\n" +
                 "Hp: $hp/$maxHp     "+ getExp() +
                 "Str: $str         Mag: $mag \n" +
                 "Def: $def        Res: $res \n" +
@@ -65,7 +65,7 @@ open class Character {
     //levels up character
     //need to figure out how I want to implement lvl ups
     open fun lvlup(){
-        level += 1
+        lvl += 1
         exp -= explimit
         explimit *= 2
         skillPoints += 5

@@ -39,6 +39,7 @@ class GameLoop {
                     if (keyListener.esc == false) {
                         keyListener.esc = true
                     }
+                    player.exp += 0.5F
                 }
 
                 // Handle potential delays or throttling
@@ -61,6 +62,10 @@ class GameLoop {
                     }
                 }
             }
+        }
+        //code runs whenever exp changes
+        LaunchedEffect(player.exp){
+            if (player.exp >= player.explimit) player.lvlup()
         }
     }
 }

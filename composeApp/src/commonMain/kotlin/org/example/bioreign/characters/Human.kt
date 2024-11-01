@@ -15,7 +15,7 @@ class Human : Character() {
 
     //every level up their multiplier gets stronger
     override fun lvlup(){
-        level += 1
+        lvl += 1
         exp = exp - explimit
         explimit *= 2
         skillPoints += 5
