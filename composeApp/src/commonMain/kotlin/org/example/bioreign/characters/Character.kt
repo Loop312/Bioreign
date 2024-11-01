@@ -9,26 +9,26 @@ open class Character {
     open var maxHp by mutableStateOf(10)      //max health
     open var hp by mutableStateOf(10)         //current health
     //damage values
-    open var str = 10        //physical damage (strength)
-    open var mag = 10        //magic damage
+    open var str by mutableStateOf(10)        //physical damage (strength)
+    open var mag by mutableStateOf(10)        //magic damage
     //defense values
-    open var def = 10        //physical defense
-    open var res = 10        //magic resistance
+    open var def by mutableStateOf(10)        //physical defense
+    open var res by mutableStateOf(10)        //magic resistance
     //movement values
-    open var spd = 10        //speed
+    open var spd by mutableStateOf(10)        //speed
     open var maxStamina by mutableStateOf(10.0)
     open var stamina by mutableStateOf(10.0)    //stamina
     //unique values
-    open var name = "Bob"    //character's name
-    open var stealth = 10    //stealth
-    open var acc = 10        //accuracy
-    open var intel = 10      //intelligence
-    open var lck = 10        //luck
+    open var name by mutableStateOf("bob")    //character's name
+    open var stealth by mutableStateOf(10)    //stealth
+    open var acc by mutableStateOf(10)        //accuracy
+    open var intel by mutableStateOf(10)      //intelligence
+    open var lck by mutableStateOf(10)        //luck
     //exp system 
-    open var exp = 0.0F       //experience
-    open var explimit = 10.0F //experience need to lvlup
-    open var level = 1       //Player level
-    open var skillPoints = 0 //used to upgrade character
+    open var exp by mutableStateOf(10F)       //experience
+    open var explimit by mutableStateOf(10F) //experience need to lvlup
+    open var level by mutableStateOf(1)       //Player level
+    open var skillPoints by mutableStateOf(0) //used to upgrade character
     //status tracker
     var alive = true
     open var race = "lol"

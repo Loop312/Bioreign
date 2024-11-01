@@ -1,5 +1,9 @@
 package characters
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+
 /*
 Strengths: magic, resistance, accuracy
 Weaknesses: hp, defense, strength
@@ -8,12 +12,12 @@ Unique Skill: TBD
 class Elf : Character() {
     override var race = "Elf"
     //Strengths
-    override var mag = 15
-    override var res = 15
-    override var acc = 15
+    override var mag by mutableStateOf(15)
+    override var res by mutableStateOf(15)
+    override var acc by mutableStateOf(15)
     //weaknesses
-    override var str = 5
-    override var maxHp = 5
-    override var hp = 5
-    override var def = 5
+    override var str by mutableStateOf(5)
+    override var maxHp by mutableStateOf(5)
+    override var hp by mutableStateOf(5)
+    override var def by mutableStateOf(5)
 }
