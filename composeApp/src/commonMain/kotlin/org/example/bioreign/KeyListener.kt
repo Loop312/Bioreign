@@ -18,7 +18,7 @@ class KeyListener () {
     val temp = arrayOf("LEFT", "RIGHT", "UP", "DOWN", "SPRINT")
 
     var esc = true
-
+    @Composable
     fun listen() {
         if (!edit) {
             //MOVEMENT
@@ -42,9 +42,8 @@ class KeyListener () {
                     player.move(0F, 1F)
                 }
             }
-            if (keys[8] in pressedKeys || keys[9] in pressedKeys && player.stamina > 0) {
-                player.sprinting = true
-                player.stamina -= 0.1
+            if (keys[8] in pressedKeys || keys[9] in pressedKeys) {
+                player.sprinting = if (player.stamina > 0) {true} else false
             } else {
                 player.sprinting = false
             }

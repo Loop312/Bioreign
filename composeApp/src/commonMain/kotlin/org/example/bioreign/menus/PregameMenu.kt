@@ -12,9 +12,9 @@ class PregameMenu: Menu() {
     override var isOpen by mutableStateOf(true)
     @Composable
     override fun open(){
-        if(!gameLoop.isplaying && isOpen) {
+        if(!gameLoop.isPlaying && isOpen) {
             Column {
-                Button(onClick = {gameLoop.isplaying = true; isOpen = false; keyListener.edit = false}) {
+                Button(onClick = {gameLoop.isPlaying = true; isOpen = false; keyListener.edit = false}) {
                     Text("Start Game")
                 }
                 Button(onClick = {editKeysMenu.isOpen = true; isOpen = false; keyListener.edit = true}){

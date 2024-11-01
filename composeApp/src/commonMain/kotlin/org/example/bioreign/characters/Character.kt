@@ -32,7 +32,7 @@ open class Character {
     //status tracker
     var alive = true
     open var race = "lol"
-    var sprinting = false
+    var sprinting by mutableStateOf(false)
     var x by mutableStateOf(0F)
     var y by mutableStateOf(0F)
 
@@ -119,6 +119,7 @@ open class Character {
         }
         else {
             if (sprinting) {
+                stamina -= 0.1
                 map.x -= (dx * spd)
                 map.y -= (dy * spd)
             } else {

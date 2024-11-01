@@ -57,7 +57,7 @@ fun App() {
 
 @Composable
 fun game(){
-    if (gameLoop.isplaying) {
+    if (gameLoop.isPlaying) {
         Box {
             map.load()
             Image(
@@ -83,9 +83,10 @@ fun theApp() {
     pregameMenu.open()
     editKeysMenu.open()
     keyListener.listen()
-    if (gameLoop.isplaying) {
+    if (gameLoop.isPlaying) {
         game()
         gameLoop.GameScreen()
+        gameLoop.playerStuff()
         map.checkCollisions()
     }
     Text(keyListener.pressedKeys.toString())
