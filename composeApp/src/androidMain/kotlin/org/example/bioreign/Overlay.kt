@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.delay
 
 class Overlay {
 
@@ -31,30 +32,39 @@ class Overlay {
                 Image(
                     painterResource(R.drawable.big_stick),
                     "Stick Background",
-                    Modifier.alpha(.5F).size(100.dp)
+                    Modifier.alpha(.5F).size(100.dp).align(Alignment.BottomStart)
                 )
                 Image(
-                    painterResource(R.drawable.small_stick),
+                    painterResource(R.drawable.small_stick2),
                     "Stick",
                     Modifier
                         .alpha(.5F)
-                        .size(50.dp)
-                        .fillMaxSize()
+                        .size(100.dp)
                         .align(Alignment.Center)
-                        //.draggable(state = DraggableState{x -> dx = x}, orientation = Orientation.Horizontal)
-                        //.draggable(state = DraggableState{y -> dy = y}, orientation = Orientation.Vertical)
                         .offset(dx.dp, dy.dp)
-                        /*
-                        .pointerInput(Unit) {
-                            detectDragGestures { change, dragAmount ->
-                                dx = dragAmount.x
-                                dy = dragAmount.y
-                            }
-                        }
-                        */
-                        .draggable2D(state = Draggable2DState { onDelta -> dx = onDelta.x; dy = onDelta.y })
+                        .draggable2D(
+                            state = rememberDraggable2DState { onDelta ->
+                                if (dx + onDelta.x < -100F || dx + onDelta.x > 100F) {
+                                    dx += 0F
+                                } else {
+                                    dx = (dx + onDelta.x).coerceIn(-100F, 100F)
+                                }
+                                if (dy + onDelta.y < -100F || dy + onDelta.y > 100F) {
+                                    dy += 0F
+                                } else {
+                                    dy = (dy + onDelta.y).coerceIn(-100F, 100F)
+                                }
+                            },
+                            onDragStopped = { dx = 0F; dy = 0F },
+                            )
                 )
                 Text("dx: $dx, dy: $dy")
+            }
+        }
+        LaunchedEffect(Unit) {
+            while (true) {
+                delay(1000/60)
+                player.move(dx/100, dy/100)
             }
         }
     }

@@ -70,6 +70,7 @@ fun game(){
                 hud.healthBar()
                 hud.staminaBar()
                 hud.expBar()
+                Text("Player Location: (${map.x}, ${map.y})")
             }
             gameMenu.open()
         }
