@@ -140,7 +140,14 @@ class Overlay {
         LaunchedEffect(Unit) {
             while (true) {
                 delay(1000/60)
-                player.move(dx/100, dy/100)
+                if (dx >= 60 || dx <= -60 || dy >= 60 || dy <= -60) {
+                    player.sprinting = true
+                    player.move(dx / 175, dy / 175)
+                }
+                else {
+                    player.sprinting = false
+                    player.move(dx / 100, dy / 100)
+                }
             }
         }
     }
