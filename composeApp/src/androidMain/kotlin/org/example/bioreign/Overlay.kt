@@ -87,11 +87,13 @@ class Overlay {
     @Composable
     fun joyStick2() {
         val touchPosition = remember { mutableStateOf(Offset.Zero) }
+        var see by remember { mutableStateOf(false) }
         Box (Modifier.fillMaxSize().pointerInput(Unit) {
             detectDragGestures(onDragStart = { change ->
-                touchPosition.value = Offset(change.x, change.y)
-            }){change, dragOffset ->
-                //touchPosition.value = Offset(change.position.x, change.position.y)
+                see = true; touchPosition.value = Offset(change.x, change.y)
+            }, onDragEnd = {
+                see = false; dx = 0F; dy = 0F
+            }) {change, dragOffset ->
                 if (dx + dragOffset.x < -100F || dx + dragOffset.x > 100F) {
                     dx += 0F
                 } else {
@@ -105,41 +107,44 @@ class Overlay {
             }
         }) {
             Box(Modifier.offset { IntOffset(touchPosition.value.x.toInt(), touchPosition.value.y.toInt()) }) {
-                Image(
-                    painter = painterResource(id = R.drawable.big_stick),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(100.dp)
-                        .offset(-50.dp, -50.dp)
-                        .alpha(.5F)
-                )
-                Image(
-                    painterResource(R.drawable.small_stick2),
-                    "Stick",
-                    Modifier
-                        .alpha(.5F)
-                        .size(100.dp)
-                        //.align(Alignment.Center)
-                        .offset((dx-50).dp, (dy-50).dp)
-                        .draggable2D(
-                            state = rememberDraggable2DState { onDelta ->
-                                if (dx + onDelta.x < -100F || dx + onDelta.x > 100F) {
-                                    dx += 0F
-                                } else {
-                                    dx = (dx + onDelta.x).coerceIn(-100F, 100F)
-                                }
-                                if (dy + onDelta.y < -100F || dy + onDelta.y > 100F) {
-                                    dy += 0F
-                                } else {
-                                    dy = (dy + onDelta.y).coerceIn(-100F, 100F)
-                                }
-                            },
-                            onDragStopped = { dx = 0F; dy = 0F },
-                        )
-                )
+                if (see) {
+                    Image(
+                        painter = painterResource(id = R.drawable.big_stick),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(100.dp)
+                            .offset(-50.dp, -50.dp)
+                            .alpha(.5F)
+                    )
+                    Image(
+                        painterResource(R.drawable.small_stick2),
+                        "Stick",
+                        Modifier
+                            .alpha(.5F)
+                            .size(100.dp)
+                            //.align(Alignment.Center)
+                            .offset((dx - 50).dp, (dy - 50).dp)
+                            .draggable2D(
+                                state = rememberDraggable2DState { onDelta ->
+                                    if (dx + onDelta.x < -100F || dx + onDelta.x > 100F) {
+                                        dx += 0F
+                                    } else {
+                                        dx = (dx + onDelta.x).coerceIn(-100F, 100F)
+                                    }
+                                    if (dy + onDelta.y < -100F || dy + onDelta.y > 100F) {
+                                        dy += 0F
+                                    } else {
+                                        dy = (dy + onDelta.y).coerceIn(-100F, 100F)
+                                    }
+                                },
+                                onDragStopped = { dx = 0F; dy = 0F },
+                            )
+                    )
+                }
                 Text("dx: $dx, dy: $dy")
             }
         }
+        movePlayer()
     }
 
     @Composable
