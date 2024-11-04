@@ -4,6 +4,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
@@ -33,6 +34,9 @@ class Overlay {
                 } else {
                     joyStick2()
                 }
+            }
+            Box(Modifier.align(Alignment.BottomEnd).offset(-100.dp, -100.dp)) {
+                buttons()
             }
             Column (Modifier.align(Alignment.BottomEnd)) {
                 Button(onClick = { joysticktype = !joysticktype }) {
@@ -93,7 +97,7 @@ class Overlay {
                 see = true; touchPosition.value = Offset(change.x, change.y)
             }, onDragEnd = {
                 see = false; dx = 0F; dy = 0F
-            }) {change, dragOffset ->
+            }) {change, dragOffset -> //same method as joystick1, need to update both when completely fixed
                 if (dx + dragOffset.x < -100F || dx + dragOffset.x > 100F) {
                     dx += 0F
                 } else {
@@ -113,7 +117,7 @@ class Overlay {
                         contentDescription = null,
                         modifier = Modifier
                             .size(100.dp)
-                            .offset(-50.dp, -50.dp)
+                            .offset((-50).dp, (-50).dp)
                             .alpha(.5F)
                     )
                     Image(
@@ -122,23 +126,7 @@ class Overlay {
                         Modifier
                             .alpha(.5F)
                             .size(100.dp)
-                            //.align(Alignment.Center)
                             .offset((dx - 50).dp, (dy - 50).dp)
-                            .draggable2D(
-                                state = rememberDraggable2DState { onDelta ->
-                                    if (dx + onDelta.x < -100F || dx + onDelta.x > 100F) {
-                                        dx += 0F
-                                    } else {
-                                        dx = (dx + onDelta.x).coerceIn(-100F, 100F)
-                                    }
-                                    if (dy + onDelta.y < -100F || dy + onDelta.y > 100F) {
-                                        dy += 0F
-                                    } else {
-                                        dy = (dy + onDelta.y).coerceIn(-100F, 100F)
-                                    }
-                                },
-                                onDragStopped = { dx = 0F; dy = 0F },
-                            )
                     )
                 }
                 Text("dx: $dx, dy: $dy")
@@ -154,6 +142,22 @@ class Overlay {
                 delay(1000/60)
                 player.move(dx/100, dy/100)
             }
+        }
+    }
+
+    @Composable
+    fun buttons() {
+        Button(onClick = {}, shape = CircleShape, modifier = Modifier.size(50.dp).offset(80.dp, -40.dp)) {
+            Text("B")
+        }
+        Button(onClick = {}, shape = CircleShape, modifier = Modifier.size(50.dp).offset(40.dp, -80.dp)) {
+            Text("Y")
+        }
+        Button(onClick = {}, shape = CircleShape, modifier = Modifier.size(50.dp).offset(40.dp, 0.dp)) {
+            Text("A")
+        }
+        Button(onClick = {}, shape = CircleShape, modifier = Modifier.size(50.dp).offset(0.dp, -40.dp)) {
+            Text("X")
         }
     }
 }
