@@ -36,9 +36,9 @@ class Overlay {
                 } else {
                     joyStick2()
                 }
-            }
-            Box(Modifier.align(Alignment.BottomEnd).offset(-100.dp, -100.dp)) {
-                buttons()
+                Box(Modifier.align(Alignment.BottomEnd).offset(-100.dp, -100.dp)) {
+                    buttons()
+                }
             }
             Column (Modifier.align(Alignment.BottomEnd)) {
                 Button(onClick = { joysticktype = !joysticktype }) {
