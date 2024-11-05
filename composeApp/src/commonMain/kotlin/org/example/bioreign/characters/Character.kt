@@ -1,6 +1,17 @@
 package characters
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import org.example.bioreign.map
+import org.example.bioreign.player
+import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.painterResource
 import kotlin.math.roundToInt
 
 //later add a parameter for their sprite
@@ -126,6 +137,20 @@ open class Character {
                 map.x -= (dx * spd/2)
                 map.y -= (dy * spd/2)
             }
+        }
+    }
+
+    @Composable
+    fun load(resource: DrawableResource) {
+        Box (Modifier.fillMaxSize()) {
+            Image(
+                painter = painterResource(resource),
+                contentDescription = "lol",
+                modifier = Modifier
+                    .offset(player.x.dp, player.y.dp)
+                    .size(100.dp)
+                    .align(Alignment.Center)
+            )
         }
     }
 }

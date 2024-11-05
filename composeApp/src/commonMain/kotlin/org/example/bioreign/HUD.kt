@@ -9,6 +9,16 @@ import androidx.compose.ui.graphics.*
 import androidx.compose.ui.unit.*
 
 class HUD {
+
+    @Composable
+    fun display(){
+        Column {
+            hud.healthBar()
+            hud.staminaBar()
+            hud.expBar()
+            Text("Player Location: (${map.x}, ${map.y})")
+        }
+    }
     @Composable
     fun healthBar(){
         Box(modifier = Modifier

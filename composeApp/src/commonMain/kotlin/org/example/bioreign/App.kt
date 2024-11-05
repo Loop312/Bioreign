@@ -13,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.key.*
-import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import bioreign.composeapp.generated.resources.*
@@ -59,20 +58,8 @@ fun game(){
     if (gameLoop.isPlaying) {
         Box {
             map.load()
-            Image(
-                painter = painterResource(Res.drawable.compose_multiplatform),
-                contentDescription = "lol",
-                modifier = Modifier
-                    .offset(player.x.dp, player.y.dp)
-                    .size(100.dp)
-                    .align(Alignment.Center)
-            )
-            Column {
-                hud.healthBar()
-                hud.staminaBar()
-                hud.expBar()
-                Text("Player Location: (${map.x}, ${map.y})")
-            }
+            player.load(Res.drawable.compose_multiplatform)
+            hud.display()
             gameMenu.open()
         }
     }
