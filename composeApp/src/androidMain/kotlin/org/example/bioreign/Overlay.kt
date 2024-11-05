@@ -25,13 +25,13 @@ class Overlay {
     var dx by mutableStateOf(0F)
     var dy by mutableStateOf(0F)
     var isOpen by mutableStateOf(true)
-    var joysticktype by mutableStateOf(true)
+    var joystickType by mutableStateOf(true)
 
     @Composable
     fun open() {
         Box (Modifier.fillMaxSize()){
             if (isOpen) {
-                if (joysticktype) {
+                if (joystickType) {
                     joyStick()
                 } else {
                     joyStick2()
@@ -41,7 +41,7 @@ class Overlay {
                 }
             }
             Column (Modifier.align(Alignment.BottomEnd)) {
-                Button(onClick = { joysticktype = !joysticktype }) {
+                Button(onClick = { joystickType = !joystickType }) {
                     Text("change stick type")
                 }
                 Button(onClick = { isOpen = !isOpen }) {
