@@ -12,7 +12,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
@@ -51,6 +53,7 @@ class Overlay {
 
     @Composable
     fun joyStick() {
+        val hapticFeedback = LocalHapticFeedback.current
         Box(Modifier.fillMaxSize()) {
             Box(Modifier.offset(10.dp, (-10).dp).size(100.dp).align(Alignment.BottomStart)) {
                 Image(
@@ -79,8 +82,11 @@ class Overlay {
                                     dy = (dy + onDelta.y).coerceIn(-100F, 100F)
                                 }
                             },
-                            onDragStopped = { dx = 0F; dy = 0F },
-                            )
+                            onDragStopped = {hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
+                                dx = 0F; dy = 0F
+                                            },
+                            onDragStarted = {hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)}
+                        )
                 )
                 Text("dx: $dx, dy: $dy")
             }
@@ -92,11 +98,15 @@ class Overlay {
     fun joyStick2() {
         val touchPosition = remember { mutableStateOf(Offset.Zero) }
         var see by remember { mutableStateOf(false) }
+        val hapticFeedback = LocalHapticFeedback.current
         Box (Modifier.fillMaxSize().pointerInput(Unit) {
             detectDragGestures(onDragStart = { change ->
-                see = true; touchPosition.value = Offset(change.x, change.y)
+                see = true
+                touchPosition.value = Offset(change.x, change.y)
+                hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
             }, onDragEnd = {
                 see = false; dx = 0F; dy = 0F
+                hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
             }) {change, dragOffset -> //same method as joystick1, need to update both when completely fixed
                 if (dx + dragOffset.x < -100F || dx + dragOffset.x > 100F) {
                     dx += 0F
@@ -154,16 +164,21 @@ class Overlay {
 
     @Composable
     fun buttons() {
-        Button(onClick = {}, shape = CircleShape, modifier = Modifier.size(50.dp).offset(80.dp, -40.dp)) {
+        val hapticFeedback = LocalHapticFeedback.current
+        Button(onClick = {hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)},
+            shape = CircleShape, modifier = Modifier.size(50.dp).offset(80.dp, -40.dp)) {
             Text("B")
         }
-        Button(onClick = {}, shape = CircleShape, modifier = Modifier.size(50.dp).offset(40.dp, -80.dp)) {
+        Button(onClick = {hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)},
+            shape = CircleShape, modifier = Modifier.size(50.dp).offset(40.dp, -80.dp)) {
             Text("Y")
         }
-        Button(onClick = {}, shape = CircleShape, modifier = Modifier.size(50.dp).offset(40.dp, 0.dp)) {
+        Button(onClick = {hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)},
+            shape = CircleShape, modifier = Modifier.size(50.dp).offset(40.dp, 0.dp)) {
             Text("A")
         }
-        Button(onClick = {}, shape = CircleShape, modifier = Modifier.size(50.dp).offset(0.dp, -40.dp)) {
+        Button(onClick = {hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)},
+            shape = CircleShape, modifier = Modifier.size(50.dp).offset(0.dp, -40.dp)) {
             Text("X")
         }
     }
