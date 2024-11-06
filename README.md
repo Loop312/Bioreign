@@ -1,14 +1,47 @@
-Bioreign is a 2D-Topdown RPG, Kotlin Multiplatform project targeting Android, iOS, Web, Desktop.
 
-This is our most ambitious project yet, making a game available on all platforms using just
-a graphics library to make a complete rpg. this means that we are creating our own engine as
+<h1 align="center">
+  <img src="composeApp/src/commonMain/composeResources/BioreignTempLogo.png" alt="Temporary Logo"/>
+</h1>
+
+<p align="center">
+  Bioreign is a 2D-Topdown RPG, Kotlin Multiplatform project targeting Android, iOS, Web, Desktop.
+</p>
+
+<p align="center">
+  <a href="https://discord.gg/KjBDzSj5af">
+    <img src="https://dcbadge.limes.pink/api/server/KjBDzSj5af" alt="Discord"/>
+  </a>
+  <br>
+  <br>
+  <a href="https://github.com/Loop312/Bioreign/releases/latest">
+    <img src="https://img.shields.io/badge/Download-Latest_Release-2ea44f?logo=github&logoColor=white" alt="Download - Latest Release"/>
+  </a>
+</p>
+
+# About the project
+This is our most ambitious project yet, making a fully fleshed-out RPG available on all platforms using just
+a graphics library to make it happen. This means that we are creating our own engine as
 we create our game.
 
-Help with art and spritesheets are very much appreciated and feel free to help us out.
+***Help with art and spritesheets is very much appreciated, and feel free to help us out!***
+
+# Downloads
+
+### Stable Releases
+N/A
+
+### Alpha Builds
+| Platform   | Status                                                                                                                                                                                  | Download                                                                                                        |
+|------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| 🪟 Windows | [![Qt Build](https://github.com/Loop312/Bioreign/actions/workflows/build-gradle-project.yml/badge.svg)](https://github.com/Loop312/Bioreign/actions/workflows/build-gradle-project.yml) | [Windows EXE](https://nightly.link/Loop312/Bioreign/workflows/build-gradle-project/master/Bioreign-Windows.zip) |
+| 📱 Android | [![Qt Build](https://github.com/Loop312/Bioreign/actions/workflows/build-gradle-project.yml/badge.svg)](https://github.com/Loop312/Bioreign/actions/workflows/build-gradle-project.yml) | [APK](https://nightly.link/Loop312/Bioreign/workflows/build-gradle-project/master/Bioreign-Android.zip)         |
+| 🌐 web     | [![Qt Build](https://github.com/Loop312/Bioreign/actions/workflows/web.yml/badge.svg)](https://github.com/Loop312/Bioreign/actions/workflows/Qt_Build.yml)                              | [Website](https://loop312.github.io/Bioreign/)                                                                  |
+
 
 ‎
 
-USELESS INFO FOR MOST (came with the file structure)
+
+### USELESS INFO FOR MOST (came with the file structure)
 * `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
   It contains several subfolders:
   - `commonMain` is for code that’s common for all targets (platforms).
