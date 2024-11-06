@@ -1,6 +1,6 @@
 
 <h1 align="center">
-  <img src="composeApp/src/commonMain/composeResources/BioreignTempLogo.png" alt="Temporary Logo"/>
+  <img src="composeApp/src/commonMain/composeResources/drawable/BioreignTempLogo.png" alt="Temporary Logo"/>
 </h1>
 
 <p align="center">
