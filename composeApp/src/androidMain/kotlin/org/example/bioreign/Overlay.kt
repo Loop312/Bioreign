@@ -1,6 +1,5 @@
 package org.example.bioreign
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.*
 import androidx.compose.foundation.layout.*
@@ -13,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.input.pointer.PointerInputChange
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 
-@OptIn(ExperimentalFoundationApi::class)
 class Overlay {
     var dx by mutableStateOf(0F)
     var dy by mutableStateOf(0F)
@@ -69,24 +68,14 @@ class Overlay {
                         .size(100.dp)
                         .align(Alignment.Center)
                         .offset(dx.dp, dy.dp)
-                        .draggable2D(
-                            state = rememberDraggable2DState { onDelta ->
-                                if (dx + onDelta.x < -100F || dx + onDelta.x > 100F) {
-                                    dx += 0F
-                                } else {
-                                    dx = (dx + onDelta.x).coerceIn(-100F, 100F)
-                                }
-                                if (dy + onDelta.y < -100F || dy + onDelta.y > 100F) {
-                                    dy += 0F
-                                } else {
-                                    dy = (dy + onDelta.y).coerceIn(-100F, 100F)
-                                }
-                            },
-                            onDragStopped = {hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
-                                dx = 0F; dy = 0F
-                                            },
-                            onDragStarted = {hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)}
-                        )
+                        .pointerInput(Unit) {
+                            detectDragGestures(
+                                onDragStart = { hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)},
+                                onDragEnd = { hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
+                                    dx = 0F; dy = 0F},
+                                onDrag = moveStick
+                            )
+                        }
                 )
                 Text("dx: $dx, dy: $dy")
             }
@@ -99,27 +88,23 @@ class Overlay {
         val touchPosition = remember { mutableStateOf(Offset.Zero) }
         var see by remember { mutableStateOf(false) }
         val hapticFeedback = LocalHapticFeedback.current
-        Box (Modifier.fillMaxSize().pointerInput(Unit) {
-            detectDragGestures(onDragStart = { change ->
-                see = true
-                touchPosition.value = Offset(change.x, change.y)
-                hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
-            }, onDragEnd = {
-                see = false; dx = 0F; dy = 0F
-                hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
-            }) {change, dragOffset -> //same method as joystick1, need to update both when completely fixed
-                if (dx + dragOffset.x < -100F || dx + dragOffset.x > 100F) {
-                    dx += 0F
-                } else {
-                    dx = (dx + dragOffset.x).coerceIn(-100F, 100F)
-                }
-                if (dy + dragOffset.y < -100F || dy + dragOffset.y > 100F) {
-                    dy += 0F
-                } else {
-                    dy = (dy + dragOffset.y).coerceIn(-100F, 100F)
-                }
+        Box (Modifier
+            .fillMaxSize()
+            .pointerInput(Unit) {
+                detectDragGestures(
+                    onDragStart = { change ->
+                        see = true
+                        touchPosition.value = Offset(change.x, change.y)
+                        hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
+                    },
+                    onDragEnd = {
+                        see = false; dx = 0F; dy = 0F
+                        hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
+                    },
+                    onDrag = moveStick
+                )
             }
-        }) {
+        ) {
             Box(Modifier.offset { IntOffset(touchPosition.value.x.toInt(), touchPosition.value.y.toInt()) }) {
                 if (see) {
                     Image(
@@ -145,6 +130,18 @@ class Overlay {
         movePlayer()
     }
 
+    val moveStick = { _: PointerInputChange, dragAmount: Offset ->
+        if (dx + dragAmount.x < -100F || dx + dragAmount.x > 100F) {
+            dx += 0F
+        } else {
+            dx = (dx + dragAmount.x).coerceIn(-100F, 100F)
+        }
+        if (dy + dragAmount.y < -100F || dy + dragAmount.y > 100F) {
+            dy += 0F
+        } else {
+            dy = (dy + dragAmount.y).coerceIn(-100F, 100F)
+        }
+    }
     @Composable
     fun movePlayer(){
         LaunchedEffect(Unit) {
