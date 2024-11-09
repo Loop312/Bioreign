@@ -19,6 +19,7 @@ import bioreign.composeapp.generated.resources.*
 import characters.Player
 import org.example.bioreign.maps.Map
 import menus.*
+import org.example.bioreign.gamemodes.*
 
 
 val player = Player()
@@ -29,6 +30,9 @@ val hud = HUD()
 val gameMenu = InGameMenu()
 val pregameMenu = PregameMenu()
 val editKeysMenu = EditKeysMenu()
+val storymode = Storymode()
+val online = Online()
+val rogue = Rogue()
 
 @Composable
 @Preview
@@ -75,6 +79,7 @@ fun theApp() {
         pregameMenu.open()
         editKeysMenu.open()
         keyListener.listen()
+        storymode.saveMenu()
         if (gameLoop.isPlaying) {
             game()
             gameLoop.GameScreen()

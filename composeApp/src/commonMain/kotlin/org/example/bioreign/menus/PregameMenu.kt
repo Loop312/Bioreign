@@ -11,8 +11,6 @@ import org.example.bioreign.*
 class PregameMenu: Menu() {
     override var isOpen by mutableStateOf(true)
     var homeMenuOpen by mutableStateOf(true)
-    var Saves by mutableStateOf(arrayOf("1: New Game", "2: New Game", "3: New Game", "4: New Game", "5: New Game"))
-    var saveMenuOpen by mutableStateOf(false)
     var characterMenuOpen by mutableStateOf(false)
     var selectModeOpen by mutableStateOf(false)
     @Composable
@@ -20,7 +18,6 @@ class PregameMenu: Menu() {
         if(!gameLoop.isPlaying && isOpen) {
             homeMenu()
             selectMode()
-            saveMenu()
         }
     }
 
@@ -43,7 +40,7 @@ class PregameMenu: Menu() {
         if (selectModeOpen) {
             Box(Modifier.fillMaxSize()) {
                 Row(Modifier.align(Alignment.Center)) {
-                    Button(onClick = { saveMenuOpen = true; selectModeOpen = false }) {
+                    Button(onClick = { storymode.saveMenuOpen = true; selectModeOpen = false }) {
                         Text("Story Mode")
                     }
                     Button(onClick = { selectCharacter() }) {
@@ -61,21 +58,6 @@ class PregameMenu: Menu() {
         //TODO
         if (characterMenuOpen) {
 
-        }
-    }
-
-    @Composable
-    fun saveMenu() {
-        if (saveMenuOpen) {
-            Box(Modifier.fillMaxSize()) {
-                Column (Modifier.align(Alignment.TopEnd)) {
-                    for (i in 0..4) {
-                        Button(onClick = { gameLoop.isPlaying = true; isOpen = false; keyListener.edit = false }) {
-                            Text(Saves[i])
-                        }
-                    }
-                }
-            }
         }
     }
 }
