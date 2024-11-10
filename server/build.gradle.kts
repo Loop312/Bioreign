@@ -16,6 +16,10 @@ dependencies {
     implementation(libs.logback)
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.netty)
+    implementation(project(":composeApp"))
     testImplementation(libs.ktor.server.tests)
     testImplementation(libs.kotlin.test.junit)
+    implementation(libs.ktor.client.websockets)
+    implementation(libs.ktor.client.cio)
+    implementation(libs.ktor.server.websockets)
 }
