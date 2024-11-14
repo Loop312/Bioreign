@@ -17,6 +17,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.map
 
+var dataSent = ""
+var dataReceived = ""
+
 val client = HttpClient(CIO) {
     install(io.ktor.client.plugins.websocket.WebSockets){
         pingIntervalMillis = 20_000
@@ -26,22 +29,10 @@ var clients = 0
 fun main() {
     embeddedServer(Netty, port = SERVER_PORT, host = "0.0.0.0", module = Application::module)
         .start(wait = false)
-
-    embeddedServer(Netty, port = 8081, host = "0.0.0.0"){
-        install(WebSockets)
-        routing {
-            get("/ws"){
-                call.respondText("Hello from port 8081, the websocket")
-            }
-            webSocket("/ws") {
-                println("Connected to port 8081")
-                while(true) {
-                    incoming.consumeAsFlow().map { it as Frame.Text }.collect { println(it.readText()) }
-                    delay(1000/60)
-                }
-            }
-        }
-    }.start(wait = false)
+     //server setup
+    embeddedServer(Netty, port = 8081, host = "0.0.0.0", module = Application::websocket)
+        .start(wait = false)
+    //client stuff
     runBlocking {
         client.webSocket(
             method = HttpMethod.Get,
@@ -61,6 +52,7 @@ fun main() {
 
                  */
                 send("(${player.x},${player.y})")
+                send("Clients: $clients")
                 delay(1000/60)
             }
         }
@@ -72,6 +64,23 @@ fun Application.module() {
     routing {
         get("/") {
             call.respond("Hello from port $SERVER_PORT")
+        }
+    }
+}
+
+//server stuff
+fun Application.websocket(){
+    install(WebSockets)
+    routing {
+        get("/ws"){
+            call.respondText("Hello from port 8081, the websocket")
+        }
+        webSocket("/ws") {
+            println("Connected to port 8081")
+            while(true) {
+                incoming.consumeAsFlow().map { it as Frame.Text }.collect { println(it.readText()) }
+                delay(1000/60)
+            }
         }
     }
 }
