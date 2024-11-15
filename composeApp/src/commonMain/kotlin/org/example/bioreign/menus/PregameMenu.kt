@@ -31,6 +31,9 @@ class PregameMenu: Menu() {
                 Button(onClick = { editKeysMenu.isOpen = true; isOpen = false; keyListener.edit = true }) {
                     Text("Edit Keys")
                 }
+                Button(onClick = { settingsMenu.isOpen = true; isOpen = false}) {
+                    Text("Settings")
+                }
             }
         }
     }

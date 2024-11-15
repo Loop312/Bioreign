@@ -39,11 +39,11 @@ class GameLoop {
                     if (keyListener.esc == false) {
                         keyListener.esc = true
                     }
-                    player.exp += 0.5F
+                    player.exp += (0.5F * frameRateMultiplier.toFloat())
                 }
 
                 // Handle potential delays or throttling
-                delay(1000/60) // Adjust delay for target frame rate
+                delay(frameRate) // Adjust delay for target frame rate
             }
         }
         // Compose UI for rendering the game state
@@ -58,7 +58,7 @@ class GameLoop {
                 launch {
                     while(player.stamina < player.maxStamina) {
                         player.stamina += 0.1
-                        delay(1000/60)
+                        delay(frameRate)
                     }
                 }
             }
@@ -66,6 +66,20 @@ class GameLoop {
         //code runs whenever exp changes
         LaunchedEffect(player.exp){
             if (player.exp >= player.explimit) player.lvlup()
+        }
+    }
+    @Composable
+    fun changeFrameRateMultiplier() {
+        LaunchedEffect(frameRate){
+            try {
+                frameRateMultiplier = 1.0 / (defaultFrameRate / frameRate)
+                println(
+                    "frame rate: $frameRate\n" +
+                    "frame rate multiplier: $frameRateMultiplier"
+                )
+            } catch (e: Exception) {
+                println(e)
+            }
         }
     }
 }

@@ -146,7 +146,7 @@ class Overlay {
     fun movePlayer(){
         LaunchedEffect(Unit) {
             while (true) {
-                delay(1000/60)
+                delay(frameRate)
                 if (dx >= 60 || dx <= -60 || dy >= 60 || dy <= -60) {
                     player.sprinting = true
                     player.move(dx / 175, dy / 175)
