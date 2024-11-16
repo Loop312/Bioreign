@@ -60,6 +60,9 @@ class PregameMenu: Menu() {
                     Button(onClick = { selectCharacter() }) {
                         Text("Roguelike Mode")
                     }
+                    Button(onClick = { homeMenuOpen = true; selectModeOpen = false }) {
+                        Text("Back")
+                    }
                 }
             }
         }

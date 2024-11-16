@@ -23,11 +23,10 @@ class SettingsMenu: Menu() {
                 Column {
                     Text("Settings")
                     Row {
-
                         Text("FPS: ")
                         TextField(fpstext, onValueChange = {
                             try{
-                            fpstext = it; frameRate = 1000/it.toDouble()
+                            fpstext = it; frameRate = 1000/(it.toDouble())
                             } catch (e: Exception) {
                                 println(e)
                             }

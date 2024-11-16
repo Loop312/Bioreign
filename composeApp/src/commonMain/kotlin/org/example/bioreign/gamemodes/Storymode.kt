@@ -11,35 +11,48 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import org.example.bioreign.gameLoop
-import org.example.bioreign.keyListener
+import bioreign.composeapp.generated.resources.Res
+import bioreign.composeapp.generated.resources.compose_multiplatform
+import org.example.bioreign.*
 
-class Storymode {
+class Storymode: GameMode() {
     var Saves by mutableStateOf(arrayOf("1: New Game", "2: New Game", "3: New Game", "4: New Game", "5: New Game"))
     var saveMenuOpen by mutableStateOf(false)
-    var playing by mutableStateOf(false)
     @Composable
     fun saveMenu() {
         if (saveMenuOpen) {
             Box(Modifier.fillMaxSize()) {
                 Column (Modifier.align(Alignment.TopEnd)) {
                     for (i in 0..4) {
-                        Button(onClick = {saveMenuOpen = false; playing = true}) {
+                        Button(onClick = {
+                            isPlaying = true
+                            saveMenuOpen = false
+                            gameLoop.isPlaying = true
+                            keyListener.edit = false
+                        }) {
                             Text(Saves[i])
                         }
                     }
                 }
             }
         }
-        else {
-            play()
-        }
     }
     @Composable
-    fun play() {
-        if (playing) {
-            gameLoop.isPlaying = true
-            keyListener.edit = false
+    override fun play() {
+        saveMenu()
+        if (isPlaying) {
+            Box {
+                map.load()
+                player.load(Res.drawable.compose_multiplatform)
+                hud.display()
+                gameMenu.open()
+                gameLoop.GameScreen()
+                gameLoop.playerStuff()
+                map.checkCollisions()
+                Button(onClick = {toHomeMenu()}, Modifier.align(Alignment.BottomCenter)) {
+                    Text("Back")
+                }
+            }
         }
     }
 }

@@ -62,9 +62,8 @@ fun App() {
     }
 }
 
-
-//copied and pasted from windows
-
+/*
+copied and pasted from windows
 @Composable
 fun game(){
     if (gameLoop.isPlaying) {
@@ -76,6 +75,7 @@ fun game(){
         }
     }
 }
+*/
 
 @Composable
 @Preview
@@ -94,14 +94,8 @@ fun theApp() {
         editKeysMenu.open()
         settingsMenu.open()
         keyListener.listen()
-        storymode.saveMenu()
+        storymode.play()
         gameLoop.changeFrameRateMultiplier()
-        if (gameLoop.isPlaying) {
-            game()
-            gameLoop.GameScreen()
-            gameLoop.playerStuff()
-            map.checkCollisions()
-        }
         Text(keyListener.pressedKeys.toString())
         //not really needed anymore
         //Button(onClick = {}, Modifier.onKeyEvent(keyListener.listener)) {}
