@@ -35,7 +35,7 @@ N/A
 |------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
 | 🪟 Windows | [![Qt Build](https://github.com/Loop312/Bioreign/actions/workflows/build-gradle-project.yml/badge.svg)](https://github.com/Loop312/Bioreign/actions/workflows/build-gradle-project.yml) | [Windows EXE](https://nightly.link/Loop312/Bioreign/workflows/build-gradle-project/master/Bioreign-Windows.zip) |
 | 📱 Android | [![Qt Build](https://github.com/Loop312/Bioreign/actions/workflows/build-gradle-project.yml/badge.svg)](https://github.com/Loop312/Bioreign/actions/workflows/build-gradle-project.yml) | [APK](https://nightly.link/Loop312/Bioreign/workflows/build-gradle-project/master/Bioreign-Android.zip)         |
-| 🌐 Web     | [![Qt Build](https://github.com/Loop312/Bioreign/actions/workflows/web.yml/badge.svg)](https://github.com/Loop312/Bioreign/actions/workflows/Qt_Build.yml)                              | [Website](https://loop312.github.io/Bioreign/)                                                                  |
+| 🌐 Web     | [![Qt Build](https://github.com/Loop312/Bioreign/actions/workflows/web.yml/badge.svg)](https://github.com/Loop312/Bioreign/actions/workflows/web.yml)                              | [Website](https://loop312.github.io/Bioreign/)                                                                  |
 
 
 ‎
