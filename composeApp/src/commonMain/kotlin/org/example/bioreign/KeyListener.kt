@@ -3,7 +3,7 @@ package org.example.bioreign
 import androidx.compose.runtime.*
 import androidx.compose.ui.input.key.*
 
-class KeyListener () {
+class KeyListener {
     var pressedKeys by mutableStateOf<Set<Key>>(emptySet())
     var edit = true
     var keys by mutableStateOf(
@@ -23,21 +23,30 @@ class KeyListener () {
         if (!edit) {
             //MOVEMENT
             if (keys[0] in pressedKeys || keys[1] in pressedKeys) {
+                //possible reordering needed for true/false setting
+                player.movingLeft = true
+                player.movingRight = false
                 if (map.canMoveLeft) {
                     player.move(-1F, 0F)
                 }
             }
             if (keys[2] in pressedKeys || keys[3] in pressedKeys) {
+                player.movingLeft = false
+                player.movingRight = true
                 if (map.canMoveRight) {
                     player.move(1F, 0F)
                 }
             }
             if (keys[4] in pressedKeys || keys[5] in pressedKeys) {
+                player.movingUp = true
+                player.movingDown = false
                 if (map.canMoveUp) {
                     player.move(0F, -1F)
                 }
             }
             if (keys[6] in pressedKeys || keys[7] in pressedKeys) {
+                player.movingUp = false
+                player.movingDown = true
                 if (map.canMoveDown) {
                     player.move(0F, 1F)
                 }
