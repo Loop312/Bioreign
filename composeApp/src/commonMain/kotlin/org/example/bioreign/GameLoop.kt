@@ -43,7 +43,7 @@ class GameLoop {
                 }
 
                 // Handle potential delays or throttling
-                delay(frameRate) // Adjust delay for target frame rate
+                delay(frameRate.toLong()) // Adjust delay for target frame rate
             }
         }
         // Compose UI for rendering the game state
@@ -57,8 +57,8 @@ class GameLoop {
                 delay(1000)
                 launch {
                     while(player.stamina < player.maxStamina) {
-                        player.stamina += 0.1
-                        delay(frameRate)
+                        player.stamina += 0.1 * frameRateMultiplier
+                        delay(frameRate.toLong())
                     }
                 }
             }

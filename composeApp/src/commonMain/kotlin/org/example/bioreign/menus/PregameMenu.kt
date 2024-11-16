@@ -1,11 +1,16 @@
 package menus
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import bioreign.composeapp.generated.resources.BioreignTempLogo
+import bioreign.composeapp.generated.resources.Res
 import org.example.bioreign.*
+import org.jetbrains.compose.resources.painterResource
 
 
 class PregameMenu: Menu() {
@@ -24,15 +29,18 @@ class PregameMenu: Menu() {
     @Composable
     fun homeMenu() {
         if (homeMenuOpen) {
-            Column {
-                Button(onClick = { homeMenuOpen = false; selectModeOpen = true; keyListener.edit = false }) {
-                    Text("Start Game")
-                }
-                Button(onClick = { editKeysMenu.isOpen = true; isOpen = false; keyListener.edit = true }) {
-                    Text("Edit Keys")
-                }
-                Button(onClick = { settingsMenu.isOpen = true; isOpen = false}) {
-                    Text("Settings")
+            Box(Modifier.fillMaxSize()) {
+                Image(painterResource(Res.drawable.BioreignTempLogo), null, Modifier.align(Alignment.TopCenter).offset(0.dp, 50.dp))
+                Column (Modifier.align(Alignment.Center)) {
+                    Button(onClick = { homeMenuOpen = false; selectModeOpen = true; keyListener.edit = false }) {
+                        Text("Start Game")
+                    }
+                    Button(onClick = { editKeysMenu.isOpen = true; isOpen = false; keyListener.edit = true }) {
+                        Text("Edit Keys")
+                    }
+                    Button(onClick = { settingsMenu.isOpen = true; isOpen = false }) {
+                        Text("Settings")
+                    }
                 }
             }
         }

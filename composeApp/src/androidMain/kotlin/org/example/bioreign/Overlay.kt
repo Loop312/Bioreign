@@ -146,14 +146,14 @@ class Overlay {
     fun movePlayer(){
         LaunchedEffect(Unit) {
             while (true) {
-                delay(frameRate)
+                delay(frameRate.toLong())
                 if (dx >= 60 || dx <= -60 || dy >= 60 || dy <= -60) {
                     player.sprinting = true
-                    player.move(dx / 175, dy / 175)
+                    player.move((dx / 175) * frameRateMultiplier.toFloat(), (dy / 175) * frameRateMultiplier.toFloat())
                 }
                 else {
                     player.sprinting = false
-                    player.move(dx / 100, dy / 100)
+                    player.move((dx / 100) * frameRateMultiplier.toFloat(), (dy / 100) * frameRateMultiplier.toFloat())
                 }
             }
         }

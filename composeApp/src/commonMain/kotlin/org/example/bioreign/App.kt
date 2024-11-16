@@ -36,7 +36,7 @@ val online = Online()
 val rogue = Rogue()
 //60 fps is the default
 val defaultFrameRate = 1000/60
-var frameRate by mutableStateOf((1000/60).toLong())
+var frameRate by mutableStateOf(1000/60.0)
 //if 120 fps this needs to be 1/2, if 240 fps this needs to be 1/4, if 30 fps this needs to be 2
 var frameRateMultiplier = 1.0
 
