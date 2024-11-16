@@ -26,7 +26,11 @@ class SettingsMenu: Menu() {
 
                         Text("FPS: ")
                         TextField(fpstext, onValueChange = {
+                            try{
                             fpstext = it; frameRate = 1000/it.toDouble()
+                            } catch (e: Exception) {
+                                println(e)
+                            }
                         })
                     }
                     Button(onClick = { pregameMenu.isOpen = true; isOpen = false }) {

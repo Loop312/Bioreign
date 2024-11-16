@@ -12,7 +12,7 @@ class HUD {
 
     @Composable
     fun display(){
-        Column {
+        Column (Modifier.background(Color.LightGray)) {
             hud.healthBar()
             hud.staminaBar()
             hud.expBar()

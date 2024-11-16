@@ -2,6 +2,7 @@ package org.example.bioreign
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
@@ -12,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.*
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -81,7 +83,13 @@ fun theApp() {
     val focusRequester = remember {FocusRequester()}
     //there's an issue with the focus after clicking the "Start Game"
     //button in PregameMenu, this box is a temporary workaround
-    Box(Modifier.fillMaxSize().focusRequester(focusRequester).clickable{focusRequester.requestFocus()}.onKeyEvent(keyListener.listener)) {
+    Box(Modifier
+        .fillMaxSize()
+        .focusRequester(focusRequester)
+        .clickable{focusRequester.requestFocus()}
+        .onKeyEvent(keyListener.listener)
+        .background(Color.DarkGray)
+    ){
         pregameMenu.open()
         editKeysMenu.open()
         settingsMenu.open()
