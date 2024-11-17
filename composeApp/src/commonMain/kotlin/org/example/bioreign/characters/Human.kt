@@ -21,4 +21,8 @@ class Human : Character() {
         skillPoints += 5
         expMultiplier += .05F
     }
+
+    override fun uniqueSkill(){
+        //placeholder
+    }
 }

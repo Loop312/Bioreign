@@ -140,6 +140,7 @@ open class Character {
         }
     }
 
+    //loads character on screen
     @Composable
     fun load(resource: DrawableResource) {
         Box (Modifier.fillMaxSize()) {
@@ -152,5 +153,21 @@ open class Character {
                     .align(Alignment.Center)
             )
         }
+    }
+
+    fun attack(){
+        //placeholder
+    }
+
+    fun castSpell(){
+        //placeholder
+    }
+
+    fun cycleSpell(){
+        //placeholder
+    }
+
+    open fun uniqueSkill(){
+        //placeholder
     }
 }

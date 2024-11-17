@@ -8,14 +8,18 @@ class KeyListener {
     var edit = true
     var keys by mutableStateOf(
         arrayOf(
-        Key.A, Key.DirectionLeft,       //Left: 0,1
-        Key.D, Key.DirectionRight,      //Right: 2,3
-        Key.W, Key.DirectionUp,         //Up: 4,5
-        Key.S, Key.DirectionDown,       //Down: 6,7
-        Key.ShiftLeft, Key.ShiftRight   //Sprint: 8,9
+            Key.A, Key.DirectionLeft,       //Left: 0,1
+            Key.D, Key.DirectionRight,      //Right: 2,3
+            Key.W, Key.DirectionUp,         //Up: 4,5
+            Key.S, Key.DirectionDown,       //Down: 6,7
+            Key.ShiftLeft, Key.ShiftRight,   //Sprint: 8,9
+            Key.Spacebar, Key.Spacebar,     //Attack: 10,11
+            Key.E, Key.E,                   //Cast Spell: 12,13
+            Key.R, Key.R,                   //Cycle Spell: 14,15
+            Key.Q, Key.Q,                   //Unique Skill: 16,17
         )
     )
-    val temp = arrayOf("LEFT", "RIGHT", "UP", "DOWN", "SPRINT")
+    val keyNames = arrayOf("LEFT", "RIGHT", "UP", "DOWN", "SPRINT", "ATTACK", "CAST", "CYCLE", "UNIQUE")
 
     var esc = true
     @Composable
@@ -58,6 +62,19 @@ class KeyListener {
             }
 
             //ATTACK AND SPELLS
+            if (keys[10] in pressedKeys || keys[11] in pressedKeys) {
+                player.attack()
+            }
+            if (keys[12] in pressedKeys || keys[13] in pressedKeys) {
+                player.castSpell()
+            }
+            if (keys[14] in pressedKeys || keys[15] in pressedKeys) {
+                player.cycleSpell()
+            }
+            if (keys[16] in pressedKeys || keys[17] in pressedKeys) {
+                player.uniqueSkill()
+            }
+
         }
         //access menu
         if (Key.Escape in pressedKeys && esc) {

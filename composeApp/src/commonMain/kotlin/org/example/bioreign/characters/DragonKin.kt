@@ -19,4 +19,9 @@ class DragonKin : Character() {
     override var stealth by mutableStateOf(5)
     override var spd by mutableStateOf(5)
     override var res by mutableStateOf(5)
+
+
+    override fun uniqueSkill(){
+        //placeholder
+    }
 }

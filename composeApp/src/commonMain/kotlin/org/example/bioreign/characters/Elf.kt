@@ -20,4 +20,8 @@ class Elf : Character() {
     override var maxHp by mutableStateOf(5)
     override var hp by mutableStateOf(5)
     override var def by mutableStateOf(5)
+
+    override fun uniqueSkill(){
+        //placeholder
+    }
 }

@@ -21,4 +21,8 @@ class Demon : Character() {
     override var def = 5
 
     */
+
+    override fun uniqueSkill(){
+        //placeholder
+    }
 }

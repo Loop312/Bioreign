@@ -23,5 +23,8 @@ class DarkElf : Character() {
     override var hp by mutableStateOf(5)
     override var def by mutableStateOf(5)
 
+    override fun uniqueSkill(){
+        //placeholder
+    }
 
 }

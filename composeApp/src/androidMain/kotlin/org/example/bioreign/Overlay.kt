@@ -162,19 +162,19 @@ class Overlay {
     @Composable
     fun buttons() {
         val hapticFeedback = LocalHapticFeedback.current
-        Button(onClick = {hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)},
+        Button(onClick = {player.castSpell(); hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)},
             shape = CircleShape, modifier = Modifier.size(50.dp).offset(80.dp, -40.dp)) {
             Text("B")
         }
-        Button(onClick = {hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)},
+        Button(onClick = {player.cycleSpell(); hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)},
             shape = CircleShape, modifier = Modifier.size(50.dp).offset(40.dp, -80.dp)) {
             Text("Y")
         }
-        Button(onClick = {hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)},
+        Button(onClick = {player.uniqueSkill(); hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)},
             shape = CircleShape, modifier = Modifier.size(50.dp).offset(40.dp, 0.dp)) {
             Text("A")
         }
-        Button(onClick = {hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)},
+        Button(onClick = {player.attack(); hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)},
             shape = CircleShape, modifier = Modifier.size(50.dp).offset(0.dp, -40.dp)) {
             Text("X")
         }
