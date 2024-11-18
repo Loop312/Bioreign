@@ -8,6 +8,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import bioreign.composeapp.generated.resources.BioreignTempLogo
+import bioreign.composeapp.generated.resources.Res
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.example.bioreign.map
 import org.example.bioreign.player
 import org.jetbrains.compose.resources.DrawableResource
@@ -44,6 +50,7 @@ open class Character {
     var alive = true
     open var race = "lol"
     var sprinting by mutableStateOf(false)
+    var attacking by mutableStateOf(false)
     var x by mutableStateOf(0F)
     var y by mutableStateOf(0F)
 
@@ -144,6 +151,7 @@ open class Character {
     @Composable
     fun load(resource: DrawableResource) {
         Box (Modifier.fillMaxSize()) {
+            //renders character
             Image(
                 painter = painterResource(resource),
                 contentDescription = "lol",
@@ -152,11 +160,40 @@ open class Character {
                     .size(100.dp)
                     .align(Alignment.Center)
             )
+            //renders characters attack
+            if (attacking) {
+                Image(
+                    painterResource(Res.drawable.BioreignTempLogo),
+                    null,
+                    Modifier
+                        .offset((player.x + xDirection()).dp, (player.y + yDirection()).dp)
+                        .size(100.dp)
+                        .align(Alignment.Center)
+                )
+            }
         }
     }
 
     fun attack(){
-        //placeholder
+        if (!attacking) {
+            attacking = true
+            CoroutineScope(Dispatchers.Default).launch {
+                delay(333)
+                attacking = false
+            }
+        }
+    }
+
+    fun xDirection(): Int{
+        if (movingLeft) return -50
+        if (movingRight) return +50
+        return 0
+    }
+
+    fun yDirection(): Int{
+        if (movingUp) return -50
+        if (movingDown) return +50
+        return 0
     }
 
     fun castSpell(){
