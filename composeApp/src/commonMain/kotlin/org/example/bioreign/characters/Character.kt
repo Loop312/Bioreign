@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import bioreign.composeapp.generated.resources.BioreignTempLogo
 import bioreign.composeapp.generated.resources.Res
+import bioreign.composeapp.generated.resources.compose_multiplatform
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -51,6 +52,8 @@ open class Character {
     open var race = "lol"
     var sprinting by mutableStateOf(false)
     var attacking by mutableStateOf(false)
+    var casting by mutableStateOf(false)
+    var spells by mutableStateOf(arrayOf(""))
     var x by mutableStateOf(0F)
     var y by mutableStateOf(0F)
 
@@ -166,8 +169,18 @@ open class Character {
                     painterResource(Res.drawable.BioreignTempLogo),
                     null,
                     Modifier
-                        .offset((player.x + xDirection()).dp, (player.y + yDirection()).dp)
+                        .offset((player.x + xDirection("melee")).dp, (player.y + yDirection("melee")).dp)
                         .size(100.dp)
+                        .align(Alignment.Center)
+                )
+            }
+            if (casting) {
+                Image(
+                    painterResource(Res.drawable.compose_multiplatform),
+                    null,
+                    Modifier
+                        .offset((player.x + xDirection("magic")).dp, (player.y + yDirection("magic")).dp)
+                        .size(25.dp)
                         .align(Alignment.Center)
                 )
             }
@@ -184,20 +197,40 @@ open class Character {
         }
     }
 
-    fun xDirection(): Int{
-        if (movingLeft) return -50
-        if (movingRight) return +50
+    fun xDirection(attackType: String): Int{
+        if (attackType == "melee") {
+            if (movingLeft) return -50
+            if (movingRight) return +50
+        }
+        if (attackType == "magic") {
+            //placeholder (use animatable numbers)
+            if (movingLeft) return -50
+            if (movingRight) return +50
+        }
         return 0
     }
 
-    fun yDirection(): Int{
-        if (movingUp) return -50
-        if (movingDown) return +50
+    fun yDirection(attackType: String): Int{
+        if (attackType == "melee") {
+            if (movingUp) return -50
+            if (movingDown) return +50
+        }
+        if (attackType == "magic") {
+            //placeholder (use animatable numbers)
+            if (movingUp) return -50
+            if (movingDown) return +50
+        }
         return 0
     }
 
     fun castSpell(){
-        //placeholder
+        if (!casting) {
+            casting = true
+            CoroutineScope(Dispatchers.Default).launch {
+                delay(333)
+                casting = false
+            }
+        }
     }
 
     fun cycleSpell(){
