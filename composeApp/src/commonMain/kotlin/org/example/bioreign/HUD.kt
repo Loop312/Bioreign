@@ -16,7 +16,11 @@ class HUD {
             hud.healthBar()
             hud.staminaBar()
             hud.expBar()
-            Text("Player Location: (${map.x}, ${map.y})")
+            Text("Player Location: (${map.x}, ${map.y})\n" +
+                    "Player Spells: " + player.spells.joinToString { it.name } + "\n" +
+                    "Player Current Spell: ${player.spells[player.currentSpell].name}",
+                color = Color.Blue
+            )
         }
     }
     @Composable

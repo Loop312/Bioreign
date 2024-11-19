@@ -10,11 +10,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import bioreign.composeapp.generated.resources.BioreignTempLogo
 import bioreign.composeapp.generated.resources.Res
-import bioreign.composeapp.generated.resources.compose_multiplatform
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.example.bioreign.magic.Fireball
+import org.example.bioreign.magic.RockBullet
+import org.example.bioreign.magic.WaterBall
+import org.example.bioreign.magic.WindDart
 import org.example.bioreign.map
 import org.example.bioreign.player
 import org.jetbrains.compose.resources.DrawableResource
@@ -53,7 +56,9 @@ open class Character {
     var sprinting by mutableStateOf(false)
     var attacking by mutableStateOf(false)
     var casting by mutableStateOf(false)
-    var spells by mutableStateOf(arrayOf(""))
+    var switching by mutableStateOf(false)
+    var spells by mutableStateOf(arrayOf(Fireball(), WaterBall(), WindDart(), RockBullet()))
+    var currentSpell by mutableStateOf(0)
     var x by mutableStateOf(0F)
     var y by mutableStateOf(0F)
 
@@ -176,11 +181,11 @@ open class Character {
             }
             if (casting) {
                 Image(
-                    painterResource(Res.drawable.compose_multiplatform),
-                    null,
+                    painterResource(spells[currentSpell].image),
+                    spells[currentSpell].name,
                     Modifier
                         .offset((player.x + xDirection("magic")).dp, (player.y + yDirection("magic")).dp)
-                        .size(25.dp)
+                        .size(spells[currentSpell].size.dp)
                         .align(Alignment.Center)
                 )
             }
@@ -234,7 +239,18 @@ open class Character {
     }
 
     fun cycleSpell(){
-        //placeholder
+        if (!switching) {
+            switching = true
+
+            if (currentSpell < spells.size - 1) {
+                currentSpell += 1
+            } else currentSpell = 0
+
+            CoroutineScope(Dispatchers.Default).launch {
+                delay(333)
+                switching = false
+            }
+        }
     }
 
     open fun uniqueSkill(){

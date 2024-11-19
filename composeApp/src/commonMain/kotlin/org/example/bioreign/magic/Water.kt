@@ -1,6 +1,6 @@
 package org.example.bioreign.magic
 
-class Waterball: Spell() {
+class WaterBall: Spell() {
     override var name = "Water Ball"
 }
 
