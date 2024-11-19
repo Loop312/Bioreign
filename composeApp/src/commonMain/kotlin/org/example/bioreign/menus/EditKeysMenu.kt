@@ -7,7 +7,6 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.unit.dp
 import org.example.bioreign.keyListener
 import org.example.bioreign.pregameMenu
@@ -22,10 +21,10 @@ class EditKeysMenu: Menu() {
                 for (i in 0..<keyListener.keys.size step 2) {
                     Row {
                         Text(keyListener.keyNames[i/2], modifier = Modifier.padding(10.dp))
-                        Button(onClick = { keyListener.editKeybinds(i, Key.A); refresh()}) {
+                        Button(onClick = { keyListener.editKeybinds(i); refresh()}) {
                             Text(keyListener.keys[i].toString())
                         }
-                        Button(onClick = { keyListener.editKeybinds(i+1, Key.A); refresh()}) {
+                        Button(onClick = { keyListener.editKeybinds(i+1); refresh()}) {
                             Text(keyListener.keys[i+1].toString())
                         }
                     }

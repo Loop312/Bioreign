@@ -2,6 +2,10 @@ package org.example.bioreign
 
 import androidx.compose.runtime.*
 import androidx.compose.ui.input.key.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class KeyListener {
     var pressedKeys by mutableStateOf<Set<Key>>(emptySet())
@@ -85,8 +89,21 @@ class KeyListener {
     }
 
     //create a function for handling keybind changes
-    fun editKeybinds(original: Int, newKey: Key){
-        keys[original] = newKey
+    fun editKeybinds(original: Int){
+        CoroutineScope(Dispatchers.Default).launch {
+            if (pressedKeys.isNotEmpty()) {
+                keys[original] = pressedKeys.first()
+            }
+            else {
+                while (pressedKeys.isEmpty()) {
+                    delay(100)
+                    if (pressedKeys.isNotEmpty()) {
+                        keys[original] = pressedKeys.first()
+                        break
+                    }
+                }
+            }
+        }
     }
 
     val listener = { event: KeyEvent ->
