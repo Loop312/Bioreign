@@ -50,6 +50,9 @@ open class Character {
     open var explimit by mutableStateOf(10F) //experience need to lvlup
     open var lvl by mutableStateOf(1)       //Player level
     open var skillPoints by mutableStateOf(0) //used to upgrade character
+    //mana
+    open var maxMana by mutableStateOf(10.0)
+    open var mana by mutableStateOf(10.0)
     //status tracker
     var alive = true
     open var race = "lol"
@@ -229,11 +232,14 @@ open class Character {
     }
 
     fun castSpell(){
-        if (!casting) {
-            casting = true
-            CoroutineScope(Dispatchers.Default).launch {
-                delay(333)
-                casting = false
+        if (mana > spells[currentSpell].cost) {
+            if (!casting) {
+                casting = true
+                mana -= spells[currentSpell].cost
+                CoroutineScope(Dispatchers.Default).launch {
+                    delay(1000)
+                    casting = false
+                }
             }
         }
     }

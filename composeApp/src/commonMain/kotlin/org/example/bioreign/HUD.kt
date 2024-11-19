@@ -15,6 +15,7 @@ class HUD {
         Column (Modifier.background(Color.LightGray)) {
             hud.healthBar()
             hud.staminaBar()
+            hud.manaBar()
             hud.expBar()
             Text("Player Location: (${map.x}, ${map.y})\n" +
                     "Player Spells: " + player.spells.joinToString { it.name } + "\n" +
@@ -53,6 +54,23 @@ class HUD {
                     .fillMaxHeight()
                     .width((player.stamina*10).dp)
                     .background(Color.Yellow)
+            )
+        }
+    }
+
+    @Composable
+    fun manaBar(){
+        Box(modifier = Modifier
+            .height(20.dp)
+            .width((player.maxMana*10).dp)
+            .padding(top = 10.dp)
+            .border(width = 2.dp, color = Color.Gray)
+        ){
+            Box(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .width((player.mana*10).dp)
+                    .background(Color.Cyan)
             )
         }
     }

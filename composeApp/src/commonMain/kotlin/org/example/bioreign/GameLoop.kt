@@ -67,6 +67,18 @@ class GameLoop {
         LaunchedEffect(player.exp){
             if (player.exp >= player.explimit) player.lvlup()
         }
+        //code runs whenever sprinting changes
+        LaunchedEffect(player.casting) {
+            if (!player.casting) {
+                delay(1000)
+                launch {
+                    while(player.mana < player.maxMana) {
+                        player.mana += 0.1 * frameRateMultiplier
+                        delay(frameRate.toLong())
+                    }
+                }
+            }
+        }
     }
     @Composable
     fun changeFrameRateMultiplier() {
