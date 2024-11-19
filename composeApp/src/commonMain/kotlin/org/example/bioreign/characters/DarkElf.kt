@@ -8,6 +8,7 @@ import androidx.compose.runtime.setValue
 Strengths: speed, stealth, stamina
 Weaknesses: strength, hp, defense
 Unique Skill: invisibility
+Magic: Wind and Water (for now)
 */
 class DarkElf : Character() {
     override var race = "Dark Elf"

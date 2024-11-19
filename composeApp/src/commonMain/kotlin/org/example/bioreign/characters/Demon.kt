@@ -4,6 +4,7 @@ package characters
 Strengths: TBD
 Weaknesses: TBD
 Unique Skill: TBD
+Magic: TBD (based on process of elimination rn it would be wind and earth)
 */
 class Demon : Character() {
     override var race = "Demon"

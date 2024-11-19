@@ -8,6 +8,7 @@ import androidx.compose.runtime.setValue
 Strengths: Strength, hp, defense
 Weaknesses: Stealth, speed, resistance
 Unique Skill: Regeneration
+Magic: Earth and Fire (for now)
 */
 class DragonKin : Character() {
     override var race = "Dragon Kin"

@@ -4,6 +4,7 @@ package characters
 Strengths: None
 Weaknesses: None
 Unique Skill: Exp Multiplier
+Magic: None/Random/TBD
 */
 class Human : Character() {
     override var race = "Human"

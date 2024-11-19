@@ -1,23 +1,21 @@
 package org.example.bioreign.magic
 
-class Water: Magic() {
-    override fun cast1() {
-
-    }
-    override fun cast2() {
-
-    }
-    override fun cast3() {
-
-    }
-    override fun cast4() {
-
-    }
-    override fun cast5() {
-
-    }
+class Waterball: Spell() {
+    override var name = "Water Ball"
 }
 
 class Heal: Spell() {
     override var name = "Heal"
+}
+
+class Waterball2: Spell() {
+    override var name = "Water Ball"
+}
+
+class Waterball3: Spell() {
+    override var name = "Water Ball"
+}
+
+class Waterball4: Spell() {
+    override var name = "Water Ball"
 }
