@@ -1,4 +1,4 @@
-package menus
+package org.example.bioreign.menus
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*

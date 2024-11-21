@@ -1,4 +1,4 @@
-package characters
+package org.example.bioreign.characters
 
 /*
 Strengths: TBD

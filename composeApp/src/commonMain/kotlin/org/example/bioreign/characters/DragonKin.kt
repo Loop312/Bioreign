@@ -1,4 +1,4 @@
-package characters
+package org.example.bioreign.characters
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

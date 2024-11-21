@@ -18,10 +18,14 @@ import androidx.compose.ui.input.key.*
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import bioreign.composeapp.generated.resources.*
-import characters.Player
+//bioreign imports
+import org.example.bioreign.characters.Player
 import org.example.bioreign.maps.Map
-import menus.*
 import org.example.bioreign.gamemodes.*
+import org.example.bioreign.menus.EditKeysMenu
+import org.example.bioreign.menus.InGameMenu
+import org.example.bioreign.menus.PregameMenu
+import org.example.bioreign.menus.SettingsMenu
 
 
 val player = Player()

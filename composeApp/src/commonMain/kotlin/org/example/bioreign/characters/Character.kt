@@ -1,4 +1,4 @@
-package characters
+package org.example.bioreign.characters
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
