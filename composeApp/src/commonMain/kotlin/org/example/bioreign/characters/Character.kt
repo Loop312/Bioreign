@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import bioreign.composeapp.generated.resources.BioreignTempLogo
 import bioreign.composeapp.generated.resources.Res
+import bioreign.composeapp.generated.resources.compose_multiplatform
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -20,7 +21,6 @@ import org.example.bioreign.magic.WaterBall
 import org.example.bioreign.magic.WindDart
 import org.example.bioreign.map
 import org.example.bioreign.player
-import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import kotlin.math.roundToInt
 
@@ -65,6 +65,7 @@ open class Character {
     var currentSpell by mutableStateOf(0)
     var x by mutableStateOf(0F)
     var y by mutableStateOf(0F)
+    open var image = Res.drawable.compose_multiplatform
 
     var movingUp = false
     var movingDown = false
@@ -164,12 +165,12 @@ open class Character {
 
     //loads character on screen
     @Composable
-    fun load(resource: DrawableResource) {
+    fun load() {
         Box (Modifier.fillMaxSize()) {
             //renders character
             if (!hiding) {
                 Image(
-                    painter = painterResource(resource),
+                    painter = painterResource(image),
                     contentDescription = "lol",
                     modifier = Modifier
                         .offset(player.x.dp, player.y.dp)

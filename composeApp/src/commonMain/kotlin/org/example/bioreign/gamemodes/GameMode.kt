@@ -2,6 +2,7 @@ package org.example.bioreign.gamemodes
 
 import androidx.compose.runtime.Composable
 import org.example.bioreign.gameLoop
+import org.example.bioreign.keyListener
 import org.example.bioreign.pregameMenu
 
 open class GameMode {
@@ -20,5 +21,11 @@ open class GameMode {
         pregameMenu.homeMenuOpen = true
         gameLoop.isPlaying = false
         isPlaying = false
+    }
+
+    fun startGame() {
+        isPlaying = true
+        gameLoop.isPlaying = true
+        keyListener.edit = false
     }
 }

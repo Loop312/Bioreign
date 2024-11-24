@@ -99,6 +99,7 @@ fun theApp() {
         settingsMenu.open()
         keyListener.listen()
         storymode.play()
+        rogue.play()
         gameLoop.changeFrameRateMultiplier()
         Text(keyListener.pressedKeys.toString())
         //not really needed anymore

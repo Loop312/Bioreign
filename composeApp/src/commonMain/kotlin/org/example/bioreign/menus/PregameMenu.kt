@@ -1,6 +1,7 @@
 package org.example.bioreign.menus
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -9,6 +10,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import bioreign.composeapp.generated.resources.BioreignTempLogo
 import bioreign.composeapp.generated.resources.Res
+import bioreign.composeapp.generated.resources.compose_multiplatform
+import bioreign.composeapp.generated.resources.tempmap
 import org.example.bioreign.*
 import org.jetbrains.compose.resources.painterResource
 
@@ -23,6 +26,7 @@ class PregameMenu: Menu() {
         if(!gameLoop.isPlaying && isOpen) {
             homeMenu()
             selectMode()
+            selectCharacter()
         }
     }
 
@@ -54,24 +58,44 @@ class PregameMenu: Menu() {
                     Button(onClick = { storymode.saveMenuOpen = true; selectModeOpen = false }) {
                         Text("Story Mode")
                     }
-                    Button(onClick = { selectCharacter() }) {
+                    Button(onClick = { characterMenuOpen = true; selectModeOpen = false }) {
                         Text("PvP Mode")
                     }
-                    Button(onClick = { selectCharacter() }) {
+                    Button(onClick = { rogue.startGame(); selectModeOpen = false }) {
                         Text("Roguelike Mode")
                     }
-                    Button(onClick = { homeMenuOpen = true; selectModeOpen = false }) {
-                        Text("Back")
-                    }
+                }
+                Button(onClick = { homeMenuOpen = true; selectModeOpen = false },Modifier.align(Alignment.BottomCenter)) {
+                    Text("Back")
                 }
             }
         }
     }
 
+    private val characterImages = listOf(Res.drawable.compose_multiplatform, Res.drawable.BioreignTempLogo, Res.drawable.tempmap)
+    @Composable
     fun selectCharacter() {
-        //TODO
+        var i by remember {  mutableStateOf(0) }
         if (characterMenuOpen) {
-
+            Box(Modifier.fillMaxSize()) {
+                Image(painterResource(characterImages[i]), null, Modifier
+                    .align(Alignment.Center)
+                    .size(200.dp)
+//                                                                  //add check for mode
+                    .clickable{ player.image = characterImages[i]; storymode.startGame(); characterMenuOpen = false}
+                )
+                //% characterImages.size makes it loop through and come back to the beginning
+                Button({ i = (i + 1) % characterImages.size }, Modifier.align(Alignment.CenterEnd)) {
+                    Text(">")
+                }
+                Button({ i = (i - 1 + characterImages.size) % characterImages.size }, Modifier.align(Alignment.CenterStart)) {
+                    Text("<")
+                }
+                Button({ selectModeOpen = true; characterMenuOpen = false}, Modifier.align(Alignment.BottomCenter)) {
+                    Text("Back")
+                }
+                Text ("Character Select: $i", Modifier.align(Alignment.TopCenter))
+            }
         }
     }
 }

@@ -11,8 +11,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import bioreign.composeapp.generated.resources.Res
-import bioreign.composeapp.generated.resources.compose_multiplatform
 import org.example.bioreign.*
 
 class Storymode: GameMode() {
@@ -25,10 +23,8 @@ class Storymode: GameMode() {
                 Column (Modifier.align(Alignment.TopEnd)) {
                     for (i in 0..4) {
                         Button(onClick = {
-                            isPlaying = true
                             saveMenuOpen = false
-                            gameLoop.isPlaying = true
-                            keyListener.edit = false
+                            startGame()
                         }) {
                             Text(Saves[i])
                         }
@@ -43,7 +39,7 @@ class Storymode: GameMode() {
         if (isPlaying) {
             Box {
                 map.load()
-                player.load(Res.drawable.compose_multiplatform)
+                player.load()
                 hud.display()
                 gameMenu.open()
                 gameLoop.GameScreen()
