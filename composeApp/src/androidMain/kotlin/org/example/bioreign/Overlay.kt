@@ -147,8 +147,8 @@ class Overlay {
         LaunchedEffect(Unit) {
             while (true) {
                 delay(frameRate.toLong())
-                if (dx >= 60 || dx <= -60 || dy >= 60 || dy <= -60) {
-                    player.sprinting = true
+                if (dx >= 75 || dx <= -75 || dy >= 75 || dy <= -75) {
+                    player.sprinting = if (player.stamina > 0) {true} else false
                     player.move((dx / 175) * frameRateMultiplier.toFloat(), (dy / 175) * frameRateMultiplier.toFloat())
                 }
                 else {

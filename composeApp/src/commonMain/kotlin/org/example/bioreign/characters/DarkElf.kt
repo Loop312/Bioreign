@@ -3,6 +3,10 @@ package org.example.bioreign.characters
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /*
 Strengths: speed, stealth, stamina
@@ -26,6 +30,12 @@ class DarkElf : Character() {
 
     override fun uniqueSkill(){
         //placeholder
+        if (!hiding) {
+            hiding = true
+            CoroutineScope(Dispatchers.Default).launch {
+                delay(5000)
+                hiding = false
+            }
+        }
     }
-
 }

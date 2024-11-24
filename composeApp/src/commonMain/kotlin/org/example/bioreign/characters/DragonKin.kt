@@ -3,11 +3,16 @@ package org.example.bioreign.characters
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import org.example.bioreign.map
 
 /*
 Strengths: Strength, hp, defense
 Weaknesses: Stealth, speed, resistance
-Unique Skill: Regeneration
+Unique Skill: Regeneration and parry/counter
 Magic: Earth and Fire (for now)
 */
 class DragonKin : Character() {
@@ -24,5 +29,20 @@ class DragonKin : Character() {
 
     override fun uniqueSkill(){
         //placeholder
+        map.canMoveUp = false
+        map.canMoveDown = false
+        map.canMoveLeft = false
+        map.canMoveRight = false
+
+        //if attacked parry/counter
+
+        CoroutineScope(Dispatchers.Default).launch {
+            delay(333)
+            map.canMoveUp = true
+            map.canMoveDown = true
+            map.canMoveLeft = true
+            map.canMoveRight = true
+        }
+
     }
 }

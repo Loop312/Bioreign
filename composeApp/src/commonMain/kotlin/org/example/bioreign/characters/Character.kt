@@ -56,6 +56,7 @@ open class Character {
     //status tracker
     var alive = true
     open var race = "lol"
+    var hiding by mutableStateOf(false)
     var sprinting by mutableStateOf(false)
     var attacking by mutableStateOf(false)
     var casting by mutableStateOf(false)
@@ -85,6 +86,7 @@ open class Character {
     }
 
     //gain exp
+    //open due to human class
     open fun gainExp(num: Float){
         exp += num
     }
@@ -116,7 +118,8 @@ open class Character {
         }
     }
     //checks if hp < 0 and sets alive to false
-    fun checkHp() {
+    //built into taking damage functions
+    private fun checkHp() {
         if (hp < 0) {
             hp = 0
             alive = false
@@ -124,6 +127,7 @@ open class Character {
     }
 
     //delete later
+    //simulates lvl ups
     fun lvlupSim(num: Int): String {
         for (i in 1..num) {
             displayStats()
@@ -163,14 +167,16 @@ open class Character {
     fun load(resource: DrawableResource) {
         Box (Modifier.fillMaxSize()) {
             //renders character
-            Image(
-                painter = painterResource(resource),
-                contentDescription = "lol",
-                modifier = Modifier
-                    .offset(player.x.dp, player.y.dp)
-                    .size(100.dp)
-                    .align(Alignment.Center)
-            )
+            if (!hiding) {
+                Image(
+                    painter = painterResource(resource),
+                    contentDescription = "lol",
+                    modifier = Modifier
+                        .offset(player.x.dp, player.y.dp)
+                        .size(100.dp)
+                        .align(Alignment.Center)
+                )
+            }
             //renders characters attack
             if (attacking) {
                 Image(
@@ -205,7 +211,8 @@ open class Character {
         }
     }
 
-    fun xDirection(attackType: String): Int{
+    //handles attack direction offsets on x axis
+    private fun xDirection(attackType: String): Int{
         if (attackType == "melee") {
             if (movingLeft) return -50
             if (movingRight) return +50
@@ -218,7 +225,8 @@ open class Character {
         return 0
     }
 
-    fun yDirection(attackType: String): Int{
+    //handles attack direction offsets on y axis
+    private fun yDirection(attackType: String): Int{
         if (attackType == "melee") {
             if (movingUp) return -50
             if (movingDown) return +50
@@ -259,6 +267,7 @@ open class Character {
         }
     }
 
+    //every race will have their own unique skill
     open fun uniqueSkill(){
         //placeholder
     }
