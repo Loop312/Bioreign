@@ -129,7 +129,7 @@ class Overlay {
         }
         movePlayer()
     }
-
+    //add things to this so it can recognize direction changes, and collisions
     val moveStick = { _: PointerInputChange, dragAmount: Offset ->
         if (dx + dragAmount.x < -100F || dx + dragAmount.x > 100F) {
             dx += 0F

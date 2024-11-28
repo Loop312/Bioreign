@@ -1,12 +1,10 @@
 package org.example.bioreign.characters
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.unit.dp
 import bioreign.composeapp.generated.resources.BioreignTempLogo
 import bioreign.composeapp.generated.resources.Res
@@ -166,6 +164,15 @@ open class Character {
     //loads character on screen
     @Composable
     fun load() {
+        var cropx by remember { mutableStateOf(0) }
+        var cropy by remember { mutableStateOf(0) }
+        //might be able to use Rect().intersect() for collisions...
+        val cropRect = Rect(
+            left = 100f,
+            top = 100f,
+            right = 300f,
+            bottom = 300f
+        )
         Box (Modifier.fillMaxSize()) {
             //renders character
             if (!hiding) {

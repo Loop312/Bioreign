@@ -8,10 +8,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import bioreign.composeapp.generated.resources.BioreignTempLogo
-import bioreign.composeapp.generated.resources.Res
-import bioreign.composeapp.generated.resources.compose_multiplatform
-import bioreign.composeapp.generated.resources.tempmap
+import bioreign.composeapp.generated.resources.*
 import org.example.bioreign.*
 import org.jetbrains.compose.resources.painterResource
 
@@ -35,7 +32,7 @@ class PregameMenu: Menu() {
         if (homeMenuOpen) {
             Box(Modifier.fillMaxSize()) {
                 Image(painterResource(Res.drawable.BioreignTempLogo), null, Modifier.align(Alignment.TopCenter).offset(0.dp, 50.dp))
-                Column (Modifier.align(Alignment.Center)) {
+                Column (Modifier.align(Alignment.Center), horizontalAlignment = Alignment.CenterHorizontally) {
                     Button(onClick = { homeMenuOpen = false; selectModeOpen = true; keyListener.edit = false }) {
                         Text("Start Game")
                     }
@@ -58,9 +55,13 @@ class PregameMenu: Menu() {
                     Button(onClick = { storymode.saveMenuOpen = true; selectModeOpen = false }) {
                         Text("Story Mode")
                     }
+                    Spacer(Modifier.width(10.dp))
+
                     Button(onClick = { characterMenuOpen = true; selectModeOpen = false }) {
                         Text("PvP Mode")
                     }
+                    Spacer(Modifier.width(10.dp))
+
                     Button(onClick = { rogue.startGame(); selectModeOpen = false }) {
                         Text("Roguelike Mode")
                     }
@@ -72,7 +73,12 @@ class PregameMenu: Menu() {
         }
     }
 
-    private val characterImages = listOf(Res.drawable.compose_multiplatform, Res.drawable.BioreignTempLogo, Res.drawable.tempmap)
+    private val characterImages = listOf(
+        Res.drawable.compose_multiplatform,
+        Res.drawable.BioreignTempLogo,
+        Res.drawable.tempmap,
+        Res.drawable.A
+    )
     @Composable
     fun selectCharacter() {
         var i by remember {  mutableStateOf(0) }
