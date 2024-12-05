@@ -3,7 +3,6 @@ package org.example.bioreign
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
@@ -85,12 +84,16 @@ fun game(){
 @Preview
 fun theApp() {
     val focusRequester = remember {FocusRequester()}
+    LaunchedEffect(gameLoop.isPlaying) {
+        if (gameLoop.isPlaying) {
+            focusRequester.requestFocus()
+        }
+    }
     //there's an issue with the focus after clicking the "Start Game"
     //button in PregameMenu, this box is a temporary workaround
     Box(Modifier
         .fillMaxSize()
         .focusRequester(focusRequester)
-        .clickable{focusRequester.requestFocus()}
         .onKeyEvent(keyListener.listener)
         .background(Color.DarkGray)
     ){
