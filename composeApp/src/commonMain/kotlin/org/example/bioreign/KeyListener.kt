@@ -57,10 +57,11 @@ val keyHandler = KeyHandler() {
     addMultipleKeys(setOf(Key.Q, Key.Q), "UNIQUE") {
         player.uniqueSkill()
     }
-
+    /*
     addSingleActionKey(Key.Escape, "ESC") {
         gameMenu.isOpen = !gameMenu.isOpen
     }
+     */
 }
 class KeyListener {
 
@@ -137,11 +138,13 @@ class KeyListener {
 
         }
         //access menu
+        /*
         if (Key.Escape in pressedKeys && esc) {
             gameMenu.isOpen = !gameMenu.isOpen
             println("Toggle menu")
             esc = false
         }
+         */
     }
 
     //create a function for handling keybind changes

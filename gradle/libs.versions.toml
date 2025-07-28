@@ -19,6 +19,7 @@ kotlinx-coroutines = "1.10.2"
 ktor = "3.2.2"
 logback = "1.5.18"
 composeHotReload = "1.0.0-beta04"
+navigationCompose = "2.9.0-beta04"
 
 [libraries]
 compose-keyhandler = { module = "io.github.loop312:compose-keyhandler", version.ref = "composeKeyhandler" }
@@ -41,6 +42,7 @@ ktor-server-websockets = { module = "io.ktor:ktor-server-websockets", version.re
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 ktor-server-core = { module = "io.ktor:ktor-server-core-jvm", version.ref = "ktor" }
 ktor-server-netty = { module = "io.ktor:ktor-server-netty-jvm", version.ref = "ktor" }
+navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 #ktor-server-tests = { module = "io.ktor:ktor-server-tests-jvm", version.ref = "ktor" }
 
 [plugins]

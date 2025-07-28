@@ -5,13 +5,11 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import org.example.bioreign.player
 
-class InGameMenu: Menu() {
+class InGameMenu {
     @Composable
-    override fun open(){
-        if (isOpen) {
-            Box {
-                Text(player.displayStats())
-            }
+    fun open(){
+        Box {
+            Text(player.displayStats())
         }
     }
 }

@@ -9,32 +9,29 @@ import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import org.example.bioreign.frameRate
-import org.example.bioreign.pregameMenu
 
-class SettingsMenu: Menu() {
-
-    var fpstext by mutableStateOf("")
+class SettingsMenu {
     @Composable
-    override fun open() {
-        if (isOpen) {
-            Box {
-                Column {
-                    Text("Settings")
-                    Row {
-                        Text("FPS: ")
-                        TextField(fpstext, onValueChange = {
-                            try{
-                            fpstext = it; frameRate = 1000/(it.toDouble())
-                            } catch (e: Exception) {
-                                println(e)
-                            }
-                        })
-                    }
-                    Button(onClick = { pregameMenu.isOpen = true; isOpen = false }) {
-                        Text("Back")
-                    }
+    fun open(navBack: () -> Unit) {
+        var fpstext by remember { mutableStateOf("") }
+        Box {
+            Column {
+                Text("Settings")
+                Row {
+                    Text("FPS: ")
+                    TextField(fpstext, onValueChange = {
+                        try{
+                        fpstext = it; frameRate = 1000/(it.toDouble())
+                        } catch (e: Exception) {
+                            println(e)
+                        }
+                    })
+                }
+                Button(onClick = { navBack() }) {
+                    Text("Back")
                 }
             }
         }

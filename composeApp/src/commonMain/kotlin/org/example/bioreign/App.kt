@@ -20,11 +20,7 @@ import bioreign.composeapp.generated.resources.*
 //bioreign imports
 import org.example.bioreign.characters.Player
 import org.example.bioreign.maps.Map
-import org.example.bioreign.gamemodes.*
-import org.example.bioreign.menus.EditKeysMenu
-import org.example.bioreign.menus.InGameMenu
-import org.example.bioreign.menus.PregameMenu
-import org.example.bioreign.menus.SettingsMenu
+import org.example.bioreign.menus.Nav
 
 
 val player = Player()
@@ -32,13 +28,6 @@ val gameLoop = GameLoop()
 val keyListener = KeyListener()
 val map = Map(Res.drawable.tempmap)
 val hud = HUD()
-val gameMenu = InGameMenu()
-val pregameMenu = PregameMenu()
-val editKeysMenu = EditKeysMenu()
-val settingsMenu = SettingsMenu()
-val storymode = Storymode()
-val online = Online()
-val rogue = Rogue()
 //60 fps is the default
 val defaultFrameRate = 1000/60.0
 var frameRate by mutableStateOf(1000/60.0)
@@ -84,6 +73,7 @@ fun game(){
 @Preview
 fun theApp() {
     val focusRequester = remember {FocusRequester()}
+    val nav = remember { Nav() }
     LaunchedEffect(gameLoop.isPlaying) {
         if (gameLoop.isPlaying)  {
             focusRequester.requestFocus()
@@ -97,12 +87,8 @@ fun theApp() {
         .onKeyEvent(keyListener.listener)
         .background(Color.DarkGray)
     ){
-        pregameMenu.open()
-        editKeysMenu.open()
-        settingsMenu.open()
+        nav.activate()
         keyListener.listen()
-        storymode.play()
-        rogue.play()
         gameLoop.changeFrameRateMultiplier()
         Column() {
             Text(keyListener.pressedKeys.toString())
