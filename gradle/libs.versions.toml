@@ -12,6 +12,7 @@ androidx-lifecycle = "2.9.1"
 androidx-material = "1.12.0"
 androidx-test-junit = "1.2.1"
 compose-multiplatform = "1.8.2"
+composeKeyhandler = "0.6.1"
 junit = "4.13.2"
 kotlin = "2.2.0"
 kotlinx-coroutines = "1.10.2"
@@ -20,6 +21,7 @@ logback = "1.5.18"
 composeHotReload = "1.0.0-beta04"
 
 [libraries]
+compose-keyhandler = { module = "io.github.loop312:compose-keyhandler", version.ref = "composeKeyhandler" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }

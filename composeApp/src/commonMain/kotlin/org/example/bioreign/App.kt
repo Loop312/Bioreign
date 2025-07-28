@@ -85,7 +85,7 @@ fun game(){
 fun theApp() {
     val focusRequester = remember {FocusRequester()}
     LaunchedEffect(gameLoop.isPlaying) {
-        if (gameLoop.isPlaying) {
+        if (gameLoop.isPlaying)  {
             focusRequester.requestFocus()
         }
     }
@@ -104,7 +104,11 @@ fun theApp() {
         storymode.play()
         rogue.play()
         gameLoop.changeFrameRateMultiplier()
-        Text(keyListener.pressedKeys.toString())
+        Column() {
+            Text(keyListener.pressedKeys.toString())
+        }
+
+
         //not really needed anymore
         //Button(onClick = {}, Modifier.onKeyEvent(keyListener.listener)) {}
     }

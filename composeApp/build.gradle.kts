@@ -70,6 +70,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(projects.shared)
+            implementation(libs.compose.keyhandler)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)

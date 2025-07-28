@@ -2,12 +2,68 @@ package org.example.bioreign
 
 import androidx.compose.runtime.*
 import androidx.compose.ui.input.key.*
+import io.github.compose_keyhandler.KeyHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+val keyHandler = KeyHandler() {
+    addMultipleKeys(setOf(Key.A, Key.DirectionLeft), "LEFT") {
+        player.movingLeft = true
+        player.movingRight = false
+        if (map.canMoveLeft) {
+            player.move(-1F, 0F)
+        }
+    }
+    addMultipleKeys(setOf(Key.D, Key.DirectionRight), "RIGHT") {
+        player.movingRight = true
+        player.movingLeft = false
+        if (map.canMoveRight) {
+            player.move(1F, 0F)
+        }
+    }
+    addMultipleKeys(setOf(Key.W, Key.DirectionUp), "UP") {
+        player.movingUp = true
+        player.movingDown = false
+        if (map.canMoveUp) {
+            player.move(0F, -1F)
+        }
+    }
+    addMultipleKeys(setOf(Key.S, Key.DirectionDown), "DOWN") {
+        player.movingUp = false
+        player.movingDown = true
+        if (map.canMoveDown) {
+            player.move(0F, 1F)
+        }
+    }
+
+    addMultipleKeys(setOf(Key.ShiftLeft, Key.ShiftRight), "SPRINT") {
+        player.sprinting = if (player.stamina > 0) {true} else false
+    }
+    addMultipleReleaseKeys(setOf(Key.ShiftLeft, Key.ShiftRight), "SPRINT") {
+        player.sprinting = false
+    }
+
+    addMultipleKeys(setOf(Key.Spacebar, Key.Spacebar), "ATTACK") {
+        player.attack()
+    }
+    addMultipleKeys(setOf(Key.E, Key.E), "CAST") {
+        player.castSpell()
+    }
+    addMultipleKeys(setOf(Key.R, Key.R), "CYCLE") {
+        player.cycleSpell()
+    }
+    addMultipleKeys(setOf(Key.Q, Key.Q), "UNIQUE") {
+        player.uniqueSkill()
+    }
+
+    addSingleActionKey(Key.Escape, "ESC") {
+        gameMenu.isOpen = !gameMenu.isOpen
+    }
+}
 class KeyListener {
+
     var pressedKeys by mutableStateOf<Set<Key>>(emptySet())
     var edit = true
     var keys by mutableStateOf(
