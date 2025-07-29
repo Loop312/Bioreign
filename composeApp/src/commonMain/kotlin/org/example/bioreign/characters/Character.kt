@@ -175,7 +175,7 @@ open class Character {
         )
         Box (Modifier.fillMaxSize()) {
             //renders character
-            if (!hiding) {
+            //if (!hiding) {
                 Image(
                     painter = painterResource(image),
                     contentDescription = "lol",
@@ -184,7 +184,7 @@ open class Character {
                         .size(100.dp)
                         .align(Alignment.Center)
                 )
-            }
+            //}
             //renders characters attack
             if (attacking) {
                 Image(

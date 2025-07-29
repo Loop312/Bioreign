@@ -74,7 +74,7 @@ fun game(){
 fun theApp() {
     val focusRequester = remember {FocusRequester()}
     val nav = remember { Nav() }
-    LaunchedEffect(gameLoop.isPlaying) {
+    LaunchedEffect(gameLoop.isPlaying, Unit) {
         if (gameLoop.isPlaying)  {
             focusRequester.requestFocus()
         }
@@ -90,11 +90,10 @@ fun theApp() {
         nav.activate()
         keyListener.listen()
         gameLoop.changeFrameRateMultiplier()
-        Column() {
+        Column {
             Text(keyListener.pressedKeys.toString())
+            Text("GameLoop.isPlaying: ${gameLoop.isPlaying}")
         }
-
-
         //not really needed anymore
         //Button(onClick = {}, Modifier.onKeyEvent(keyListener.listener)) {}
     }
