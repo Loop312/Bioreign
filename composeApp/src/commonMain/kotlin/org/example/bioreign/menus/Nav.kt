@@ -4,10 +4,45 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import kotlinx.serialization.Serializable
 import org.example.bioreign.gameLoop
 import org.example.bioreign.gamemodes.Online
 import org.example.bioreign.gamemodes.Rogue
 import org.example.bioreign.gamemodes.StoryMode
+
+
+@Serializable
+object HomeRoute
+
+@Serializable
+object SettingsRoute
+
+@Serializable
+object EditKeysRoute
+
+@Serializable
+object SelectModeRoute
+
+@Serializable
+object SelectSaveRoute
+
+@Serializable
+data class SelectCharacterRoute(val selectedSaveId: Int) //if character selection needs a save ID
+
+@Serializable
+object InGameMenuRoute
+
+@Serializable
+object PvPRoute
+
+@Serializable
+object StoryRoute
+
+@Serializable
+object RogueRoute
+
+@Serializable
+data class Save(val mode: String, val saveId: String)
 
 class Nav {
     val homeMenu = HomeMenu()
@@ -26,83 +61,73 @@ class Nav {
     @Composable
     fun activate() {
         val navController = rememberNavController()
-        NavHost(navController = navController, startDestination = Screens.Home.route) {
+        NavHost(navController = navController, startDestination = HomeRoute) {
             //HOME
-            composable(Screens.Home.route) {
+            composable<HomeRoute> {
                 homeMenu.open(
-                    navModeMenu = { navController.navigate(Screens.SelectMode.route) },
-                    navKeysMenu = { navController.navigate(Screens.EditKeys.route) },
-                    navSettingsMenu = { navController.navigate(Screens.Settings.route) }
+                    navModeMenu = { navController.navigate(SelectModeRoute) },
+                    navKeysMenu = { navController.navigate(EditKeysRoute) },
+                    navSettingsMenu = { navController.navigate(SettingsRoute) }
                 )
             }
             //SETTINGS
-            composable(Screens.Settings.route) {
+            composable<SettingsRoute> {
                 settingsMenu.open(
                     navBack = { navController.popBackStack() }
                 )
             }
             //MODE SELECT
-            composable(Screens.SelectMode.route) {
+            composable<SelectModeRoute> {
                 modeMenu.open(
-                    navStory = { navController.navigate(Screens.Story.route); gameLoop.isPlaying = true },
-                    navPvP = { navController.navigate(Screens.PvP.route) },
-                    navRogue = { navController.navigate(Screens.Rogue.route) },
+                    navStory = { navController.navigate(StoryRoute); gameLoop.isPlaying = true },
+                    navPvP = { navController.navigate(PvPRoute) },
+                    navRogue = { navController.navigate(RogueRoute) },
                     navBack = { navController.popBackStack() }
                 )
             }
+            //not used rn
             //SAVE SELECT
-            composable(Screens.SelectSave.route) {
+            composable<SelectSaveRoute> {
                 saveMenu.open(
-                    navCharSelect = { navController.navigate(Screens.SelectCharacter.route) },
+                    //remember to change the save ID in selectCharacterRoute
+                    navCharSelect = { navController.navigate(SelectCharacterRoute(1)) },
                     navBack = { navController.popBackStack() }
                 )
             }
+            //not used rn
             //CHARACTER SELECT
-            composable(Screens.SelectCharacter.route) {
+            composable<SelectCharacterRoute> {
                 characterMenu.open(
-                    navStoryMode = { navController.navigate(Screens.InGameMenu.route) },
+                    navStoryMode = { navController.navigate(StoryRoute) },
                     navBack = { navController.popBackStack() }
                 )
             }
             //GAME MENU
-            composable(Screens.InGameMenu.route) {
+            composable<InGameMenuRoute> {
                 gameMenu.open()
             }
             //EDIT KEYS
-            composable(Screens.EditKeys.route) {
+            composable<EditKeysRoute> {
                 editKeysMenu.open(
                     navBack = { navController.popBackStack() }
                 )
             }
             //STORY MODE
-            composable(Screens.Story.route) {
+            composable<StoryRoute> {
                 storyMode.play(
-                    toHomeMenu = { navController.navigate(Screens.Home.route) }
+                    toHomeMenu = { navController.navigate(HomeRoute) }
                 )
             }
             //ONLINE/PvP MODE
-            composable(Screens.PvP.route) {
+            composable<PvPRoute> {
                 online.play()
             }
             //ROGUELIKE MODE
-            composable(Screens.Rogue.route) {
+            composable<RogueRoute> {
                 rogue.play(
-                    toHomeMenu = { navController.navigate(Screens.Home.route) }
+                    toHomeMenu = { navController.navigate(HomeRoute) }
                 )
             }
         }
     }
-}
-
-enum class Screens(val route: String) {
-    Home("Home"),
-    Settings("Settings"),
-    EditKeys("EditKeys"),
-    SelectMode("SelectMode"),
-    SelectSave("SelectSave"),
-    SelectCharacter("SelectCharacter"),
-    InGameMenu("InGameMenu"),
-    PvP("PvP"),
-    Story("Story"),
-    Rogue("Rogue");
 }
