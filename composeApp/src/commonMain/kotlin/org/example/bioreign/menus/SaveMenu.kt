@@ -16,15 +16,18 @@ class SaveMenu {
     var saves by mutableStateOf(arrayOf("1: New Game", "2: New Game", "3: New Game", "4: New Game", "5: New Game"))
 
     @Composable
-    fun open(navCharSelect: () -> Unit, navBack: () -> Unit) {
+    fun open(navCharSelect: (saveID: Int) -> Unit, navBack: () -> Unit) {
         Box(Modifier.fillMaxSize()) {
             Column (Modifier.align(Alignment.TopEnd)) {
                 for (i in 0..4) {
                     Button(onClick = {
-                        navCharSelect()
+                        navCharSelect(i)
                     }) {
                         Text(saves[i])
                     }
+                }
+                Button(onClick = { navBack() }) {
+                    Text("Back")
                 }
             }
         }

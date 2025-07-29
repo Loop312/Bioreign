@@ -4,42 +4,40 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import kotlinx.serialization.Serializable
-import org.example.bioreign.gameLoop
+import org.example.bioreign.gamemodes.GameMode
 import org.example.bioreign.gamemodes.Online
 import org.example.bioreign.gamemodes.Rogue
 import org.example.bioreign.gamemodes.StoryMode
 
 
-@Serializable
-object HomeRoute
+@Serializable object HomeRoute
+
+@Serializable object SettingsRoute
+
+@Serializable object EditKeysRoute
+
+@Serializable object SelectModeRoute
 
 @Serializable
-object SettingsRoute
+//get the selected game mode from SelectModeRoute
+data class SelectSaveRoute(val gameMode: String)
 
 @Serializable
-object EditKeysRoute
+//get the selected save from SelectSaveRoute and pass the game mode
+data class SelectCharacterRoute(val gameMode: String, val selectedSaveId: Int)
 
 @Serializable
-object SelectModeRoute
+data class PvPRoute (val selectedSaveId: Int, val selectedCharacterId: String)
 
 @Serializable
-object SelectSaveRoute
+data class StoryRoute (val selectedSaveId: Int, val selectedCharacterId: String)
 
 @Serializable
-data class SelectCharacterRoute(val selectedSaveId: Int) //if character selection needs a save ID
+data class RogueRoute (val selectedSaveId: Int, val selectedCharacterId: String)
 
-@Serializable
-object InGameMenuRoute
-
-@Serializable
-object PvPRoute
-
-@Serializable
-object StoryRoute
-
-@Serializable
-object RogueRoute
+@Serializable object InGameMenuRoute
 
 @Serializable
 data class Save(val mode: String, val saveId: String)
@@ -79,26 +77,49 @@ class Nav {
             //MODE SELECT
             composable<SelectModeRoute> {
                 modeMenu.open(
-                    navStory = { navController.navigate(StoryRoute); gameLoop.isPlaying = true },
-                    navPvP = { navController.navigate(PvPRoute) },
-                    navRogue = { navController.navigate(RogueRoute) },
+                    navStory = {
+                        navController.navigate(SelectSaveRoute(GameMode.STORY.name))
+                    },
+                    navPvP = {
+                        navController.navigate(SelectSaveRoute(GameMode.PVP.name))
+                    },
+                    navRogue = {
+                        navController.navigate(SelectSaveRoute(GameMode.ROGUE.name))
+                    },
                     navBack = { navController.popBackStack() }
                 )
             }
-            //not used rn
             //SAVE SELECT
-            composable<SelectSaveRoute> {
+            composable<SelectSaveRoute> { backStackEntry ->
+                val route = backStackEntry.toRoute<SelectSaveRoute>()
+                val gameMode = route.gameMode
                 saveMenu.open(
-                    //remember to change the save ID in selectCharacterRoute
-                    navCharSelect = { navController.navigate(SelectCharacterRoute(1)) },
+                    navCharSelect = { saveId ->
+                        navController.navigate(
+                            SelectCharacterRoute(
+                                gameMode = gameMode,
+                                selectedSaveId = saveId
+                            )
+                        )
+                    },
                     navBack = { navController.popBackStack() }
                 )
             }
-            //not used rn
             //CHARACTER SELECT
-            composable<SelectCharacterRoute> {
+            composable<SelectCharacterRoute> { backStackEntry ->
+                val route = backStackEntry.toRoute<SelectCharacterRoute>()
+                val gameMode = route.gameMode
+                val selectedSaveId = route.selectedSaveId
+                val gameRoute = when (gameMode) {
+                    //remember to change selectedCharacterId = "0"
+                    GameMode.STORY.name -> StoryRoute(selectedSaveId, "0")
+                    GameMode.PVP.name -> PvPRoute(selectedSaveId, "0")
+                    GameMode.ROGUE.name -> RogueRoute(selectedSaveId, "0")
+                    else -> ""
+                }
                 characterMenu.open(
-                    navStoryMode = { navController.navigate(StoryRoute) },
+
+                    navStoryMode = { navController.navigate(gameRoute)} ,
                     navBack = { navController.popBackStack() }
                 )
             }
