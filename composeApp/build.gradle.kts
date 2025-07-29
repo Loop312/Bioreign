@@ -72,6 +72,7 @@ kotlin {
             implementation(projects.shared)
             implementation(libs.compose.keyhandler)
             implementation(libs.navigation.compose)
+            implementation(libs.kotlinx.serialization.json)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
