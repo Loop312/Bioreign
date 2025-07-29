@@ -10,10 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.key.*
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import bioreign.composeapp.generated.resources.*
@@ -72,29 +69,20 @@ fun game(){
 @Composable
 @Preview
 fun theApp() {
-    val focusRequester = remember {FocusRequester()}
     val nav = remember { Nav() }
-    LaunchedEffect(gameLoop.isPlaying, Unit) {
-        if (gameLoop.isPlaying)  {
-            focusRequester.requestFocus()
-        }
-    }
     //there's an issue with the focus after clicking the "Start Game"
     //button in PregameMenu, this box is a temporary workaround
     Box(Modifier
         .fillMaxSize()
-        .focusRequester(focusRequester)
-        .onKeyEvent(keyListener.listener)
         .background(Color.DarkGray)
     ){
         nav.activate()
-        keyListener.listen()
+        //keyListener.listen()
         gameLoop.changeFrameRateMultiplier()
         Column {
-            Text(keyListener.pressedKeys.toString())
+            Text(keyHandler.pressedKeys.toString())
             Text("GameLoop.isPlaying: ${gameLoop.isPlaying}")
         }
         //not really needed anymore
-        //Button(onClick = {}, Modifier.onKeyEvent(keyListener.listener)) {}
     }
 }
