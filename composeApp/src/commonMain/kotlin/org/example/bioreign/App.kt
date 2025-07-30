@@ -21,12 +21,11 @@ import org.example.bioreign.menus.Nav
 
 
 val player = Player()
-val gameLoop = GameLoop()
+val gameScreen = GameScreen()
 val keyListener = KeyListener()
 val map = Map(Res.drawable.tempmap)
 val hud = HUD()
 //60 fps is the default
-val defaultFrameRate = 1000/60.0
 var frameRate by mutableStateOf(1000/60.0)
 //if 120 fps this needs to be 1/2, if 240 fps this needs to be 1/4, if 30 fps this needs to be 2
 var frameRateMultiplier = 1.0
@@ -78,10 +77,9 @@ fun theApp() {
     ){
         nav.activate()
         //keyListener.listen()
-        gameLoop.changeFrameRateMultiplier()
         Column {
             Text(keyHandler.pressedKeys.toString())
-            Text("GameLoop.isPlaying: ${gameLoop.isPlaying}")
+            Text("GameLoop.isPlaying: ${gameScreen.isPlaying}")
         }
         //not really needed anymore
     }

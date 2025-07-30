@@ -20,7 +20,7 @@ import bioreign.composeapp.generated.resources.BioreignTempLogo
 import bioreign.composeapp.generated.resources.Res
 import bioreign.composeapp.generated.resources.compose_multiplatform
 import bioreign.composeapp.generated.resources.tempmap
-import org.example.bioreign.gameLoop
+import org.example.bioreign.gameScreen
 import org.example.bioreign.player
 import org.jetbrains.compose.resources.painterResource
 
@@ -39,7 +39,7 @@ class CharacterMenu {
                 .align(Alignment.Center)
                 .size(200.dp)
 //                                                                  //add check for mode
-                .clickable{ player.image = characterImages[i]; navStoryMode(); gameLoop.isPlaying = true }
+                .clickable{ player.image = characterImages[i]; navStoryMode(); gameScreen.isPlaying = true }
             )
             //% characterImages.size makes it loop through and come back to the beginning
             Button({ i = (i + 1) % characterImages.size }, Modifier.align(Alignment.CenterEnd)) {

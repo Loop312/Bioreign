@@ -25,10 +25,8 @@ class StoryMode {
         Box(Modifier.fillMaxSize().focusRequester(focusRequester).focusable().onKeyEvent(keyHandler.listen)) {
             map.load()
             player.load()
-            hud.display()
             //gameMenu.open()
-            gameLoop.GameScreen()
-            gameLoop.playerStuff()
+            gameScreen.show()
             map.checkCollisions()
 
             Button(onClick = {toHomeMenu()}, Modifier.align(Alignment.BottomCenter)) {

@@ -14,10 +14,9 @@ class Rogue {
         Box {
             map.load()
             player.load()
-            hud.display()
             //gameMenu.open()
-            gameLoop.GameScreen()
-            gameLoop.playerStuff()
+            gameScreen.show()
+            gameScreen.playerStuff()
             map.checkCollisions()
             Button(onClick = {toHomeMenu()}, Modifier.align(Alignment.BottomCenter)) {
                 Text("Back")

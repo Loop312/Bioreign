@@ -44,28 +44,7 @@ fun main() = application {
     player.movingUp = true
 
     //initialize window
-    Window(onCloseRequest = ::exitApplication, title = "Bioreign",/* onKeyEvent = { event: KeyEvent ->
-        //when a button is pressed add it to pressedKeys
-        when (event.type) {
-            KeyEventType.KeyDown -> {
-                keyListener.pressedKeys += event.key
-            }
-            KeyEventType.KeyUp -> {
-                keyListener.pressedKeys -= event.key
-            }
-        }
-        true
-    }*/) {
-        /*
-        pregameMenu.open()
-        editKeysMenu.open()
-        keyListener.listen()
-        if (gameLoop.isplaying) {
-            theApp()
-            map.checkCollisions()
-            //println("player Coordinates (" + map.x + ", " + map.y + ")")
-        }
-         */
+    Window(onCloseRequest = ::exitApplication, title = "Bioreign", alwaysOnTop = true) {
         theApp()
     }
     debugger.open()
