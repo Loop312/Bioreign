@@ -12,6 +12,7 @@ class GameScreen {
         var gameState by remember { mutableStateOf(true) }
         gameLoop()
         playerStuff()
+
         // Compose UI for rendering the game state
         // ...
     }
@@ -31,7 +32,7 @@ class GameScreen {
         }
         //code runs whenever exp changes
         LaunchedEffect(player.exp){
-            if (player.exp >= player.explimit) player.lvlup()
+            if (player.exp >= player.expLimit) player.lvlup()
         }
         //code runs whenever sprinting changes
         LaunchedEffect(player.casting) {
@@ -79,5 +80,6 @@ class GameScreen {
 
     fun update(deltaTime: Float) {
         player.exp += 1f * deltaTime
+        player.move()
     }
 }

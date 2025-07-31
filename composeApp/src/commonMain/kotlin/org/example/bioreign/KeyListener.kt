@@ -8,34 +8,46 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-val keyHandler = KeyHandler() {
-    addMultipleKeys(setOf(Key.A, Key.DirectionLeft), "LEFT") {
+val keyHandler = KeyHandler {
+    addMultipleSingleActionKeys(setOf(Key.A, Key.DirectionLeft), "LEFT") {
         player.movingLeft = true
         player.movingRight = false
         if (map.canMoveLeft) {
             player.move(-1F, 0F)
         }
     }
-    addMultipleKeys(setOf(Key.D, Key.DirectionRight), "RIGHT") {
+    addMultipleReleaseKeys(setOf(Key.A, Key.DirectionLeft), "LEFT") {
+        if (Key.D !in pressedKeys || Key.DirectionRight !in pressedKeys) player.horizontalVelocity = 0f
+    }
+    addMultipleSingleActionKeys(setOf(Key.D, Key.DirectionRight), "RIGHT") {
         player.movingRight = true
         player.movingLeft = false
         if (map.canMoveRight) {
             player.move(1F, 0F)
         }
     }
-    addMultipleKeys(setOf(Key.W, Key.DirectionUp), "UP") {
+    addMultipleReleaseKeys(setOf(Key.D, Key.DirectionRight), "LEFT") {
+        if (Key.A !in pressedKeys || Key.DirectionLeft !in pressedKeys) player.horizontalVelocity = 0f
+    }
+    addMultipleSingleActionKeys(setOf(Key.W, Key.DirectionUp), "UP") {
         player.movingUp = true
         player.movingDown = false
         if (map.canMoveUp) {
             player.move(0F, -1F)
         }
     }
-    addMultipleKeys(setOf(Key.S, Key.DirectionDown), "DOWN") {
+    addMultipleReleaseKeys(setOf(Key.W, Key.DirectionUp), "LEFT") {
+        if (Key.S !in pressedKeys || Key.DirectionDown !in pressedKeys) player.verticalVelocity = 0f
+    }
+    addMultipleSingleActionKeys(setOf(Key.S, Key.DirectionDown), "DOWN") {
         player.movingUp = false
         player.movingDown = true
         if (map.canMoveDown) {
             player.move(0F, 1F)
         }
+    }
+    addMultipleReleaseKeys(setOf(Key.S, Key.DirectionDown), "LEFT") {
+        if (Key.W !in pressedKeys || Key.DirectionUp !in pressedKeys) player.verticalVelocity = 0f
     }
 
     addMultipleKeys(setOf(Key.ShiftLeft, Key.ShiftRight), "SPRINT") {
@@ -63,6 +75,7 @@ val keyHandler = KeyHandler() {
     }
      */
 }
+
 class KeyListener {
 
     var pressedKeys by mutableStateOf<Set<Key>>(emptySet())

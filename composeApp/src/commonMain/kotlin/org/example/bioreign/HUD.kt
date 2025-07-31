@@ -23,6 +23,9 @@ class HUD {
                 color = Color.Blue
             )
             Text("FPS: $fps \n FrameTime: $frameTime ms")
+            Text("HORIZONTAL VELOCITY: ${player.horizontalVelocity}\n" +
+                    "VERTICAL VELOCITY: ${player.verticalVelocity}"
+            )
         }
     }
     @Composable
@@ -86,7 +89,7 @@ class HUD {
             Box(
                 modifier = Modifier
                     .fillMaxHeight()
-                    .width((player.exp/player.explimit*100).dp)
+                    .width((player.exp/player.expLimit*100).dp)
                     .background(Color.Blue)
             )
         }

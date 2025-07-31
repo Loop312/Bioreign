@@ -45,7 +45,7 @@ open class Character {
     open var lck by mutableStateOf(10)        //luck
     //exp system 
     open var exp by mutableStateOf(0F)       //experience
-    open var explimit by mutableStateOf(10F) //experience need to lvlup
+    open var expLimit by mutableStateOf(10F) //experience need to lvlup
     open var lvl by mutableStateOf(1)       //Player level
     open var skillPoints by mutableStateOf(0) //used to upgrade character
     //mana
@@ -70,6 +70,9 @@ open class Character {
     var movingLeft = false
     var movingRight = false
 
+    var verticalVelocity by mutableStateOf(0f)
+    var horizontalVelocity by mutableStateOf(0f)
+
     //displays character stats
     //might need to shorten/rearrange stuff
     fun displayStats(): String {
@@ -90,14 +93,14 @@ open class Character {
         exp += num
     }
     fun getExp(): String {
-        return "Exp: " + exp.roundToInt() + "/$explimit\n"
+        return "Exp: " + exp.roundToInt() + "/$expLimit\n"
     }
     //levels up character
     //need to figure out how I want to implement lvl ups
     open fun lvlup(){
         lvl += 1
-        exp -= explimit
-        explimit *= 2
+        exp -= expLimit
+        expLimit *= 2
         skillPoints += 5
     }
 
@@ -130,7 +133,7 @@ open class Character {
     fun lvlupSim(num: Int): String {
         for (i in 1..num) {
             displayStats()
-            gainExp(explimit)
+            gainExp(expLimit)
             lvlup()
         }
         return displayStats()
@@ -138,29 +141,40 @@ open class Character {
 
     //handles character movement
     fun move(dx: Float, dy: Float) {
+        horizontalVelocity =
+            if (dx > 0) -spd.toFloat()
+            else if (dx < 0) spd.toFloat()
+            else horizontalVelocity
+        verticalVelocity =
+            if (dy > 0) -spd.toFloat()
+            else if (dy < 0) spd.toFloat()
+            else verticalVelocity
+    }
+
+    fun move() {
         if (map.mapEdge == true) {
 
             if (sprinting) { //apparently u can write this instead of == true
-                x += (dx * spd)
-                y += (dy * spd)
+                stamina -= 0.1
+                x += horizontalVelocity
+                y += verticalVelocity
             } else {
-                x += (dx * spd/2)
-                y += (dy * spd/2)
+                x += horizontalVelocity / 2
+                y += verticalVelocity / 2
             }
 
         }
         else {
             if (sprinting) {
                 stamina -= 0.1
-                map.x -= (dx * spd)
-                map.y -= (dy * spd)
+                map.x += horizontalVelocity
+                map.y += verticalVelocity
             } else {
-                map.x -= (dx * spd/2)
-                map.y -= (dy * spd/2)
+                map.x += horizontalVelocity / 2
+                map.y += verticalVelocity / 2
             }
         }
     }
-
     //loads character on screen
     @Composable
     fun load() {
