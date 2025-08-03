@@ -12,32 +12,40 @@ import org.example.bioreign.gamemodes.Rogue
 import org.example.bioreign.gamemodes.StoryMode
 
 
-@Serializable object HomeRoute
 
-@Serializable object SettingsRoute
+sealed class AppRoute {
+    @Serializable
+    object Home
 
-@Serializable object EditKeysRoute
+    @Serializable
+    object Settings
 
-@Serializable object SelectModeRoute
+    @Serializable
+    object KeyEdit
 
-@Serializable
+    @Serializable
+    object ModeSelect
+
+    @Serializable
 //get the selected game mode from SelectModeRoute
-data class SelectSaveRoute(val gameMode: String)
+    data class SaveSelect(val gameMode: String)
 
-@Serializable
+    @Serializable
 //get the selected save from SelectSaveRoute and pass the game mode
-data class SelectCharacterRoute(val gameMode: String, val selectedSaveId: Int)
+    data class CharacterSelect(val gameMode: String, val selectedSaveId: Int)
 
-@Serializable
-data class PvPRoute (val selectedSaveId: Int, val selectedCharacterId: String)
+    @Serializable
+    data class PvP(val selectedSaveId: Int, val selectedCharacterId: String)
 
-@Serializable
-data class StoryRoute (val selectedSaveId: Int, val selectedCharacterId: String)
+    @Serializable
+    data class Story(val selectedSaveId: Int, val selectedCharacterId: String)
 
-@Serializable
-data class RogueRoute (val selectedSaveId: Int, val selectedCharacterId: String)
+    @Serializable
+    data class Rogue(val selectedSaveId: Int, val selectedCharacterId: String)
 
-@Serializable object InGameMenuRoute
+    @Serializable
+    object InGameMenu
+}
 
 @Serializable
 data class Save(val mode: String, val saveId: String)
@@ -59,44 +67,45 @@ class Nav {
     @Composable
     fun activate() {
         val navController = rememberNavController()
-        NavHost(navController = navController, startDestination = HomeRoute) {
+        //switch back to startDestination = HomeRoute later
+        NavHost(navController = navController, startDestination = AppRoute.Story(1,"")) {
             //HOME
-            composable<HomeRoute> {
+            composable<AppRoute.Home> {
                 homeMenu.open(
-                    navModeMenu = { navController.navigate(SelectModeRoute) },
-                    navKeysMenu = { navController.navigate(EditKeysRoute) },
-                    navSettingsMenu = { navController.navigate(SettingsRoute) }
+                    navModeMenu = { navController.navigate(AppRoute.ModeSelect) },
+                    navKeysMenu = { navController.navigate(AppRoute.KeyEdit) },
+                    navSettingsMenu = { navController.navigate(AppRoute.Settings) }
                 )
             }
             //SETTINGS
-            composable<SettingsRoute> {
+            composable<AppRoute.Settings> {
                 settingsMenu.open(
                     navBack = { navController.popBackStack() }
                 )
             }
             //MODE SELECT
-            composable<SelectModeRoute> {
+            composable<AppRoute.ModeSelect> {
                 modeMenu.open(
                     navStory = {
-                        navController.navigate(SelectSaveRoute(GameMode.STORY.name))
+                        navController.navigate(AppRoute.SaveSelect(GameMode.STORY.name))
                     },
                     navPvP = {
-                        navController.navigate(SelectSaveRoute(GameMode.PVP.name))
+                        navController.navigate(AppRoute.SaveSelect(GameMode.PVP.name))
                     },
                     navRogue = {
-                        navController.navigate(SelectSaveRoute(GameMode.ROGUE.name))
+                        navController.navigate(AppRoute.SaveSelect(GameMode.ROGUE.name))
                     },
                     navBack = { navController.popBackStack() }
                 )
             }
             //SAVE SELECT
-            composable<SelectSaveRoute> { backStackEntry ->
-                val route = backStackEntry.toRoute<SelectSaveRoute>()
+            composable<AppRoute.SaveSelect> { backStackEntry ->
+                val route = backStackEntry.toRoute<AppRoute.SaveSelect>()
                 val gameMode = route.gameMode
                 saveMenu.open(
                     navCharSelect = { saveId ->
                         navController.navigate(
-                            SelectCharacterRoute(
+                            AppRoute.CharacterSelect(
                                 gameMode = gameMode,
                                 selectedSaveId = saveId
                             )
@@ -106,15 +115,15 @@ class Nav {
                 )
             }
             //CHARACTER SELECT
-            composable<SelectCharacterRoute> { backStackEntry ->
-                val route = backStackEntry.toRoute<SelectCharacterRoute>()
+            composable<AppRoute.CharacterSelect> { backStackEntry ->
+                val route = backStackEntry.toRoute<AppRoute.CharacterSelect>()
                 val gameMode = route.gameMode
                 val selectedSaveId = route.selectedSaveId
                 val gameRoute = when (gameMode) {
                     //remember to change selectedCharacterId = "0"
-                    GameMode.STORY.name -> StoryRoute(selectedSaveId, "0")
-                    GameMode.PVP.name -> PvPRoute(selectedSaveId, "0")
-                    GameMode.ROGUE.name -> RogueRoute(selectedSaveId, "0")
+                    GameMode.STORY.name -> AppRoute.Story(selectedSaveId, "0")
+                    GameMode.PVP.name -> AppRoute.PvP(selectedSaveId, "0")
+                    GameMode.ROGUE.name -> AppRoute.Rogue(selectedSaveId, "0")
                     else -> ""
                 }
                 characterMenu.open(
@@ -124,29 +133,29 @@ class Nav {
                 )
             }
             //GAME MENU
-            composable<InGameMenuRoute> {
+            composable<AppRoute.InGameMenu> {
                 gameMenu.open()
             }
             //EDIT KEYS
-            composable<EditKeysRoute> {
+            composable<AppRoute.KeyEdit> {
                 editKeysMenu.open(
                     navBack = { navController.popBackStack() }
                 )
             }
             //STORY MODE
-            composable<StoryRoute> {
+            composable<AppRoute.Story> {
                 storyMode.play(
-                    toHomeMenu = { navController.navigate(HomeRoute) }
+                    toHomeMenu = { navController.navigate(AppRoute.Home) }
                 )
             }
             //ONLINE/PvP MODE
-            composable<PvPRoute> {
+            composable<AppRoute.PvP> {
                 online.play()
             }
             //ROGUELIKE MODE
-            composable<RogueRoute> {
+            composable<AppRoute.Rogue> {
                 rogue.play(
-                    toHomeMenu = { navController.navigate(HomeRoute) }
+                    toHomeMenu = { navController.navigate(AppRoute.Home) }
                 )
             }
         }
