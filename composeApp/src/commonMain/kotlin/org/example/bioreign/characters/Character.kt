@@ -4,7 +4,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.unit.dp
 import bioreign.composeapp.generated.resources.BioreignTempLogo
 import bioreign.composeapp.generated.resources.Res
@@ -63,6 +65,11 @@ open class Character {
     var currentSpell by mutableStateOf(0)
     var x by mutableStateOf(0F)
     var y by mutableStateOf(0F)
+    var size = Size(100f, 100f)
+    var hitBox: Rect
+        get() = Rect(Offset(x,y), size)
+        private set(value) {}
+
     open var image = Res.drawable.compose_multiplatform
 
     var movingUp = false
@@ -93,7 +100,7 @@ open class Character {
         exp += num
     }
     fun getExp(): String {
-        return "Exp: " + exp.roundToInt() + "/$expLimit\n"
+        return "Exp: " + exp.roundToInt() + "/$expLimit"
     }
     //levels up character
     //need to figure out how I want to implement lvl ups
@@ -153,16 +160,14 @@ open class Character {
 
     fun move() {
         if (map.mapEdge == true) {
-
             if (sprinting) { //apparently u can write this instead of == true
                 stamina -= 0.1
-                x += horizontalVelocity
-                y += verticalVelocity
+                x -= horizontalVelocity
+                y -= verticalVelocity
             } else {
-                x += horizontalVelocity / 2
-                y += verticalVelocity / 2
+                x -= horizontalVelocity / 2
+                y -= verticalVelocity / 2
             }
-
         }
         else {
             if (sprinting) {
@@ -174,6 +179,7 @@ open class Character {
                 map.y += verticalVelocity / 2
             }
         }
+        hitBox = Rect(Offset(x,y), size)
     }
     //loads character on screen
     @Composable

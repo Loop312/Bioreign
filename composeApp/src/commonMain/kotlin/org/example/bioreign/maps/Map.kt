@@ -14,7 +14,7 @@ class Map(val theMap: DrawableResource) {
     var size = 1000.dp
     var x by mutableStateOf(0F)
     var y by mutableStateOf(0F)
-    var mapEdge by mutableStateOf(false)
+    var mapEdge by mutableStateOf(true)
 
     var canMoveLeft = true
     var canMoveRight = true

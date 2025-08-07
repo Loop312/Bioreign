@@ -1,10 +1,20 @@
 package org.example.bioreign
 
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.focusable
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.translate
+import androidx.compose.ui.input.key.onKeyEvent
 import kotlinx.coroutines.*
 
 class GameScreen {
     var isPlaying by mutableStateOf(false)
+    var showHitboxes = true
     //might add array of characters, maps, and other stuff as parameters
 
     @Composable
@@ -12,9 +22,34 @@ class GameScreen {
         var gameState by remember { mutableStateOf(true) }
         gameLoop()
         playerStuff()
+        gameScreen()
+    }
 
-        // Compose UI for rendering the game state
-        // ...
+    @Composable
+    fun gameScreen() {
+        val focusRequester = remember { FocusRequester() }
+        LaunchedEffect(Unit) {
+            focusRequester.requestFocus()
+        }
+        Canvas(Modifier
+            .fillMaxSize()
+            .focusRequester(focusRequester)
+            .focusable()
+            .onKeyEvent(keyHandler.listen)
+        ) {
+            val centerX = (size.width / 2) - (player.size.width / 2)
+            val centerY = (size.height / 2) - (player.size.height / 2)
+            translate (centerX, centerY) {
+                if (showHitboxes) {
+                    drawRect(
+                        Color.Red,
+                        player.hitBox.topLeft,
+                        player.hitBox.size,
+                        .25f
+                    )
+                }
+            }
+        }
     }
     @Composable
     fun playerStuff(){
@@ -80,6 +115,9 @@ class GameScreen {
 
     fun update(deltaTime: Float) {
         player.exp += 1f * deltaTime
+        if (player.stamina < player.maxStamina) {
+            player.stamina += 1f * deltaTime
+        }
         player.move()
     }
 }
