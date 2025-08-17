@@ -45,6 +45,7 @@ kotlin {
         commonMain.dependencies {
             // put your Multiplatform dependencies here
             implementation(compose.ui)
+            implementation(libs.lifecycle.viewmodel.compose)
         }
     }
 }

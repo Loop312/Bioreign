@@ -15,8 +15,6 @@ class StoryMode {
         Box(Modifier.fillMaxSize()) {
             map.load()
             player.load()
-            //gameMenu.open()
-            gameScreen.show()
             map.checkCollisions()
 
             Button(onClick = {toHomeMenu()}, Modifier.align(Alignment.BottomCenter)) {

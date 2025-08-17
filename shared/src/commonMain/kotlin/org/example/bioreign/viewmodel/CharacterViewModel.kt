@@ -168,4 +168,42 @@ class CharacterViewModel {
             )
         }
     }
+
+    fun handleStaminaRegen(deltaTime: Float) {
+        if (_characterState.value.stats.stamina >= _characterState.value.stats.maxStamina) {
+            return
+        }
+        _characterState.update { currentState ->
+            val currentStats = currentState.stats
+            val newStamina = currentStats.stamina + (currentStats.maxStamina * 0.5f * deltaTime)
+            currentState.copy(
+                stats = currentStats.copy(stamina = newStamina)
+            )
+        }
+    }
+
+    fun handleManaRegen(deltaTime: Float) {
+        if (_characterState.value.stats.mana >= _characterState.value.stats.maxMana) {
+            return
+        }
+        _characterState.update { currentState ->
+            val currentStats = currentState.stats
+            val newMana = currentStats.mana + (currentStats.maxMana * 0.5f * deltaTime)
+            currentState.copy(
+                stats = currentStats.copy(mana = newMana)
+            )
+        }
+    }
+
+    fun handleMovement(deltaTime: Float) {
+        _characterState.update { currentState ->
+            val currentPosition = currentState.position
+            currentState.copy(
+                position = currentPosition.copy(
+                    x = currentPosition.x + (currentState.horizontalVelocity * deltaTime),
+                    y = currentPosition.y + (currentState.verticalVelocity * deltaTime)
+                )
+            )
+        }
+    }
 }

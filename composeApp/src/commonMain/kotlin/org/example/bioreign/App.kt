@@ -21,7 +21,6 @@ import org.example.bioreign.menus.Nav
 
 
 val player = Player()
-val gameScreen = GameScreen()
 val keyListener = KeyListener()
 val map = Map(Res.drawable.tempmap)
 val hud = HUD()
@@ -79,7 +78,6 @@ fun theApp() {
         //keyListener.listen()
         Column {
             Text(keyHandler.pressedKeys.toString())
-            Text("GameLoop.isPlaying: ${gameScreen.isPlaying}")
         }
         //not really needed anymore
     }

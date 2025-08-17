@@ -11,7 +11,9 @@ import androidx.compose.ui.unit.*
 class HUD {
 
     @Composable
-    fun display(fps: Float, frameTime: Float){
+    fun display(
+        //fps: Float, frameTime: Float
+    ){
         Column (Modifier.background(Color.LightGray)) {
             hud.healthBar()
             hud.staminaBar()
@@ -22,7 +24,7 @@ class HUD {
                     "Player Current Spell: ${player.spells[player.currentSpell].name}",
                 color = Color.Magenta
             )
-            Text("FPS: $fps \n FrameTime: $frameTime ms")
+            //Text("FPS: $fps \n FrameTime: $frameTime ms")
             Text("HORIZONTAL VELOCITY: ${player.horizontalVelocity}\n" +
                     "VERTICAL VELOCITY: ${player.verticalVelocity}"
             )

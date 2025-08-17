@@ -53,6 +53,7 @@ data class CharacterState(
 data class Position(val x: Float, val y: Float) {
     fun toOffset() = Offset(x, y)
 }
+
 data class Spell(
     val name: String,
     val image: String,
