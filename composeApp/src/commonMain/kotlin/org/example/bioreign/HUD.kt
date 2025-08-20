@@ -7,121 +7,118 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.unit.*
+import org.example.bioreign.model.CharacterStats
 
-class HUD {
 
-    @Composable
-    fun display(
-        //fps: Float, frameTime: Float
-    ){
-        Column (Modifier.background(Color.LightGray)) {
-            hud.healthBar()
-            hud.staminaBar()
-            hud.manaBar()
-            hud.expBar()
-            Text("Player Location: (${map.x}, ${map.y})\n" +
-                    "Player Spells: " + player.spells.joinToString { it.name } + "\n" +
-                    "Player Current Spell: ${player.spells[player.currentSpell].name}",
-                color = Color.Magenta
-            )
-            //Text("FPS: $fps \n FrameTime: $frameTime ms")
-            Text("HORIZONTAL VELOCITY: ${player.horizontalVelocity}\n" +
-                    "VERTICAL VELOCITY: ${player.verticalVelocity}"
+@Composable
+fun DisplayHUD(stats: CharacterStats) {
+    Column (Modifier.background(Color.LightGray)) {
+        HealthBar(stats.hp, stats.maxHp)
+        StaminaBar(stats.stamina, stats.maxStamina)
+        ManaBar(stats.mana, stats.maxMana)
+        ExpBar(stats.exp, stats.expLimit)
+        Text("Player Location: (${map.x}, ${map.y})\n" +
+                "Player Spells: " + player.spells.joinToString { it.name } + "\n" +
+                "Player Current Spell: ${player.spells[player.currentSpell].name}",
+            color = Color.Magenta
+        )
+        //Text("FPS: $fps \n FrameTime: $frameTime ms")
+        Text("HORIZONTAL VELOCITY: ${player.horizontalVelocity}\n" +
+                "VERTICAL VELOCITY: ${player.verticalVelocity}"
+        )
+    }
+}
+@Composable
+private fun HealthBar(hp: Int, maxHp: Int){
+    Column {
+        Text(
+            "HP: $hp/$maxHp",
+            color = Color.Green
+        )
+        Box(
+            modifier = Modifier
+                .height(30.dp)
+                .width((maxHp * 10).dp)
+                .border(width = 2.dp, color = Color.Gray)
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .width((hp * 10).dp)
+                    .background(Color.Green)
             )
         }
     }
-    @Composable
-    fun healthBar(){
-        Column {
-            Text(
-                "HP: ${player.hp}/${player.maxHp}",
-                color = Color.Green
-            )
-            Box(
-                modifier = Modifier
-                    .height(30.dp)
-                    .width((player.maxHp * 10).dp)
-                    .border(width = 2.dp, color = Color.Gray)
-            ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .width((player.hp * 10).dp)
-                        .background(Color.Green)
-                )
-            }
-        }
-    }
+}
 
-    @Composable
-    fun staminaBar(){
-        Column {
-            Text(
-                "Stamina: ${player.stamina.toInt()}/${player.maxStamina.toInt()}",
-                color = Color.Yellow
-            )
+@Composable
+fun StaminaBar(stamina: Double, maxStamina: Double){
+    Column {
+        Text(
+            "Stamina: ${stamina.toInt()}/${maxStamina.toInt()}",
+            color = Color.Yellow
+        )
+        Box(
+            modifier = Modifier
+                .height(20.dp)
+                .width((maxStamina * 10).dp)
+                .border(width = 2.dp, color = Color.Gray)
+        ) {
             Box(
                 modifier = Modifier
-                    .height(20.dp)
-                    .width((player.maxStamina * 10).dp)
-                    .border(width = 2.dp, color = Color.Gray)
-            ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .width((player.stamina * 10).dp)
-                        .background(Color.Yellow)
-                )
-            }
+                    .fillMaxHeight()
+                    .width((stamina * 10).dp)
+                    .background(Color.Yellow)
+            )
         }
     }
+}
 
-    @Composable
-    fun manaBar(){
-        Column {
-            Text(
-                "Mana: ${player.mana.toInt()}/${player.maxMana.toInt()}",
-                color = Color.Cyan
-            )
+@Composable
+fun ManaBar(mana: Double, maxMana: Double){
+    Column {
+        Text(
+            "Mana: ${mana.toInt()}/${maxMana.toInt()}",
+            color = Color.Cyan
+        )
+        Box(
+            modifier = Modifier
+                .height(20.dp)
+                .width((maxMana * 10).dp)
+                .border(width = 2.dp, color = Color.Gray)
+        ) {
             Box(
                 modifier = Modifier
-                    .height(20.dp)
-                    .width((player.maxMana * 10).dp)
-                    .border(width = 2.dp, color = Color.Gray)
-            ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .width((player.mana * 10).dp)
-                        .background(Color.Cyan)
-                )
-            }
+                    .fillMaxHeight()
+                    .width((mana * 10).dp)
+                    .background(Color.Cyan)
+            )
         }
     }
-    @Composable
-    fun expBar() {
-        Column {
-            Text(
-                player.getExp(),
-                color = Color.Blue
-            )
+}
+@Composable
+fun ExpBar(exp: Float, expLimit: Float) {
+    Column {
+        Text(
+            "EXP: $exp/$expLimit",
+            color = Color.Blue
+        )
+        Box(
+            modifier = Modifier
+                .height(10.dp)
+                .width(100.dp)
+                .border(width = 2.dp, color = Color.Gray)
+        ) {
             Box(
                 modifier = Modifier
-                    .height(10.dp)
-                    .width(100.dp)
-                    .border(width = 2.dp, color = Color.Gray)
-            ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .width((player.exp / player.expLimit * 100).dp)
-                        .background(Color.Blue)
-                )
-            }
-            Text(
-                "Player lvl: " + player.lvl + "\nSkill Points: " + player.skillPoints,
-                color = Color.Blue
+                    .fillMaxHeight()
+                    .width((exp / expLimit * 100).dp)
+                    .background(Color.Blue)
             )
         }
+        Text(
+            "Player lvl: " + player.lvl + "\nSkill Points: " + player.skillPoints,
+            color = Color.Blue
+        )
     }
 }

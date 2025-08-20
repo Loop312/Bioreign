@@ -3,14 +3,17 @@ package org.example.bioreign.ui.components
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import org.example.bioreign.hud
+import org.example.bioreign.DisplayHUD
 import org.example.bioreign.viewmodel.GameViewModel
 
 @Composable
 fun GameScreen(viewModel: GameViewModel) {
-    val state = viewModel.gameState.collectAsState()
+    val gameState = viewModel.gameState.collectAsState()
+    val playerState = viewModel.player.characterState.collectAsState()
+
+
     LaunchedEffect(Unit) {
         viewModel.gameLoop()
     }
-    hud.display()
+    DisplayHUD(playerState.value.stats)
 }
