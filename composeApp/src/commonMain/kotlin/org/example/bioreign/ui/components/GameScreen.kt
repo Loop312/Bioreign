@@ -3,7 +3,6 @@ package org.example.bioreign.ui.components
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import org.example.bioreign.DisplayHUD
 import org.example.bioreign.viewmodel.GameViewModel
 
 @Composable
