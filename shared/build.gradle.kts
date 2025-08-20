@@ -46,6 +46,7 @@ kotlin {
             // put your Multiplatform dependencies here
             implementation(compose.ui)
             implementation(libs.lifecycle.viewmodel.compose)
+            implementation(libs.compose.keyhandler)
         }
     }
 }

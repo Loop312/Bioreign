@@ -1,73 +1,63 @@
-package org.example.bioreign
+package org.example.bioreign.viewmodel
 
-import androidx.compose.runtime.*
 import androidx.compose.ui.input.key.*
 import io.github.compose_keyhandler.KeyHandler
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
-val keyHandler = KeyHandler {
+val keyHandler = KeyHandler()
+
+fun KeyHandler.setupPlayer(player: CharacterViewModel) {
     addMultipleSingleActionKeys(setOf(Key.A, Key.DirectionLeft), "LEFT") {
-        player.movingLeft = true
-        player.movingRight = false
-        if (map.canMoveLeft) {
-            player.move(-1F, 0F)
-        }
+        player.move(-10F, 0F)
+        println("LEFT")
     }
     addMultipleReleaseKeys(setOf(Key.A, Key.DirectionLeft), "LEFT") {
-        if (Key.D !in pressedKeys || Key.DirectionRight !in pressedKeys) player.horizontalVelocity = 0f
+        player.move(10F, 0F)
     }
     addMultipleSingleActionKeys(setOf(Key.D, Key.DirectionRight), "RIGHT") {
-        player.movingRight = true
-        player.movingLeft = false
-        if (map.canMoveRight) {
-            player.move(1F, 0F)
-        }
+        player.move(10F, 0F)
+        println("RIGHT")
     }
-    addMultipleReleaseKeys(setOf(Key.D, Key.DirectionRight), "LEFT") {
-        if (Key.A !in pressedKeys || Key.DirectionLeft !in pressedKeys) player.horizontalVelocity = 0f
+    addMultipleReleaseKeys(setOf(Key.D, Key.DirectionRight), "RIGHT") {
+        player.move(-10F, 0F)
     }
     addMultipleSingleActionKeys(setOf(Key.W, Key.DirectionUp), "UP") {
-        player.movingUp = true
-        player.movingDown = false
-        if (map.canMoveUp) {
-            player.move(0F, -1F)
-        }
+        player.move(0F, -10F)
+        println("UP")
     }
-    addMultipleReleaseKeys(setOf(Key.W, Key.DirectionUp), "LEFT") {
-        if (Key.S !in pressedKeys || Key.DirectionDown !in pressedKeys) player.verticalVelocity = 0f
+    addMultipleReleaseKeys(setOf(Key.W, Key.DirectionUp), "UP") {
+        player.move(0F, 10F)
     }
     addMultipleSingleActionKeys(setOf(Key.S, Key.DirectionDown), "DOWN") {
-        player.movingUp = false
-        player.movingDown = true
-        if (map.canMoveDown) {
-            player.move(0F, 1F)
-        }
+        player.move(0F, 10F)
+        println("DOWN")
     }
-    addMultipleReleaseKeys(setOf(Key.S, Key.DirectionDown), "LEFT") {
-        if (Key.W !in pressedKeys || Key.DirectionUp !in pressedKeys) player.verticalVelocity = 0f
+    addMultipleReleaseKeys(setOf(Key.S, Key.DirectionDown), "DOWN") {
+        player.move(0F, -10F)
     }
 
     addMultipleKeys(setOf(Key.ShiftLeft, Key.ShiftRight), "SPRINT") {
-        player.sprinting = if (player.stamina > 0) {true} else false
+        player.sprint()
+        println("SPRINT")
     }
-    addMultipleReleaseKeys(setOf(Key.ShiftLeft, Key.ShiftRight), "SPRINT") {
-        player.sprinting = false
+    addMultipleReleaseKeys(setOf(Key.ShiftLeft, Key.ShiftRight), "STOP SPRINT") {
+        player.stopSprint()
+        println("STOP SPRINT")
     }
 
     addMultipleKeys(setOf(Key.Spacebar, Key.Spacebar), "ATTACK") {
         player.attack()
+        println("ATTACK")
     }
-    addMultipleKeys(setOf(Key.E, Key.E), "CAST") {
+    addMultipleKeys(setOf(Key.E, Key.E), "CAST SPELL") {
         player.castSpell()
+        println("CAST SPELL")
     }
-    addMultipleKeys(setOf(Key.R, Key.R), "CYCLE") {
+    addMultipleKeys(setOf(Key.R, Key.R), "CYCLE SPELL") {
         player.cycleSpell()
     }
-    addMultipleKeys(setOf(Key.Q, Key.Q), "UNIQUE") {
+    addMultipleKeys(setOf(Key.Q, Key.Q), "UNIQUE SKILL") {
         player.uniqueSkill()
+        println("UNIQUE SKILL")
     }
     /*
     addSingleActionKey(Key.Escape, "ESC") {
@@ -76,6 +66,8 @@ val keyHandler = KeyHandler {
      */
 }
 
+
+/*
 class KeyListener {
 
     var pressedKeys by mutableStateOf<Set<Key>>(emptySet())
@@ -182,13 +174,14 @@ class KeyListener {
         //when a button is pressed add it to pressedKeys
         when (event.type) {
             KeyEventType.KeyDown -> {
-                keyListener.pressedKeys += event.key
+                keyListener.pressedKeys + event.key
             }
 
             KeyEventType.KeyUp -> {
-                keyListener.pressedKeys -= event.key
+                keyListener.pressedKeys - event.key
             }
         }
         true
     }
 }
+ */

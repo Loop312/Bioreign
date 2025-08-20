@@ -28,7 +28,7 @@ class DebugWindow {
                                 else if (player.movingLeft) "LEFT: " + map.displayColliders("left")
                                 else "RIGHT: " + map.displayColliders("right")
                     )
-                    Text("\n" + keyListener.pressedKeys.toString())
+                    //Text("\n" + keyListener.pressedKeys.toString())
                     Text("\nStats:\n" + player.displayStats())
                 }
             }

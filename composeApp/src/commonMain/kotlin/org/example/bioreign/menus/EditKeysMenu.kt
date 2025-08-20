@@ -8,13 +8,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.example.bioreign.keyListener
 
 
 class EditKeysMenu {
     //needs changes to how it's setup and the way it calls the onClick function
     @Composable
     fun open(navBack: () -> Unit) {
+        /*
         Column {
             for (i in 0..<keyListener.keys.size step 2) {
                 Row {
@@ -31,6 +31,7 @@ class EditKeysMenu {
                 Text("Back to Home")
             }
         }
+         */
     }
 
     fun refresh() {

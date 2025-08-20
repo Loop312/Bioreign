@@ -15,7 +15,6 @@ import org.example.bioreign.menus.Nav
 
 
 val player = Player()
-val keyListener = KeyListener()
 val map = Map(Res.drawable.tempmap)
 
 
@@ -30,10 +29,5 @@ fun Bioreign() {
         .background(Color.DarkGray)
     ){
         nav.Activate()
-        //keyListener.listen()
-        Column {
-            Text(keyHandler.pressedKeys.toString())
-        }
-        //not really needed anymore
     }
 }

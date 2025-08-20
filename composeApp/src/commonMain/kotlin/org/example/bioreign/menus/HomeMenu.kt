@@ -13,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import bioreign.composeapp.generated.resources.BioreignTempLogo
 import bioreign.composeapp.generated.resources.Res
-import org.example.bioreign.keyListener
 import org.jetbrains.compose.resources.painterResource
 
 class HomeMenu {
@@ -22,10 +21,10 @@ class HomeMenu {
         Box(Modifier.fillMaxSize()) {
             Image(painterResource(Res.drawable.BioreignTempLogo), null, Modifier.align(Alignment.TopCenter).offset(0.dp, 50.dp))
             Column (Modifier.align(Alignment.Center), horizontalAlignment = Alignment.CenterHorizontally) {
-                Button(onClick = { navModeMenu(); keyListener.edit = false }) {
+                Button(onClick = { navModeMenu() }) {
                     Text("Start Game")
                 }
-                Button(onClick = { navKeysMenu(); keyListener.edit = true }) {
+                Button(onClick = { navKeysMenu() }) {
                     Text("Edit Keys")
                 }
                 Button(onClick = { navSettingsMenu() }) {

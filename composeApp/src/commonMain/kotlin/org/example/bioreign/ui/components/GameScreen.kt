@@ -1,9 +1,19 @@
 package org.example.bioreign.ui.components
 
+import androidx.compose.foundation.focusable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.Button
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.input.key.onKeyEvent
 import org.example.bioreign.viewmodel.GameViewModel
+import org.example.bioreign.viewmodel.keyHandler
+import org.example.bioreign.viewmodel.setupPlayer
 
 @Composable
 fun GameScreen(viewModel: GameViewModel) {
@@ -11,8 +21,21 @@ fun GameScreen(viewModel: GameViewModel) {
     val playerState = viewModel.player.characterState.collectAsState()
 
 
+    val focusRequester = FocusRequester()
+
+
     LaunchedEffect(Unit) {
+        keyHandler.setupPlayer(viewModel.player)
+        focusRequester.requestFocus()
         viewModel.gameLoop()
     }
-    DisplayHUD(playerState.value.stats)
+    DisplayHUD(playerState.value)
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .focusable()
+        .focusRequester(focusRequester)
+        .onKeyEvent(keyHandler.listen)
+    ) {
+        Button(onClick = {}, Modifier.onKeyEvent(keyHandler.listen)) {}
+    }
 }

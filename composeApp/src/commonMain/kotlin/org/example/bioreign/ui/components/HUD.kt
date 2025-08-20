@@ -7,26 +7,34 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.unit.*
-import org.example.bioreign.map
-import org.example.bioreign.model.CharacterStats
+import org.example.bioreign.model.CharacterState
 import org.example.bioreign.player
 
 
 @Composable
-fun DisplayHUD(stats: CharacterStats) {
+fun DisplayHUD(state: CharacterState) {
+    val stats = state.stats
     Column (Modifier.background(Color.LightGray)) {
         HealthBar(stats.hp, stats.maxHp)
         StaminaBar(stats.stamina, stats.maxStamina)
         ManaBar(stats.mana, stats.maxMana)
         ExpBar(stats.exp, stats.expLimit)
-        Text("Player Location: (${map.x}, ${map.y})\n" +
-                "Player Spells: " + player.spells.joinToString { it.name } + "\n" +
-                "Player Current Spell: ${player.spells[player.currentSpell].name}",
-            color = Color.Magenta
+        Text(
+            "Player lvl: " + player.lvl + "\nSkill Points: " + player.skillPoints,
+            color = Color.Blue
         )
+        Text("Player Location: ${state.position}")
+
+        if (state.spells.isNotEmpty()) {
+            Text("Player Spells: " + state.spells.joinToString { it.name } + "\n" +
+                    "Player Current Spell: ${state.spells[state.currentSpell].name}",
+                )
+        } else {
+            Text("Player has no spells")
+        }
         //Text("FPS: $fps \n FrameTime: $frameTime ms")
-        Text("HORIZONTAL VELOCITY: ${player.horizontalVelocity}\n" +
-                "VERTICAL VELOCITY: ${player.verticalVelocity}"
+        Text("HORIZONTAL VELOCITY: ${state.horizontalVelocity}\n" +
+                "VERTICAL VELOCITY: ${state.verticalVelocity}"
         )
     }
 }
@@ -118,9 +126,5 @@ fun ExpBar(exp: Float, expLimit: Float) {
                     .background(Color.Blue)
             )
         }
-        Text(
-            "Player lvl: " + player.lvl + "\nSkill Points: " + player.skillPoints,
-            color = Color.Blue
-        )
     }
 }
