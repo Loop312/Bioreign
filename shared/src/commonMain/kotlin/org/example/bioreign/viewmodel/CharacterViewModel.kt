@@ -19,8 +19,6 @@ class CharacterViewModel : ViewModel() {
         CharacterState(
             race = Race.HUMAN,
             stats = createCharacterStats(Race.HUMAN),
-            spells = listOf(),
-            currentSpell = 0,
             position = Position(0f,0f),
             image = "compose_multiplatform"
         )
@@ -114,6 +112,13 @@ class CharacterViewModel : ViewModel() {
         }
     }
 
+    fun cycleSpell(){
+        _characterState.update { currentState ->
+            val newSpellIndex = (currentState.currentSpell + 1) % currentState.spells.size
+            currentState.copy(currentSpell = newSpellIndex)
+        }
+    }
+
     //press Q
     fun uniqueSkill() {
         val currentPlayer = _characterState.value
@@ -196,6 +201,30 @@ class CharacterViewModel : ViewModel() {
         }
     }
 
+    fun move(x: Float, y: Float) {
+        _characterState.update { currentState ->
+            currentState.copy(
+                verticalVelocity = y,
+                horizontalVelocity = x
+            )
+        }
+    }
+
+    fun sprint() {
+        _characterState.update { currentState ->
+            currentState.copy(
+                sprinting = true
+            )
+        }
+    }
+
+    fun stopSprint() {
+        _characterState.update { currentState ->
+            currentState.copy(
+                sprinting = false
+            )
+        }
+    }
     fun handleMovement(deltaTime: Float) {
         _characterState.update { currentState ->
             val currentPosition = currentState.position

@@ -36,8 +36,8 @@ data class CharacterState(
     val attacking: Boolean = false,
     val casting: Boolean = false,
     val switching: Boolean = false,
-    val spells: List<Spell>,
-    val currentSpell: Int,
+    val spells: List<Spell> = listOf(Spell("Fireball", "", 0, 0.0)),
+    val currentSpell: Int = 0,
     val position: Position,
     val size: Size = Size(100f, 100f),
     val image: String, // Use a string to represent the resource
