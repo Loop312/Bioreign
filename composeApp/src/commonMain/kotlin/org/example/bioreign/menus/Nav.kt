@@ -67,7 +67,7 @@ class Nav {
     val rogue = Rogue()
 
     @Composable
-    fun activate() {
+    fun Activate() {
         val navController = rememberNavController()
         //switch back to startDestination = HomeRoute later
         NavHost(navController = navController, startDestination = AppRoute.Story(1,"")) {
@@ -81,7 +81,7 @@ class Nav {
             }
             //SETTINGS
             composable<AppRoute.Settings> {
-                settingsMenu.open(
+                settingsMenu.Open(
                     navBack = { navController.popBackStack() }
                 )
             }

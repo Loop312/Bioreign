@@ -12,7 +12,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             //App()
-            theApp()
+            Bioreign()
             overlay.open()
         }
     }
@@ -22,6 +22,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun AppAndroidPreview() {
     //App()
-    theApp()
+    Bioreign()
     overlay.open()
 }
