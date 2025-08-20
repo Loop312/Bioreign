@@ -1,5 +1,6 @@
 package org.example.bioreign.viewmodel
 
+import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -13,7 +14,7 @@ import org.example.bioreign.model.CharacterStats
 import org.example.bioreign.model.Position
 import org.example.bioreign.model.Race
 
-class CharacterViewModel {
+class CharacterViewModel : ViewModel() {
     private val _characterState = MutableStateFlow(
         CharacterState(
             race = Race.HUMAN,
