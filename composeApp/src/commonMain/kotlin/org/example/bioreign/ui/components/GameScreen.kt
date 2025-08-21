@@ -7,6 +7,7 @@ import androidx.compose.material.Button
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
@@ -22,23 +23,24 @@ fun GameScreen(viewModel: GameViewModel) {
     val playerState = viewModel.player.characterState.collectAsState()
 
 
-    val focusRequester = FocusRequester()
+    val focusRequester = remember { FocusRequester() }
 
-
-    LaunchedEffect(Unit) {
-        keyHandler.setupPlayer(viewModel.player)
-        focusRequester.requestFocus()
-        viewModel.gameLoop()
-    }
-    map.load()
-    Player(playerState.value)
-    DisplayHUD(playerState.value)
     Box(modifier = Modifier
         .fillMaxSize()
         .focusable()
         .focusRequester(focusRequester)
         .onKeyEvent(keyHandler.listen)
     ) {
+        //keyhandler doesn't work without button?
         Button(onClick = {}, Modifier.onKeyEvent(keyHandler.listen)) {}
+        map.load()
+        Player(playerState.value)
+        DisplayHUD(playerState.value)
+    }
+
+    LaunchedEffect(Unit) {
+        keyHandler.setupPlayer(viewModel.player)
+        focusRequester.requestFocus()
+        viewModel.gameLoop()
     }
 }

@@ -8,7 +8,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.unit.*
 import org.example.bioreign.model.CharacterState
-import org.example.bioreign.player
 
 
 @Composable
@@ -20,7 +19,7 @@ fun DisplayHUD(state: CharacterState) {
         ManaBar(stats.mana, stats.maxMana)
         ExpBar(stats.exp, stats.expLimit)
         Text(
-            "Player lvl: " + player.lvl + "\nSkill Points: " + player.skillPoints,
+            "Player lvl: " + stats.lvl + "\nSkill Points: " + stats.skillPoints,
             color = Color.Blue
         )
         Text("Player Location: ${state.position}")
