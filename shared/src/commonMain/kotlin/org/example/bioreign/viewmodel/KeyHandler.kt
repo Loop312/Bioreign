@@ -44,7 +44,7 @@ fun KeyHandler.setupPlayer(player: CharacterViewModel) {
         println("STOP SPRINT")
     }
 
-    addMultipleKeys(setOf(Key.Spacebar, Key.Spacebar), "ATTACK") {
+    addMultipleKeys(setOf(Key.F, Key.Spacebar), "ATTACK") {
         player.attack()
         println("ATTACK")
     }
@@ -54,6 +54,7 @@ fun KeyHandler.setupPlayer(player: CharacterViewModel) {
     }
     addMultipleKeys(setOf(Key.R, Key.R), "CYCLE SPELL") {
         player.cycleSpell()
+        println("CYCLE SPELL")
     }
     addMultipleKeys(setOf(Key.Q, Key.Q), "UNIQUE SKILL") {
         player.uniqueSkill()
