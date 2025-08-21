@@ -43,8 +43,9 @@ class GameViewModel(val player: CharacterViewModel) : ViewModel() {
     }
     fun update(deltaTime: Float) {
         player.gainExp(1f * deltaTime)
-        player.handleStaminaRegen(deltaTime)
+        player.handleStamina(deltaTime)
         player.handleMovement(deltaTime)
         player.handleManaRegen(deltaTime)
+
     }
 }

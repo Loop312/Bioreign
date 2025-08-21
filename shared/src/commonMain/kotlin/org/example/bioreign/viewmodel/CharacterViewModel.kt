@@ -175,8 +175,25 @@ class CharacterViewModel : ViewModel() {
         }
     }
 
-    fun handleStaminaRegen(deltaTime: Float) {
-        if (_characterState.value.stats.stamina >= _characterState.value.stats.maxStamina) {
+    fun handleStamina(deltaTime: Float) {
+        //SPRINT
+        if (_characterState.value.stats.stamina <= 0 && _characterState.value.sprinting) {
+            _characterState.update { it.copy(sprinting = false) }
+            return
+        }
+        if (_characterState.value.sprinting) {
+            _characterState.update { currentState ->
+                val currentStats = currentState.stats
+                val newStamina = currentStats.stamina - (currentStats.maxStamina * 0.5f * deltaTime)
+                currentState.copy(
+                    stats = currentStats.copy(stamina = newStamina)
+                )
+            }
+            return
+        }
+
+        //REGEN
+        if (_characterState.value.stats.stamina >= _characterState.value.stats.maxStamina ) {
             return
         }
         _characterState.update { currentState ->
@@ -230,10 +247,14 @@ class CharacterViewModel : ViewModel() {
     fun handleMovement(deltaTime: Float) {
         _characterState.update { currentState ->
             val currentPosition = currentState.position
+            var horizontalPosition = currentPosition.x
+            horizontalPosition += (currentState.horizontalVelocity * deltaTime) * if (currentState.sprinting) 2 else 1
+            var verticalPosition = currentPosition.y
+            verticalPosition +=  (currentState.verticalVelocity * deltaTime) * if (currentState.sprinting) 2 else 1
             currentState.copy(
                 position = currentPosition.copy(
-                    x = currentPosition.x + (currentState.horizontalVelocity * deltaTime),
-                    y = currentPosition.y + (currentState.verticalVelocity * deltaTime)
+                    x = horizontalPosition,
+                    y = verticalPosition
                 )
             )
         }
