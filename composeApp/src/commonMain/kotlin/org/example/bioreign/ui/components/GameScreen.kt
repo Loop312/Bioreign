@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.key.onKeyEvent
+import org.example.bioreign.map
 import org.example.bioreign.viewmodel.GameViewModel
 import org.example.bioreign.viewmodel.keyHandler
 import org.example.bioreign.viewmodel.setupPlayer
@@ -29,6 +30,8 @@ fun GameScreen(viewModel: GameViewModel) {
         focusRequester.requestFocus()
         viewModel.gameLoop()
     }
+    map.load()
+    Player(playerState.value)
     DisplayHUD(playerState.value)
     Box(modifier = Modifier
         .fillMaxSize()

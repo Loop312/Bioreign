@@ -218,13 +218,13 @@ class CharacterViewModel : ViewModel() {
         }
     }
 
-    fun move(x: Float, y: Float) {
+    fun move(dx: Float, dy: Float) {
         _characterState.update { currentState ->
             val currentHorizontalVelocity = currentState.horizontalVelocity
             val currentVerticalVelocity = currentState.verticalVelocity
             currentState.copy(
-                horizontalVelocity = currentHorizontalVelocity + x,
-                verticalVelocity = currentVerticalVelocity + y
+                horizontalVelocity = currentHorizontalVelocity + dx * 10,
+                verticalVelocity = currentVerticalVelocity + dy * 10
             )
         }
     }
