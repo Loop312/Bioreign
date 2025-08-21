@@ -17,38 +17,38 @@ import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun Player(characterState: CharacterState) {
+fun Player(state: CharacterState) {
     Box(Modifier.fillMaxSize()) {
         // Renders character based on the state passed in
         Image(
-            painter = painterResource(getResId(characterState.image)),
-            contentDescription = characterState.stats.name,
+            painter = painterResource(getResId(state.image)),
+            contentDescription = state.stats.name,
             modifier = Modifier
-                .offset(characterState.position.x.dp, characterState.position.y.dp)
+                .offset(state.position.x.dp, state.position.y.dp)
                 .size(100.dp)
                 .align(Alignment.Center)
         )
 
         // Renders attack based on the state passed in
-        if (characterState.attacking) {
+        if (state.attacking) {
             Image(
                 painterResource(Res.drawable.BioreignTempLogo),
                 null,
                 Modifier
-                    .offset(characterState.position.x.dp, characterState.position.y.dp) // Adjust based on logic
+                    .offset(state.position.x.dp, state.position.y.dp) // Adjust based on logic
                     .size(100.dp)
                     .align(Alignment.Center)
             )
         }
 
         // Renders spell based on the state passed in
-        if (characterState.casting && characterState.spells.isNotEmpty()) {
-            val currentSpell = characterState.spells[characterState.currentSpell]
+        if (state.casting && state.spells.isNotEmpty()) {
+            val currentSpell = state.spells[state.currentSpell]
             Image(
                 painterResource(getResId(currentSpell.image)),
                 currentSpell.name,
                 Modifier
-                    .offset(characterState.position.x.dp, characterState.position.y.dp) // Adjust based on logic
+                    .offset(state.position.x.dp, state.position.y.dp) // Adjust based on logic
                     .size(currentSpell.size.dp)
                     .align(Alignment.Center)
             )
