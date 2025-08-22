@@ -8,7 +8,10 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import org.example.bioreign.model.GameState
 
-class GameViewModel(val player: CharacterViewModel) : ViewModel() {
+class GameViewModel(
+    val player: CharacterViewModel,
+    val map: MapViewModel
+) : ViewModel() {
     var updateInterval = .5f
 
     private val _gameState = MutableStateFlow(GameState())
@@ -46,6 +49,6 @@ class GameViewModel(val player: CharacterViewModel) : ViewModel() {
         player.handleStamina(deltaTime)
         player.handleMovement(deltaTime)
         player.handleManaRegen(deltaTime)
-
+        map.updateCameraPosition(player.characterState.value.position.x, player.characterState.value.position.y)
     }
 }
