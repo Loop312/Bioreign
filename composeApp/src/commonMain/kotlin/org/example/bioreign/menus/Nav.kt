@@ -13,6 +13,7 @@ import org.example.bioreign.gamemodes.StoryMode
 import org.example.bioreign.ui.components.GameScreen
 import org.example.bioreign.viewmodel.CharacterViewModel
 import org.example.bioreign.viewmodel.GameViewModel
+import org.example.bioreign.viewmodel.MapViewModel
 
 
 sealed class AppRoute {
@@ -146,13 +147,15 @@ class Nav {
             }
             //STORY MODE
             composable<AppRoute.Story> {
-                GameScreen(GameViewModel(CharacterViewModel()))
-                /*
-                storyMode.play(
-                    toHomeMenu = { navController.navigate(AppRoute.Home) }
+                GameScreen(
+                    GameViewModel(
+                        CharacterViewModel(),
+                        MapViewModel()
+                    )
                 )
-
-                 */
+                /*storyMode.play(
+                    toHomeMenu = { navController.navigate(AppRoute.Home) }
+                )*/
             }
             //ONLINE/PvP MODE
             composable<AppRoute.PvP> {
