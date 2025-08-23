@@ -21,6 +21,8 @@ import org.example.bioreign.viewmodel.setupPlayer
 fun GameScreen(viewModel: GameViewModel) {
     val gameState = viewModel.gameState.collectAsState()
     val playerState = viewModel.player.characterState.collectAsState()
+    val cameraState = viewModel.map.cameraState.collectAsState()
+    val mapState = viewModel.map.mapState.collectAsState()
 
 
     val focusRequester = remember { FocusRequester() }
