@@ -33,12 +33,21 @@ class MapViewModel : ViewModel() {
         _cameraState.value = _cameraState.value.copy(clamp = clamp)
     }
 
-    fun TileToImage(tile: Tile): String {
+    fun tileToImage(tile: Tile): String {
         return when (tile.type) {
             TileType.GRASS -> "grass"
             TileType.DIRT -> "dirt"
             TileType.STONE -> "stone"
             TileType.WATER -> "water"
+        }
+    }
+
+    fun tileToSolid(tile: Tile): Boolean {
+        return when (tile.type) {
+            TileType.GRASS -> false
+            TileType.DIRT -> false
+            TileType.STONE -> true
+            TileType.WATER -> true
         }
     }
 }
