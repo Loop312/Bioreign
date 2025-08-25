@@ -222,9 +222,10 @@ class CharacterViewModel : ViewModel() {
         _characterState.update { currentState ->
             val currentHorizontalVelocity = currentState.horizontalVelocity
             val currentVerticalVelocity = currentState.verticalVelocity
+            val speed = currentState.stats.spd
             currentState.copy(
-                horizontalVelocity = currentHorizontalVelocity + dx * 10,
-                verticalVelocity = currentVerticalVelocity + dy * 10
+                horizontalVelocity = currentHorizontalVelocity + dx * speed * 2,
+                verticalVelocity = currentVerticalVelocity + dy * speed * 2
             )
         }
     }
