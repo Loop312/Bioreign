@@ -248,10 +248,11 @@ class CharacterViewModel : ViewModel() {
     fun handleMovement(deltaTime: Float) {
         _characterState.update { currentState ->
             val currentPosition = currentState.position
+            val sprintMultiplier = if (currentState.sprinting) 2 else 1
             var horizontalPosition = currentPosition.x
-            horizontalPosition += (currentState.horizontalVelocity * deltaTime) * if (currentState.sprinting) 2 else 1
+            horizontalPosition += (currentState.horizontalVelocity * deltaTime) * sprintMultiplier
             var verticalPosition = currentPosition.y
-            verticalPosition +=  (currentState.verticalVelocity * deltaTime) * if (currentState.sprinting) 2 else 1
+            verticalPosition +=  (currentState.verticalVelocity * deltaTime) * sprintMultiplier
             currentState.copy(
                 position = currentPosition.copy(
                     x = horizontalPosition,
