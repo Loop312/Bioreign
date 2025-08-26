@@ -1,16 +1,22 @@
 package org.example.bioreign.model
 
 data class MapState (
-    val width: Int = 0,
-    val height: Int = 0,
-    val tiles: Array<Array<Tile>> = emptyArray()
+    val width: Int = 100,
+    val height: Int = 100,
+    val tiles: Array<Array<Tile>> = arrayOf(
+        arrayOf(Tile(), Tile(), Tile(), Tile(), Tile()),
+        arrayOf(Tile(), Tile(), Tile(), Tile(), Tile()),
+        arrayOf(Tile(), Tile(), Tile(), Tile(), Tile()),
+        arrayOf(Tile(), Tile(), Tile(), Tile(), Tile()),
+        arrayOf(Tile(), Tile(), Tile(), Tile(), Tile())
+    )
 )
 
 data class Tile (
-    val x: Int,
-    val y: Int,
-    val type: TileType,
-    val solid: Boolean
+    val x: Int = 0,
+    val y: Int = 0,
+    val type: TileType = TileType.GRASS,
+    val solid: Boolean = false
 )
 
 enum class TileType {
