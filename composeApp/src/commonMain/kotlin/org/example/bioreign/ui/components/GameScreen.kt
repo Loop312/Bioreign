@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
@@ -26,7 +27,7 @@ fun GameScreen(viewModel: GameViewModel) {
 
     val focusRequester = remember { FocusRequester() }
 
-    Box(modifier = Modifier
+    Box(contentAlignment = Alignment.Center, modifier = Modifier
         .fillMaxSize()
         .focusable()
         .focusRequester(focusRequester)
@@ -36,8 +37,8 @@ fun GameScreen(viewModel: GameViewModel) {
         Button(onClick = {}, Modifier.onKeyEvent(keyHandler.listen)) {}
         LoadMap(mapState.value, cameraState.value)
         Player(playerState.value, cameraState.value.clamp)
-        DisplayHUD(playerState.value)
     }
+    DisplayHUD(playerState.value)
 
     LaunchedEffect(Unit) {
         keyHandler.setupPlayer(viewModel.player)
