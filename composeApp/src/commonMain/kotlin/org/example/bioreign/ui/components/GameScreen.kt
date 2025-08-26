@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.key.onKeyEvent
-import org.example.bioreign.map
 import org.example.bioreign.viewmodel.GameViewModel
 import org.example.bioreign.viewmodel.keyHandler
 import org.example.bioreign.viewmodel.setupPlayer
@@ -35,8 +34,8 @@ fun GameScreen(viewModel: GameViewModel) {
     ) {
         //keyhandler doesn't work without button?
         Button(onClick = {}, Modifier.onKeyEvent(keyHandler.listen)) {}
-        map.load()
-        Player(playerState.value)
+        LoadMap(mapState.value, cameraState.value)
+        Player(playerState.value, cameraState.value.clamp)
         DisplayHUD(playerState.value)
     }
 

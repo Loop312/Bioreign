@@ -17,14 +17,17 @@ import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun Player(state: CharacterState) {
+fun Player(state: CharacterState, clamp: Boolean) {
     Box(Modifier.fillMaxSize()) {
         // Renders character based on the state passed in
         Image(
             painter = painterResource(getResId(state.image)),
             contentDescription = state.stats.name,
             modifier = Modifier
-                .offset(state.position.x.dp, state.position.y.dp)
+                .offset(
+                    if (clamp) state.position.x.dp else 0.dp,
+                    if (clamp) state.position.y.dp else 0.dp
+                )
                 .size(100.dp)
                 .align(Alignment.Center)
         )
