@@ -1,6 +1,6 @@
 package org.example.bioreign.viewmodel
 
-import androidx.lifecycle.ViewModel
+//import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -9,7 +9,7 @@ import org.example.bioreign.model.MapState
 import org.example.bioreign.model.Tile
 import org.example.bioreign.model.TileType
 
-class MapViewModel : ViewModel() {
+class MapViewModel {
     private val _mapState = MutableStateFlow(MapState())
     val mapState: StateFlow<MapState> = _mapState.asStateFlow()
 

@@ -1,7 +1,7 @@
 package org.example.bioreign.viewmodel
 
 import androidx.compose.runtime.withFrameNanos
-import androidx.lifecycle.ViewModel
+//import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -11,7 +11,7 @@ import org.example.bioreign.model.GameState
 class GameViewModel(
     val player: CharacterViewModel,
     val map: MapViewModel
-) : ViewModel() {
+) {
     var updateInterval = .5f
 
     private val _gameState = MutableStateFlow(GameState())
