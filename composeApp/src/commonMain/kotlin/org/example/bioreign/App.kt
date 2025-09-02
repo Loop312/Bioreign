@@ -2,21 +2,11 @@ package org.example.bioreign
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import bioreign.composeapp.generated.resources.*
-//bioreign imports
-import org.example.bioreign.characters.Player
-import org.example.bioreign.maps.Map
 import org.example.bioreign.menus.Nav
-
-
-val player = Player()
-val map = Map(Res.drawable.tempmap)
-
 
 @Composable
 @Preview

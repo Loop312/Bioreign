@@ -7,10 +7,6 @@ val debugger = DebugWindow()
 
 fun main() = application {
     //initialize a set for handling key inputs
-
-    map.addCollider("up", arrayOf(100,-100,100))
-    player.movingUp = true
-
     //initialize window
     Window(onCloseRequest = ::exitApplication, title = "Bioreign", alwaysOnTop = true) {
         Bioreign()
