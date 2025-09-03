@@ -19,8 +19,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
+import org.example.bioreign.viewmodel.CharacterViewModel
 
 class Overlay {
+    val player: CharacterViewModel = CharacterViewModel()
     var dx by mutableStateOf(0F)
     var dy by mutableStateOf(0F)
     var isOpen by mutableStateOf(true)
@@ -154,11 +156,11 @@ class Overlay {
             while (true) {
                 delay(frameRate.toLong())
                 if (dx >= 75 || dx <= -75 || dy >= 75 || dy <= -75) {
-                    player.sprinting = if (player.stamina > 0) {true} else false
+                    //player.sprinting = if (player.stamina > 0) {true} else false
                     player.move((dx / 175) * frameRateMultiplier.toFloat(), (dy / 175) * frameRateMultiplier.toFloat())
                 }
                 else {
-                    player.sprinting = false
+                    //player.sprinting = false
                     player.move((dx / 100) * frameRateMultiplier.toFloat(), (dy / 100) * frameRateMultiplier.toFloat())
                 }
             }
