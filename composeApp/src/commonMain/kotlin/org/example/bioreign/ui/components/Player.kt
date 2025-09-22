@@ -17,19 +17,14 @@ import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun Player(state: CharacterState, clamp: Boolean) {
-    Box(Modifier.fillMaxSize()) {
+fun Player(state: CharacterState) {
+    Box(Modifier.fillMaxSize(), Alignment.Center) {
         // Renders character based on the state passed in
         Image(
             painter = painterResource(getResId(state.image)),
             contentDescription = state.stats.name,
             modifier = Modifier
-                .offset(
-                    if (clamp) state.position.x.dp else 0.dp,
-                    if (clamp) state.position.y.dp else 0.dp
-                )
                 .size(100.dp)
-                .align(Alignment.Center)
         )
 
         // Renders attack based on the state passed in
@@ -40,7 +35,6 @@ fun Player(state: CharacterState, clamp: Boolean) {
                 Modifier
                     .offset(state.position.x.dp, state.position.y.dp) // Adjust based on logic
                     .size(100.dp)
-                    .align(Alignment.Center)
             )
         }
 
@@ -53,7 +47,6 @@ fun Player(state: CharacterState, clamp: Boolean) {
                 Modifier
                     .offset(state.position.x.dp, state.position.y.dp) // Adjust based on logic
                     .size(currentSpell.size.dp)
-                    .align(Alignment.Center)
             )
         }
     }

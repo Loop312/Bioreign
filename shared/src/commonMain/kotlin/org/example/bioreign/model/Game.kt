@@ -5,5 +5,5 @@ data class GameState(
     var fps: Float = 0f,
     var frameTime: Float = 0f,
     var showHitbox: Boolean = true,
-    var map: MapState = MapState(0, 0, emptyArray())
+    var map: MapState = MapState()
 )
