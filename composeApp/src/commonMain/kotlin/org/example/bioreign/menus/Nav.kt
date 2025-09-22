@@ -11,6 +11,7 @@ import org.example.bioreign.gamemodes.Online
 import org.example.bioreign.gamemodes.Rogue
 import org.example.bioreign.gamemodes.StoryMode
 import org.example.bioreign.ui.components.GameScreen
+import org.example.bioreign.viewmodel.CameraViewModel
 import org.example.bioreign.viewmodel.CharacterViewModel
 import org.example.bioreign.viewmodel.GameViewModel
 import org.example.bioreign.viewmodel.MapViewModel
@@ -150,7 +151,8 @@ class Nav {
                 GameScreen(
                     GameViewModel(
                         CharacterViewModel(),
-                        MapViewModel()
+                        MapViewModel(),
+                        CameraViewModel()
                     )
                 )
                 /*storyMode.play(

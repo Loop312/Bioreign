@@ -21,8 +21,9 @@ import org.example.bioreign.viewmodel.setupPlayer
 fun GameScreen(viewModel: GameViewModel) {
     val gameState = viewModel.gameState.collectAsState()
     val playerState = viewModel.player.characterState.collectAsState()
-    val cameraState = viewModel.map.cameraState.collectAsState()
     val mapState = viewModel.map.mapState.collectAsState()
+    val cameraState = viewModel.camera.cameraState.collectAsState()
+    val cameraViewModel = viewModel.camera
 
 
     val focusRequester = remember { FocusRequester() }
@@ -35,10 +36,10 @@ fun GameScreen(viewModel: GameViewModel) {
     ) {
         //keyhandler doesn't work without button?
         Button(onClick = {}, Modifier.onKeyEvent(keyHandler.listen)) {}
-        LoadMap(mapState.value, cameraState.value)
-        Player(playerState.value, cameraState.value.clamp)
+        LoadMap(mapState.value, cameraState.value, cameraViewModel)
+        Player(playerState.value)
     }
-    DisplayHUD(playerState.value)
+    //DisplayHUD(playerState.value)
 
     LaunchedEffect(Unit) {
         keyHandler.setupPlayer(viewModel.player)

@@ -10,7 +10,8 @@ import org.example.bioreign.model.GameState
 
 class GameViewModel(
     val player: CharacterViewModel,
-    val map: MapViewModel
+    val map: MapViewModel,
+    val camera: CameraViewModel
 ) {
     var updateInterval = .5f
 
@@ -49,6 +50,12 @@ class GameViewModel(
         player.handleStamina(deltaTime)
         player.handleMovement(deltaTime)
         player.handleManaRegen(deltaTime)
-        map.updateCameraPosition(player.characterState.value.position.x, player.characterState.value.position.y)
+        camera.updatePosition(
+            player.characterState.value.position.x,
+                    player.characterState.value.position.y,
+            map.mapState.value.tiles.size,
+            map.mapState.value.tiles[0].size,
+            map.tileSize
+        )
     }
 }
