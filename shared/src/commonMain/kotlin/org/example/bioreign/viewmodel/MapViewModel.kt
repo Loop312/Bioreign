@@ -1,10 +1,11 @@
 package org.example.bioreign.viewmodel
 
 //import androidx.lifecycle.ViewModel
+import androidx.compose.ui.graphics.Color
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import org.example.bioreign.model.CameraState
+import kotlinx.coroutines.flow.update
 import org.example.bioreign.model.MapState
 import org.example.bioreign.model.Tile
 import org.example.bioreign.model.TileType
@@ -13,24 +14,32 @@ class MapViewModel {
     private val _mapState = MutableStateFlow(MapState())
     val mapState: StateFlow<MapState> = _mapState.asStateFlow()
 
-    private val _cameraState = MutableStateFlow(CameraState())
-    val cameraState: StateFlow<CameraState> = _cameraState.asStateFlow()
+    val tileSize = 100
 
+    init {
+        loadTestMap()
+    }
 
     fun loadMap(map: MapState) {
         _mapState.value = map
     }
 
-    fun updateCameraPosition(x: Float, y: Float) {
-        _cameraState.value = _cameraState.value.copy(x = x, y = y)
-    }
+    fun loadTestMap() {
+        _mapState.update { currentState ->
+            val tiles = Array(currentState.tiles.size) { Array(currentState.tiles[0].size) { Tile() } }
 
-    fun updateCameraSize(width: Int, height: Int) {
-        _cameraState.value = _cameraState.value.copy(width = width, height = height)
-    }
+            for (i in 0 until tiles.size ) {
+                for (j in 0 until tiles[i].size) {
+                    when (i % 3 + j % 3) {
+                        0 -> tiles[i][j] = Tile(color = Color.Green)
+                        1 -> tiles[i][j] = Tile(color = Color.Red)
+                        2 -> tiles[i][j] = Tile(color = Color.Blue)
+                    }
+                }
+            }
 
-    fun updateCameraClamp(clamp: Boolean) {
-        _cameraState.value = _cameraState.value.copy(clamp = clamp)
+            currentState.copy(tiles = tiles)
+        }
     }
 
     fun tileToImage(tile: Tile): String {
