@@ -7,9 +7,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.geometry.center
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.unit.dp
 import org.example.bioreign.model.CameraState
 import org.example.bioreign.model.MapState
@@ -21,7 +21,7 @@ fun LoadMap(map: MapState, cameraState: CameraState, cameraVM: CameraViewModel) 
         x = -(cameraState.startX * map.tileSize + cameraState.offset.x).dp,
         y = -(cameraState.startY * map.tileSize + cameraState.offset.y).dp
     )) {
-        val canvasCenter = size.center //probably be used to center the camera
+        //val canvasCenter = size.center //probably be used to center the camera
         val canvasWidth = size.width
         val canvasHeight = size.height
         //println("Center: $center, Width: $canvasWidth, Height: $canvasHeight")
@@ -33,18 +33,23 @@ fun LoadMap(map: MapState, cameraState: CameraState, cameraVM: CameraViewModel) 
 
         println("Camera State: $cameraState")
 
-        for (i in cameraState.startX until cameraState.endX) {
-            for (j in cameraState.startY until cameraState.endY) {
-                val offset = Offset(i * map.tileSize, j * map.tileSize)
-                drawRect(
-                    color = map.tiles[i][j].color,
-                    topLeft = offset,
-                    size = Size(map.tileSize, map.tileSize)
-                )
-                drawGrid(
-                    offset,
-                    Size(map.tileSize, map.tileSize)
-                )
+        val centerOffsetX = (canvasWidth - viewableTilesX * map.tileSize) / 2
+        val centerOffsetY = (canvasHeight - viewableTilesY * map.tileSize) / 2
+
+        translate (centerOffsetX, centerOffsetY) {
+            for (i in cameraState.startX until cameraState.endX) {
+                for (j in cameraState.startY until cameraState.endY) {
+                    val offset = Offset(i * map.tileSize, j * map.tileSize)
+                    drawRect(
+                        color = map.tiles[i][j].color,
+                        topLeft = offset,
+                        size = Size(map.tileSize, map.tileSize)
+                    )
+                    drawGrid(
+                        offset,
+                        Size(map.tileSize, map.tileSize)
+                    )
+                }
             }
         }
     }

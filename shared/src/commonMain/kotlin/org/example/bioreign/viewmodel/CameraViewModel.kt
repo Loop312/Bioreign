@@ -13,24 +13,33 @@ class CameraViewModel {
 
     fun updatePosition(playerX: Float, playerY: Float, mapSizeX: Int, mapSizeY: Int, tileSize: Int) {
         _cameraState.update { cameraState ->
-            var startX = (playerX / tileSize).toInt().coerceAtLeast(0)
-            var startY = (playerY / tileSize).toInt().coerceAtLeast(0)
 
-            var endX = (playerX / tileSize + cameraState.width).toInt().coerceAtMost(mapSizeX)
-            var endY = (playerY / tileSize + cameraState.height).toInt().coerceAtMost(mapSizeY)
+            val clampTop = playerY < 0
+            val clampBottom = playerY > mapSizeY * tileSize
+            val clampLeft = playerX < 0
+            val clampRight = playerX > mapSizeX * tileSize
 
-            val clampTop = startY == 0
-            val clampBottom = endY == mapSizeY
-            val clampLeft = startX == 0
-            val clampRight = endX == mapSizeX
+            val startX = if (clampRight) mapSizeX - cameraState.width
+                else (playerX / tileSize).toInt().coerceAtLeast(0)
+            val startY = if (clampBottom) mapSizeY - cameraState.height
+                else (playerY / tileSize).toInt().coerceAtLeast(0)
 
-            endX = if (clampLeft) cameraState.width else endX
-            endY = if (clampTop) cameraState.height else endY
+            val endX = if (clampLeft) cameraState.width
+                else (playerX / tileSize + cameraState.width).toInt().coerceAtMost(mapSizeX)
+            val endY = if (clampTop) cameraState.height
+                else (playerY / tileSize + cameraState.height).toInt().coerceAtMost(mapSizeY)
 
-            startX = if (clampRight) mapSizeX - cameraState.width else startX
-            startY = if (clampBottom) mapSizeY - cameraState.height else startY
+            val offsetX = if (clampLeft) 0f
+                else if (clampRight) (mapSizeX * tileSize - cameraState.width).toFloat()
+                else playerX % tileSize
+            val offsetY = if (clampTop) 0f
+                else if (clampBottom) (mapSizeY * tileSize - cameraState.height).toFloat()
+                else playerY % tileSize
 
-            val offset = Offset(playerX % tileSize, playerY % tileSize)
+            val offset = Offset(
+                offsetX,
+                offsetY
+            )
             cameraState.copy(
                 startX = startX,
                 startY = startY,
