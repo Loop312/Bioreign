@@ -17,19 +17,19 @@ class MapViewModel {
     val tileSize = 100
 
     init {
-        loadTestMap()
+        loadTestMap(30,30)
     }
 
     fun loadMap(map: MapState) {
         _mapState.value = map
     }
 
-    fun loadTestMap() {
+    fun loadTestMap(sizeX: Int, sizeY: Int) {
         _mapState.update { currentState ->
-            val tiles = Array(currentState.tiles.size) { Array(currentState.tiles[0].size) { Tile() } }
+            val tiles = Array(sizeX) { Array(sizeY) { Tile() } }
 
-            for (i in 0 until tiles.size ) {
-                for (j in 0 until tiles[i].size) {
+            for (i in 0 until sizeX ) {
+                for (j in 0 until sizeY) {
                     when (i % 3 + j % 3) {
                         0 -> tiles[i][j] = Tile(color = Color.Green)
                         1 -> tiles[i][j] = Tile(color = Color.Red)
