@@ -12,12 +12,22 @@ import androidx.compose.ui.unit.dp
 import bioreign.composeapp.generated.resources.BioreignTempLogo
 import bioreign.composeapp.generated.resources.Res
 import bioreign.composeapp.generated.resources.compose_multiplatform
+import org.example.bioreign.model.CameraState
 import org.example.bioreign.model.CharacterState
+import org.example.bioreign.model.MapState
+import org.example.bioreign.viewmodel.CharacterViewModel
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun Player(state: CharacterState) {
+fun Player(
+    state: CharacterState,
+    //temporary, will swap out for what's needed to calculate player offset on clamp
+    //(cameraState and mapState)
+    viewModel: CharacterViewModel,
+    cameraState: CameraState,
+    mapState: MapState
+) {
     Box(Modifier.fillMaxSize(), Alignment.Center) {
         // Renders character based on the state passed in
         Image(
@@ -25,6 +35,11 @@ fun Player(state: CharacterState) {
             contentDescription = state.stats.name,
             modifier = Modifier
                 .size(100.dp)
+                .offset(
+                    //temporary, will swap out for what's needed to calculate player offset on clamp
+                    viewModel.getOffsetX(cameraState, mapState).dp,
+                    viewModel.getOffsetY(cameraState, mapState).dp
+                )
         )
 
         // Renders attack based on the state passed in

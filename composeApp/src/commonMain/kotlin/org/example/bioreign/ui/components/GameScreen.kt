@@ -3,7 +3,6 @@ package org.example.bioreign.ui.components
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Button
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -24,21 +23,23 @@ fun GameScreen(viewModel: GameViewModel) {
     val mapState = viewModel.map.mapState.collectAsState()
     val cameraState = viewModel.camera.cameraState.collectAsState()
     val cameraViewModel = viewModel.camera
+    val playerViewModel = viewModel.player
 
 
     val focusRequester = remember { FocusRequester() }
 
     Box(contentAlignment = Alignment.Center, modifier = Modifier
         .fillMaxSize()
-        .focusable()
         .focusRequester(focusRequester)
+        .focusable()
         .onKeyEvent(keyHandler.listen)
     ) {
-        //keyhandler doesn't work without button?
-        Button(onClick = {}, Modifier.onKeyEvent(keyHandler.listen)) {}
+        //background
         LoadMap(mapState.value, cameraState.value, cameraViewModel)
-        Player(playerState.value)
+        //foreground
+        Player(playerState.value, playerViewModel, cameraState.value, mapState.value)
     }
+    //UI
     //DisplayHUD(playerState.value)
 
     LaunchedEffect(Unit) {

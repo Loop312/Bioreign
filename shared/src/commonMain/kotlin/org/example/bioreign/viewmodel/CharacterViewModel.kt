@@ -9,8 +9,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.example.bioreign.model.CameraState
 import org.example.bioreign.model.CharacterState
 import org.example.bioreign.model.CharacterStats
+import org.example.bioreign.model.MapState
 import org.example.bioreign.model.Position
 import org.example.bioreign.model.Race
 
@@ -245,6 +247,7 @@ class CharacterViewModel {
             )
         }
     }
+
     fun handleMovement(deltaTime: Float) {
         _characterState.update { currentState ->
             val currentPosition = currentState.position
@@ -259,6 +262,31 @@ class CharacterViewModel {
                     y = verticalPosition
                 )
             )
+        }
+    }
+    //temporary, will swap out for what's needed to calculate player offset on clamp
+    //(cameraState and mapState)
+    fun getOffsetX(cameraState: CameraState, mapState: MapState): Float {
+        //println("offset X: ${_characterState.value.position.x % (cameraState.width * mapState.tileSize)}")
+        return if (cameraState.clampLeft) {
+            _characterState.value.position.x
+        } else if (cameraState.clampRight) {
+            //only works when width is divisor of map size (30)?
+            _characterState.value.position.x % (cameraState.width * mapState.tileSize)
+        } else {
+            0f
+        }
+    }
+
+    fun getOffsetY(cameraState: CameraState, mapState: MapState): Float {
+        //println("Offset Y: ${_characterState.value.position.y % (cameraState.height * mapState.tileSize)}")
+        return if (cameraState.clampTop) {
+            _characterState.value.position.y
+        } else if (cameraState.clampBottom) {
+            //only works when height is divisor of map size (30)?
+            _characterState.value.position.y % (cameraState.height * mapState.tileSize)
+        } else {
+            0f
         }
     }
 }

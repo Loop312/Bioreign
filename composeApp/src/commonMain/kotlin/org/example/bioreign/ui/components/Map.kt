@@ -18,10 +18,10 @@ import org.example.bioreign.viewmodel.CameraViewModel
 @Composable
 fun LoadMap(map: MapState, cameraState: CameraState, cameraVM: CameraViewModel) {
     Canvas(Modifier.fillMaxSize().offset(
+        //offsets the map to make movement smooth
         x = -(cameraState.startX * map.tileSize + cameraState.offset.x).dp,
         y = -(cameraState.startY * map.tileSize + cameraState.offset.y).dp
     )) {
-        //val canvasCenter = size.center //probably be used to center the camera
         val canvasWidth = size.width
         val canvasHeight = size.height
         //println("Center: $center, Width: $canvasWidth, Height: $canvasHeight")
@@ -33,6 +33,7 @@ fun LoadMap(map: MapState, cameraState: CameraState, cameraVM: CameraViewModel) 
 
         println("Camera State: $cameraState")
 
+        //centers the camera
         val centerOffsetX = (canvasWidth - viewableTilesX * map.tileSize) / 2
         val centerOffsetY = (canvasHeight - viewableTilesY * map.tileSize) / 2
 
