@@ -15,9 +15,9 @@ class CameraViewModel {
         _cameraState.update { cameraState ->
 
             val clampTop = playerY < 0
-            val clampBottom = playerY > mapSizeY * tileSize
+            val clampBottom = playerY > mapSizeY * tileSize - cameraState.height * tileSize
             val clampLeft = playerX < 0
-            val clampRight = playerX > mapSizeX * tileSize
+            val clampRight = playerX > mapSizeX * tileSize - cameraState.width * tileSize
 
             val startX = if (clampRight) mapSizeX - cameraState.width
                 else (playerX / tileSize).toInt().coerceAtLeast(0)
@@ -30,10 +30,10 @@ class CameraViewModel {
                 else (playerY / tileSize + cameraState.height).toInt().coerceAtMost(mapSizeY)
 
             val offsetX = if (clampLeft) 0f
-                else if (clampRight) (mapSizeX * tileSize - cameraState.width).toFloat()
+                else if (clampRight) ((mapSizeX * tileSize) % tileSize).toFloat()
                 else playerX % tileSize
             val offsetY = if (clampTop) 0f
-                else if (clampBottom) (mapSizeY * tileSize - cameraState.height).toFloat()
+                else if (clampBottom) ((mapSizeY * tileSize) % tileSize).toFloat()
                 else playerY % tileSize
 
             val offset = Offset(
