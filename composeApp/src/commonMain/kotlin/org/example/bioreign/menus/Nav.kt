@@ -15,6 +15,7 @@ import org.example.bioreign.viewmodel.CameraViewModel
 import org.example.bioreign.viewmodel.CharacterViewModel
 import org.example.bioreign.viewmodel.GameViewModel
 import org.example.bioreign.viewmodel.MapViewModel
+import org.example.bioreign.viewmodel.OverlayViewModel
 
 
 sealed class AppRoute {
@@ -152,7 +153,8 @@ class Nav {
                     GameViewModel(
                         CharacterViewModel(),
                         MapViewModel(),
-                        CameraViewModel()
+                        CameraViewModel(),
+                        OverlayViewModel()
                     )
                 )
                 /*storyMode.play(

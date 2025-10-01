@@ -22,8 +22,10 @@ fun GameScreen(viewModel: GameViewModel) {
     val playerState = viewModel.player.characterState.collectAsState()
     val mapState = viewModel.map.mapState.collectAsState()
     val cameraState = viewModel.camera.cameraState.collectAsState()
+    val overlayState = viewModel.overlay.overlayState.collectAsState()
     val cameraViewModel = viewModel.camera
     val playerViewModel = viewModel.player
+    val overlayViewModel = viewModel.overlay
 
 
     val focusRequester = remember { FocusRequester() }
@@ -40,6 +42,7 @@ fun GameScreen(viewModel: GameViewModel) {
         Player(playerState.value, playerViewModel, cameraState.value, mapState.value)
     }
     //UI
+    LoadOverlay(overlayState.value, overlayViewModel, playerViewModel)
     //DisplayHUD(playerState.value)
 
     LaunchedEffect(Unit) {

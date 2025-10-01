@@ -11,7 +11,8 @@ import org.example.bioreign.model.GameState
 class GameViewModel(
     val player: CharacterViewModel,
     val map: MapViewModel,
-    val camera: CameraViewModel
+    val camera: CameraViewModel,
+    val overlay: OverlayViewModel
 ) {
     var updateInterval = .5f
 
