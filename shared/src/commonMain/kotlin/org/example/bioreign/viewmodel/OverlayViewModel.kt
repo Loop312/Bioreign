@@ -10,8 +10,8 @@ class OverlayViewModel {
     private val _overlayState = MutableStateFlow(OverlayState())
     val overlayState: StateFlow<OverlayState> = _overlayState.asStateFlow()
 
-    fun swapJoystickType() {
-        _overlayState.update { it.copy(joystickType = !it.joystickType) }
+    fun toggleFreeStick() {
+        _overlayState.update { it.copy(freeStick = !it.freeStick) }
     }
     fun toggleOverlay() {
         _overlayState.update { it.copy(isOpen = !it.isOpen) }

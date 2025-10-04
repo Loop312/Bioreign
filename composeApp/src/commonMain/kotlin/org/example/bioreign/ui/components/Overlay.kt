@@ -11,7 +11,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -29,7 +28,6 @@ import androidx.compose.ui.unit.dp
 import bioreign.composeapp.generated.resources.Res
 import bioreign.composeapp.generated.resources.big_stick
 import bioreign.composeapp.generated.resources.small_stick2
-import kotlinx.coroutines.delay
 import org.example.bioreign.model.OverlayState
 import org.example.bioreign.viewmodel.CharacterViewModel
 import org.example.bioreign.viewmodel.OverlayViewModel
@@ -40,17 +38,17 @@ import org.jetbrains.compose.resources.painterResource
 fun LoadOverlay(state: OverlayState, viewModel: OverlayViewModel, player: CharacterViewModel) {
     Box (Modifier.fillMaxSize()){
         if (state.isOpen) {
-            if (state.joystickType) {
+            if (state.freeStick) {
                 JoyStick(state, viewModel, player)
             } else {
-                JoyStick2(state, viewModel, player)
+                FreeStick(state, viewModel, player)
             }
             Box(Modifier.align(Alignment.BottomEnd).offset(-100.dp, -100.dp)) {
                 Buttons(player)
             }
         }
         Column (Modifier.align(Alignment.BottomEnd)) {
-            Button(onClick = { viewModel.swapJoystickType() }) {
+            Button(onClick = { viewModel.toggleFreeStick() }) {
                 Text("change stick type")
             }
             Button(onClick = { viewModel.toggleOverlay() }) {
@@ -92,11 +90,11 @@ fun JoyStick(state: OverlayState, viewModel: OverlayViewModel, player: Character
             Text("dx: ${state.dx}, dy: ${state.dy}")
         }
     }
-    MovePlayer(state, player)
+    player.move(state.dx, state.dy)
 }
 
 @Composable
-fun JoyStick2(state: OverlayState, viewModel: OverlayViewModel, player: CharacterViewModel) {
+fun FreeStick(state: OverlayState, viewModel: OverlayViewModel, player: CharacterViewModel) {
     val touchPosition = remember { mutableStateOf(Offset.Zero) }
     var see by remember { mutableStateOf(false) }
     val hapticFeedback = LocalHapticFeedback.current
@@ -141,7 +139,7 @@ fun JoyStick2(state: OverlayState, viewModel: OverlayViewModel, player: Characte
             Text("dx: ${state.dx}, dy: ${state.dy}")
         }
     }
-    MovePlayer(state, player)
+    player.move(state.dx, state.dy)
 }
 //add things to this so it can recognize direction changes, and collisions
 fun moveStick(state: OverlayState, viewModel: OverlayViewModel) = { _: PointerInputChange, dragAmount: Offset ->
@@ -159,28 +157,6 @@ fun moveStick(state: OverlayState, viewModel: OverlayViewModel) = { _: PointerIn
     }
     viewModel.updateDx(dx)
     viewModel.updateDy(dy)
-}
-@Composable
-fun MovePlayer(overlayState: OverlayState, player: CharacterViewModel){
-    LaunchedEffect(Unit) {
-        while (true) {
-            delay(overlayState.frameRate.toLong())
-            if (overlayState.dx >= 75 || overlayState.dx <= -75 || overlayState.dy >= 75 || overlayState.dy <= -75) {
-                //player.sprinting = if (player.stamina > 0) {true} else false
-                player.move(
-                    (overlayState.dx / 175) * overlayState.frameRateMultiplier.toFloat(),
-                    (overlayState.dy / 175) * overlayState.frameRateMultiplier.toFloat()
-                )
-            }
-            else {
-                //player.sprinting = false
-                player.move(
-                    (overlayState.dx / 100) * overlayState.frameRateMultiplier.toFloat(),
-                    (overlayState.dy / 100) * overlayState.frameRateMultiplier.toFloat()
-                )
-            }
-        }
-    }
 }
 
 @Composable
