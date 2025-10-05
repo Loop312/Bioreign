@@ -271,8 +271,9 @@ class CharacterViewModel {
         return if (cameraState.clampLeft) {
             _characterState.value.position.x
         } else if (cameraState.clampRight) {
-            //only works when width is divisor of map size (30)?
-            _characterState.value.position.x % (cameraState.width * mapState.tileSize)
+            val mapEnd = mapState.tiles.size * mapState.tileSize
+            val cameraEnd = cameraState.width * mapState.tileSize
+            _characterState.value.position.x - (mapEnd - cameraEnd)
         } else {
             0f
         }
@@ -283,8 +284,9 @@ class CharacterViewModel {
         return if (cameraState.clampTop) {
             _characterState.value.position.y
         } else if (cameraState.clampBottom) {
-            //only works when height is divisor of map size (30)?
-            _characterState.value.position.y % (cameraState.height * mapState.tileSize)
+            val mapEnd = mapState.tiles[0].size * mapState.tileSize
+            val cameraEnd = cameraState.height * mapState.tileSize
+            _characterState.value.position.y - (mapEnd - cameraEnd)
         } else {
             0f
         }
