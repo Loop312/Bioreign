@@ -33,7 +33,7 @@ jobs:
         
       - name: Build static files
         id: build
-        run: .\gradlew :composeApp:wasmJsBrowserDistribution
+        run: .\gradlew composeApp:wasmJsBrowserDistribution
 
       - name: Upload static files as artifact
         id: deployment
