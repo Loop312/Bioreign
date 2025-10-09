@@ -10,7 +10,12 @@ import org.example.bioreign.gamemodes.GameMode
 import org.example.bioreign.gamemodes.Online
 import org.example.bioreign.gamemodes.Rogue
 import org.example.bioreign.gamemodes.StoryMode
-
+import org.example.bioreign.ui.components.GameScreen
+import org.example.bioreign.viewmodel.CameraViewModel
+import org.example.bioreign.viewmodel.CharacterViewModel
+import org.example.bioreign.viewmodel.GameViewModel
+import org.example.bioreign.viewmodel.MapViewModel
+import org.example.bioreign.viewmodel.OverlayViewModel
 
 
 sealed class AppRoute {
@@ -65,7 +70,7 @@ class Nav {
     val rogue = Rogue()
 
     @Composable
-    fun activate() {
+    fun Activate() {
         val navController = rememberNavController()
         //switch back to startDestination = HomeRoute later
         NavHost(navController = navController, startDestination = AppRoute.Story(1,"")) {
@@ -79,7 +84,7 @@ class Nav {
             }
             //SETTINGS
             composable<AppRoute.Settings> {
-                settingsMenu.open(
+                settingsMenu.Open(
                     navBack = { navController.popBackStack() }
                 )
             }
@@ -144,9 +149,17 @@ class Nav {
             }
             //STORY MODE
             composable<AppRoute.Story> {
-                storyMode.play(
-                    toHomeMenu = { navController.navigate(AppRoute.Home) }
+                GameScreen(
+                    GameViewModel(
+                        CharacterViewModel(),
+                        MapViewModel(),
+                        CameraViewModel(),
+                        OverlayViewModel()
+                    )
                 )
+                /*storyMode.play(
+                    toHomeMenu = { navController.navigate(AppRoute.Home) }
+                )*/
             }
             //ONLINE/PvP MODE
             composable<AppRoute.PvP> {

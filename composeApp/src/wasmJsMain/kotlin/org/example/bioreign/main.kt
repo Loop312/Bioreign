@@ -8,6 +8,6 @@ import kotlinx.browser.document
 fun main() {
     ComposeViewport(document.body!!) {
         //App()
-        theApp()
+        Bioreign()
     }
 }
