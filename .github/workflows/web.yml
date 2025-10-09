@@ -33,7 +33,7 @@ jobs:
         
       - name: Build static files
         id: build
-        run: .\gradlew wasmJsBrowserDistribution
+        run: .\gradlew clean wasmJsBrowserDistribution
 
       - name: Upload static files as artifact
         id: deployment
