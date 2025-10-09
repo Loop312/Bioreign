@@ -220,14 +220,37 @@ class CharacterViewModel {
         }
     }
 
+    //used with the Key Handler
     fun move(dx: Float, dy: Float) {
         _characterState.update { currentState ->
-            val currentHorizontalVelocity = currentState.horizontalVelocity
-            val currentVerticalVelocity = currentState.verticalVelocity
+            val horizontalVelocity = currentState.horizontalVelocity
+            val verticalVelocity = currentState.verticalVelocity
             val speed = currentState.stats.spd
+            val scaleFactor = 2F
             currentState.copy(
-                horizontalVelocity = currentHorizontalVelocity + dx * speed * 2,
-                verticalVelocity = currentVerticalVelocity + dy * speed * 2
+                horizontalVelocity = horizontalVelocity + dx * speed * scaleFactor,
+                verticalVelocity = verticalVelocity + dy * speed * scaleFactor
+            )
+        }
+    }
+
+    //used with the Overlay/Joystick
+    fun moveX(dx: Float) {
+        _characterState.update { currentState ->
+            val speed = currentState.stats.spd
+            val scaleFactor = 2F
+            currentState.copy(
+                horizontalVelocity = dx * speed * scaleFactor
+            )
+        }
+    }
+
+    fun moveY(dy: Float) {
+        _characterState.update { currentState ->
+            val speed = currentState.stats.spd
+            val scaleFactor = 2F
+            currentState.copy(
+                verticalVelocity = dy * speed * scaleFactor
             )
         }
     }
@@ -253,9 +276,9 @@ class CharacterViewModel {
             val currentPosition = currentState.position
             val sprintMultiplier = if (currentState.sprinting) 2 else 1
             var horizontalPosition = currentPosition.x
-            horizontalPosition += (currentState.horizontalVelocity * deltaTime) * sprintMultiplier
+            horizontalPosition += currentState.horizontalVelocity * deltaTime * sprintMultiplier
             var verticalPosition = currentPosition.y
-            verticalPosition +=  (currentState.verticalVelocity * deltaTime) * sprintMultiplier
+            verticalPosition +=  currentState.verticalVelocity * deltaTime * sprintMultiplier
             currentState.copy(
                 position = currentPosition.copy(
                     x = horizontalPosition,

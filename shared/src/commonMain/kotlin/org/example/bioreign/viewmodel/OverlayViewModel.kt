@@ -1,5 +1,7 @@
 package org.example.bioreign.viewmodel
 
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.input.pointer.PointerInputChange
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,11 +18,19 @@ class OverlayViewModel {
     fun toggleOverlay() {
         _overlayState.update { it.copy(isOpen = !it.isOpen) }
     }
-    fun updateDx(dx: Float) {
-        _overlayState.update { it.copy(dx = dx) }
-    }
-    fun updateDy(dy: Float) {
-        _overlayState.update { it.copy(dy = dy) }
+
+    val moveStick = { _: PointerInputChange, dragAmount: Offset ->
+        _overlayState.update { state ->
+            val newStickX = (state.stickX + dragAmount.x).coerceIn(-50F..50F)
+            val newStickY = (state.stickY + dragAmount.y).coerceIn(-50F..50F)
+            state.copy(
+                stickX = newStickX,
+                stickY = newStickY
+            )
+        }
     }
 
+    fun resetStick() {
+        _overlayState.update { it.copy(stickX = 0F, stickY = 0F) }
+    }
 }

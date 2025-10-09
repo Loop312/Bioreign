@@ -31,7 +31,7 @@ fun LoadMap(map: MapState, cameraState: CameraState, cameraVM: CameraViewModel) 
         //println("Viewable Tiles: $viewableTilesX x $viewableTilesY")
         cameraVM.updateCameraSize(viewableTilesX, viewableTilesY)
 
-        println("Camera State: $cameraState")
+        //println("Camera State: $cameraState")
 
         //centers the camera
         val centerOffsetX = (canvasWidth - viewableTilesX * map.tileSize) / 2

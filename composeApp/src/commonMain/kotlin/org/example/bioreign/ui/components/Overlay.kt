@@ -18,9 +18,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.input.pointer.PointerInputChange
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.IntOffset
@@ -33,15 +33,14 @@ import org.example.bioreign.viewmodel.CharacterViewModel
 import org.example.bioreign.viewmodel.OverlayViewModel
 import org.jetbrains.compose.resources.painterResource
 
-
 @Composable
-fun LoadOverlay(state: OverlayState, viewModel: OverlayViewModel, player: CharacterViewModel) {
+fun LoadOverlay(state: OverlayState, viewModel: OverlayViewModel, player: CharacterViewModel, focusRequester: FocusRequester) {
     Box (Modifier.fillMaxSize()){
         if (state.isOpen) {
             if (state.freeStick) {
-                JoyStick(state, viewModel, player)
-            } else {
                 FreeStick(state, viewModel, player)
+            } else {
+                JoyStick(state, viewModel, player)
             }
             Box(Modifier.align(Alignment.BottomEnd).offset(-100.dp, -100.dp)) {
                 Buttons(player)
@@ -51,7 +50,7 @@ fun LoadOverlay(state: OverlayState, viewModel: OverlayViewModel, player: Charac
             Button(onClick = { viewModel.toggleFreeStick() }) {
                 Text("change stick type")
             }
-            Button(onClick = { viewModel.toggleOverlay() }) {
+            Button(onClick = { viewModel.toggleOverlay(); focusRequester.requestFocus() }) {
                 Text("Toggle Overlay")
             }
         }
@@ -74,23 +73,23 @@ fun JoyStick(state: OverlayState, viewModel: OverlayViewModel, player: Character
                     .alpha(.5F)
                     .size(100.dp)
                     .align(Alignment.Center)
-                    .offset(state.dx.dp, state.dy.dp)
+                    .offset(state.stickX.dp, state.stickY.dp)
                     .pointerInput(Unit) {
                         detectDragGestures(
                             onDragStart = { hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)},
                             onDragEnd = {
                                 hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
-                                viewModel.updateDx(0F)
-                                viewModel.updateDy(0F)
+                                viewModel.resetStick()
                             },
-                            onDrag = moveStick(state, viewModel)
+                            onDrag = viewModel.moveStick
                         )
                     }
             )
-            Text("dx: ${state.dx}, dy: ${state.dy}")
+            Text("dx: ${state.stickX}, dy: ${state.stickY}")
         }
     }
-    player.move(state.dx, state.dy)
+    player.moveX(state.stickX / 5)
+    player.moveY(state.stickY / 5)
 }
 
 @Composable
@@ -109,11 +108,10 @@ fun FreeStick(state: OverlayState, viewModel: OverlayViewModel, player: Characte
                 },
                 onDragEnd = {
                     see = false
-                    viewModel.updateDx(0F)
-                    viewModel.updateDy(0F)
                     hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
+                    viewModel.resetStick()
                 },
-                onDrag = moveStick(state, viewModel)
+                onDrag = viewModel.moveStick
             )
         }
     ) {
@@ -133,30 +131,14 @@ fun FreeStick(state: OverlayState, viewModel: OverlayViewModel, player: Characte
                     Modifier
                         .alpha(.5F)
                         .size(100.dp)
-                        .offset((state.dx - 50).dp, (state.dy - 50).dp)
+                        .offset((state.stickX - 50).dp, (state.stickY - 50).dp)
                 )
             }
-            Text("dx: ${state.dx}, dy: ${state.dy}")
+            Text("dx: ${state.stickX}, dy: ${state.stickY}")
         }
     }
-    player.move(state.dx, state.dy)
-}
-//add things to this so it can recognize direction changes, and collisions
-fun moveStick(state: OverlayState, viewModel: OverlayViewModel) = { _: PointerInputChange, dragAmount: Offset ->
-    var dx = state.dx
-    var dy = state.dy
-    if (dx + dragAmount.x < -100F || dx + dragAmount.x > 100F) {
-        dx += 0F
-    } else {
-        dx = (dx + dragAmount.x).coerceIn(-100F, 100F)
-    }
-    if (dy + dragAmount.y < -100F || dy + dragAmount.y > 100F) {
-        dy += 0F
-    } else {
-        dy = (dy + dragAmount.y).coerceIn(-100F, 100F)
-    }
-    viewModel.updateDx(dx)
-    viewModel.updateDy(dy)
+    player.moveX(state.stickX / 5)
+    player.moveY(state.stickY / 5)
 }
 
 @Composable

@@ -42,7 +42,7 @@ fun GameScreen(viewModel: GameViewModel) {
         Player(playerState.value, playerViewModel, cameraState.value, mapState.value)
     }
     //UI
-    LoadOverlay(overlayState.value, overlayViewModel, playerViewModel)
+    LoadOverlay(overlayState.value, overlayViewModel, playerViewModel, focusRequester)
     //DisplayHUD(playerState.value)
 
     LaunchedEffect(Unit) {
