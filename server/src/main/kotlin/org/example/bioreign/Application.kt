@@ -51,7 +51,7 @@ fun main() {
                 }
 
                  */
-                send("(${player.x},${player.y})")
+                //send("(${player.x},${player.y})")
                 send("Clients: $clients")
                 delay(1000/60)
             }
