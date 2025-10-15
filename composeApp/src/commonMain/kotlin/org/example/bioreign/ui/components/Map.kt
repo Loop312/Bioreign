@@ -2,7 +2,6 @@ package org.example.bioreign.ui.components
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.offset
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -10,18 +9,13 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.translate
-import androidx.compose.ui.unit.dp
 import org.example.bioreign.model.CameraState
 import org.example.bioreign.model.MapState
 import org.example.bioreign.viewmodel.CameraViewModel
 
 @Composable
 fun LoadMap(map: MapState, cameraState: CameraState, cameraVM: CameraViewModel) {
-    Canvas(Modifier.fillMaxSize().offset(
-        //offsets the map to make movement smooth
-        x = -(cameraState.startX * map.tileSize + cameraState.offset.x).dp,
-        y = -(cameraState.startY * map.tileSize + cameraState.offset.y).dp
-    )) {
+    Canvas(Modifier.fillMaxSize()) {
         val canvasWidth = size.width
         val canvasHeight = size.height
         //println("Center: $center, Width: $canvasWidth, Height: $canvasHeight")
@@ -33,11 +27,15 @@ fun LoadMap(map: MapState, cameraState: CameraState, cameraVM: CameraViewModel) 
 
         //println("Camera State: $cameraState")
 
+        //offsets the map to make movement smooth
+        val x = -(cameraState.startX * map.tileSize + cameraState.offset.x)
+        val y = -(cameraState.startY * map.tileSize + cameraState.offset.y)
+
         //centers the camera
         val centerOffsetX = (canvasWidth - viewableTilesX * map.tileSize) / 2
         val centerOffsetY = (canvasHeight - viewableTilesY * map.tileSize) / 2
 
-        translate (centerOffsetX, centerOffsetY) {
+        translate (centerOffsetX + x, centerOffsetY + y) {
             for (i in cameraState.startX until cameraState.endX) {
                 for (j in cameraState.startY until cameraState.endY) {
                     val offset = Offset(i * map.tileSize, j * map.tileSize)
