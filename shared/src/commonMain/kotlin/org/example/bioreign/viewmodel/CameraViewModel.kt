@@ -54,9 +54,27 @@ class CameraViewModel {
         }
     }
 
-    fun updateCameraSize(width: Int, height: Int) {
-        _cameraState.update {
-            it.copy(width = width, height = height)
+    fun updateCameraSize(canvasWidth: Float, canvasHeight: Float, tileSize: Float) {
+        _cameraState.update { cameraState ->
+            val width = (canvasWidth / tileSize).toInt()
+            val height = (canvasHeight / tileSize).toInt()
+            //offsets the map to make movement smooth
+            val x = -(cameraState.startX * tileSize + cameraState.offset.x)
+            val y = -(cameraState.startY * tileSize + cameraState.offset.y)
+            //centers the camera
+            val centerOffsetX = (cameraState.canvasWidth - cameraState.width * tileSize) / 2
+            val centerOffsetY = (cameraState.canvasHeight - cameraState.height * tileSize) / 2
+
+            val translateX = centerOffsetX + x
+            val translateY = centerOffsetY + y
+            cameraState.copy(
+                width = width,
+                height = height,
+                canvasWidth = canvasWidth,
+                canvasHeight = canvasHeight,
+                translateX = translateX,
+                translateY = translateY
+            )
         }
     }
 }
