@@ -4,12 +4,13 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Button
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -144,20 +145,35 @@ fun FreeStick(state: OverlayState, viewModel: OverlayViewModel, player: Characte
 @Composable
 fun Buttons(player: CharacterViewModel) {
     val hapticFeedback = LocalHapticFeedback.current
-    Button(onClick = {player.castSpell(); hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)},
-        shape = CircleShape, modifier = Modifier.size(50.dp).offset(80.dp, -40.dp)) {
+    Button(
+        onClick = {player.castSpell(); hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)},
+        shape = CircleShape,
+        contentPadding = PaddingValues(0.dp),
+        modifier = Modifier.size(50.dp).offset(80.dp, -40.dp)
+    ) {
         Text("B")
     }
-    Button(onClick = {player.cycleSpell(); hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)},
-        shape = CircleShape, modifier = Modifier.size(50.dp).offset(40.dp, -80.dp)) {
+    Button(
+        onClick = {player.cycleSpell(); hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)},
+        shape = CircleShape,
+        contentPadding = PaddingValues(0.dp),
+        modifier = Modifier.size(50.dp).offset(40.dp, -80.dp)
+    ) {
         Text("Y")
     }
     Button(onClick = {player.uniqueSkill(); hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)},
-        shape = CircleShape, modifier = Modifier.size(50.dp).offset(40.dp, 0.dp)) {
+        shape = CircleShape,
+        contentPadding = PaddingValues(0.dp),
+        modifier = Modifier.size(50.dp).offset(40.dp, 0.dp)
+    ) {
         Text("A")
     }
-    Button(onClick = {player.attack(); hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)},
-        shape = CircleShape, modifier = Modifier.size(50.dp).offset(0.dp, -40.dp)) {
+    Button(
+        onClick = {player.attack(); hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)},
+        shape = CircleShape,
+        contentPadding = PaddingValues(0.dp),
+        modifier = Modifier.size(50.dp).offset(0.dp, -40.dp)
+    ) {
         Text("X")
     }
 }
