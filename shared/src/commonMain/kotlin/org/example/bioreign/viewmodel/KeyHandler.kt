@@ -6,63 +6,65 @@ import io.github.compose_keyhandler.KeyHandler
 val keyHandler = KeyHandler()
 
 fun KeyHandler.setupPlayer(player: CharacterViewModel) {
-    addMultipleSingleActionKeys(setOf(Key.A, Key.DirectionLeft), "LEFT") {
-        player.move(-10F, 0F)
-        println("LEFT")
+    onPress {
+        key(Key.A, Key.DirectionLeft) {
+            player.move(-10F, 0F)
+            println("LEFT")
+        }
+        key(Key.D, Key.DirectionRight) {
+            player.move(10F, 0F)
+            println("RIGHT")
+        }
+        key(Key.W, Key.DirectionUp) {
+            player.move(0F, -10F)
+            println("UP")
+        }
+        key(Key.S, Key.DirectionDown) {
+            player.move(0F, 10F)
+            println("DOWN")
+        }
+        key(Key.ShiftLeft, Key.ShiftRight) {
+            player.sprint()
+            println("SPRINT")
+        }
+        key(Key.F, Key.Spacebar) {
+            player.attack()
+            println("ATTACK")
+        }
+        key(Key.E, Key.E) {
+            player.castSpell()
+            println("CAST SPELL")
+        }
+        key(Key.R, Key.R) {
+            player.cycleSpell()
+            println("CYCLE SPELL")
+        }
+        key(Key.Q, Key.Q) {
+            player.uniqueSkill()
+            println("UNIQUE SKILL")
+        }
+        /*
+        key(Key.Escape) {
+            gameMenu.isOpen = !gameMenu.isOpen
+        }
+         */
     }
-    addMultipleReleaseKeys(setOf(Key.A, Key.DirectionLeft), "LEFT") {
-        player.move(10F, 0F)
+    onRelease {
+        key(Key.A, Key.DirectionLeft) {
+            player.move(10F, 0F)
+        }
+        key(Key.D, Key.DirectionRight) {
+            player.move(-10F, 0F)
+        }
+        key(Key.W, Key.DirectionUp) {
+            player.move(0F, 10F)
+        }
+        key(Key.S, Key.DirectionDown) {
+            player.move(0F, -10F)
+        }
+        key(Key.ShiftLeft, Key.ShiftRight) {
+            player.stopSprint()
+            println("STOP SPRINT")
+        }
     }
-    addMultipleSingleActionKeys(setOf(Key.D, Key.DirectionRight), "RIGHT") {
-        player.move(10F, 0F)
-        println("RIGHT")
-    }
-    addMultipleReleaseKeys(setOf(Key.D, Key.DirectionRight), "RIGHT") {
-        player.move(-10F, 0F)
-    }
-    addMultipleSingleActionKeys(setOf(Key.W, Key.DirectionUp), "UP") {
-        player.move(0F, -10F)
-        println("UP")
-    }
-    addMultipleReleaseKeys(setOf(Key.W, Key.DirectionUp), "UP") {
-        player.move(0F, 10F)
-    }
-    addMultipleSingleActionKeys(setOf(Key.S, Key.DirectionDown), "DOWN") {
-        player.move(0F, 10F)
-        println("DOWN")
-    }
-    addMultipleReleaseKeys(setOf(Key.S, Key.DirectionDown), "DOWN") {
-        player.move(0F, -10F)
-    }
-
-    addMultipleKeys(setOf(Key.ShiftLeft, Key.ShiftRight), "SPRINT") {
-        player.sprint()
-        println("SPRINT")
-    }
-    addMultipleReleaseKeys(setOf(Key.ShiftLeft, Key.ShiftRight), "STOP SPRINT") {
-        player.stopSprint()
-        println("STOP SPRINT")
-    }
-
-    addMultipleKeys(setOf(Key.F, Key.Spacebar), "ATTACK") {
-        player.attack()
-        println("ATTACK")
-    }
-    addMultipleKeys(setOf(Key.E, Key.E), "CAST SPELL") {
-        player.castSpell()
-        println("CAST SPELL")
-    }
-    addMultipleKeys(setOf(Key.R, Key.R), "CYCLE SPELL") {
-        player.cycleSpell()
-        println("CYCLE SPELL")
-    }
-    addMultipleKeys(setOf(Key.Q, Key.Q), "UNIQUE SKILL") {
-        player.uniqueSkill()
-        println("UNIQUE SKILL")
-    }
-    /*
-    addSingleActionKey(Key.Escape, "ESC") {
-        gameMenu.isOpen = !gameMenu.isOpen
-    }
-     */
 }
