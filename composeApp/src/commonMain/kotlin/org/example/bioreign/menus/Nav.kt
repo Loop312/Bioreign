@@ -69,11 +69,23 @@ class Nav {
     val online = Online()
     val rogue = Rogue()
 
+    val characterViewModel = CharacterViewModel()
+    val mapViewModel = MapViewModel()
+    val cameraViewModel = CameraViewModel()
+    val overlayViewModel = OverlayViewModel()
+    val gameViewModel = GameViewModel(
+        characterViewModel,
+        mapViewModel,
+        cameraViewModel,
+        overlayViewModel
+    )
+
+
     @Composable
     fun Activate() {
         val navController = rememberNavController()
         //switch back to startDestination = HomeRoute later
-        NavHost(navController = navController, startDestination = AppRoute.Story(1,"")) {
+        NavHost(navController = navController, startDestination = AppRoute.Home) {
             //HOME
             composable<AppRoute.Home> {
                 homeMenu.open(
@@ -149,14 +161,7 @@ class Nav {
             }
             //STORY MODE
             composable<AppRoute.Story> {
-                GameScreen(
-                    GameViewModel(
-                        CharacterViewModel(),
-                        MapViewModel(),
-                        CameraViewModel(),
-                        OverlayViewModel()
-                    )
-                )
+                GameScreen(gameViewModel)
                 /*storyMode.play(
                     toHomeMenu = { navController.navigate(AppRoute.Home) }
                 )*/
