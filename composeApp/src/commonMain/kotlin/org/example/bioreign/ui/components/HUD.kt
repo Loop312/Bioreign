@@ -13,7 +13,7 @@ import org.example.bioreign.model.CharacterState
 @Composable
 fun DisplayHUD(state: CharacterState) {
     val stats = state.stats
-    Column (Modifier.background(Color.LightGray)) {
+    Column (Modifier.background(Color.White.copy(alpha = 0.5f))) {
         HealthBar(stats.hp, stats.maxHp)
         StaminaBar(stats.stamina, stats.maxStamina)
         ManaBar(stats.mana, stats.maxMana)

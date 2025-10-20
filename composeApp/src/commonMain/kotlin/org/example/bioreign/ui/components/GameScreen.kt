@@ -43,7 +43,7 @@ fun GameScreen(viewModel: GameViewModel) {
     }
     //UI
     LoadOverlay(overlayState.value, overlayViewModel, playerViewModel, focusRequester)
-    //DisplayHUD(playerState.value)
+    DisplayHUD(playerState.value)
 
     LaunchedEffect(Unit) {
         keyHandler.setupPlayer(viewModel.player)
