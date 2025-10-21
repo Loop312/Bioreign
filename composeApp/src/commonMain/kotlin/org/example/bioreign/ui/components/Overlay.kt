@@ -19,7 +19,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.pointer.pointerInput
@@ -35,7 +34,7 @@ import org.example.bioreign.viewmodel.OverlayViewModel
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun LoadOverlay(state: OverlayState, viewModel: OverlayViewModel, player: CharacterViewModel, focusRequester: FocusRequester) {
+fun LoadOverlay(state: OverlayState, viewModel: OverlayViewModel, player: CharacterViewModel) {
     Box (Modifier.fillMaxSize()){
         if (state.isOpen) {
             if (state.freeStick) {
@@ -51,7 +50,7 @@ fun LoadOverlay(state: OverlayState, viewModel: OverlayViewModel, player: Charac
             Button(onClick = { viewModel.toggleFreeStick() }) {
                 Text("change stick type")
             }
-            Button(onClick = { viewModel.toggleOverlay(); focusRequester.requestFocus() }) {
+            Button(onClick = { viewModel.toggleOverlay() }) {
                 Text("Toggle Overlay")
             }
         }
