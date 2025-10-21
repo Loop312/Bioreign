@@ -13,7 +13,7 @@ data class CharacterState(
     val attacking: Boolean = false,
     val casting: Boolean = false,
     val switching: Boolean = false,
-    val spells: List<Spell> = listOf(Spell("Fireball", "", 0, 0.0)),
+    val spells: List<Spell> = listOf(Spell("Fireball", "small_stick2", 0, 0.0)),
     val currentSpell: Int = 0,
     val position: Position,
     val size: Size = Size(100f, 100f),
@@ -58,7 +58,7 @@ data class Spell(
     val name: String,
     val image: String,
     val size: Int,
-    val cost: Double
+    val cost: Double,
 )
 
 enum class Race {
