@@ -8,8 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.unit.Dp
 import bioreign.composeapp.generated.resources.BioreignTempLogo
 import bioreign.composeapp.generated.resources.Res
 import bioreign.composeapp.generated.resources.compose_multiplatform
@@ -36,7 +34,7 @@ fun Player(
             painter = painterResource(getResId(state.image)),
             contentDescription = state.stats.name,
             modifier = Modifier
-                .size(pixelSize(100))
+                .size(pixelToDp(mapState.tileSize))
                 .graphicsLayer(
                     translationX = viewModel.getOffsetX(cameraState, mapState),
                     translationY = viewModel.getOffsetY(cameraState, mapState)
@@ -49,7 +47,7 @@ fun Player(
                 painterResource(Res.drawable.BioreignTempLogo),
                 null,
                 Modifier
-                    .size(pixelSize(100))
+                    .size(pixelToDp(mapState.tileSize))
                     .graphicsLayer(
                         translationX = viewModel.getOffsetX(cameraState, mapState),
                         translationY = viewModel.getOffsetY(cameraState, mapState)
@@ -64,7 +62,7 @@ fun Player(
                 painterResource(getResId(currentSpell.image)),
                 currentSpell.name,
                 Modifier
-                    .size(pixelSize(currentSpell.size))
+                    .size(pixelToDp(mapState.tileSize))
                     .graphicsLayer(
                         translationX = viewModel.getOffsetX(cameraState, mapState),
                         translationY = viewModel.getOffsetY(cameraState, mapState)
@@ -83,11 +81,4 @@ private fun getResId(imageName: String): DrawableResource {
         // ...
         else -> Res.drawable.compose_multiplatform
     }
-}
-
-@Composable
-fun pixelSize(pixelSize: Int): Dp {
-    val density = LocalDensity.current
-    // Convert the fixed pixel size (e.g., 100) into its equivalent Dp value
-    return with(density) { pixelSize.toDp() }
 }

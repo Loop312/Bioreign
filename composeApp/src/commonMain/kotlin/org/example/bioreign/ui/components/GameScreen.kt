@@ -4,6 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Dp
 import io.github.compose_keyhandler.KeyHandlerHost
 import org.example.bioreign.viewmodel.GameViewModel
 import org.example.bioreign.viewmodel.keyHandler
@@ -17,6 +19,7 @@ fun GameScreen(viewModel: GameViewModel) {
     val cameraState = viewModel.camera.cameraState.collectAsState()
     val overlayState = viewModel.overlay.overlayState.collectAsState()
     val cameraViewModel = viewModel.camera
+    val mapViewModel = viewModel.map
     val playerViewModel = viewModel.player
     val overlayViewModel = viewModel.overlay
 
@@ -24,7 +27,7 @@ fun GameScreen(viewModel: GameViewModel) {
 
     KeyHandlerHost(keyHandler = keyHandler, contentAlignment = Alignment.Center) {
         //background
-        LoadMap(mapState.value, cameraState.value, cameraViewModel)
+        LoadMap(mapState.value, mapViewModel, cameraState.value, cameraViewModel)
         //foreground
         Player(playerState.value, playerViewModel, cameraState.value, mapState.value)
     }
@@ -37,4 +40,11 @@ fun GameScreen(viewModel: GameViewModel) {
         //focusRequester.requestFocus()
         viewModel.gameLoop()
     }
+}
+
+@Composable
+fun pixelToDp(pixelSize: Float): Dp {
+    val density = LocalDensity.current
+    // Convert the fixed pixel size (e.g., 100) into its equivalent Dp value
+    return with(density) { pixelSize.toDp() }
 }
