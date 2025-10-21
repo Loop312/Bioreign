@@ -56,7 +56,7 @@ class GameViewModel(
                     player.characterState.value.position.y,
             map.mapState.value.tiles.size,
             map.mapState.value.tiles[0].size,
-            map.tileSize
+            map.mapState.value.tileSize
         )
     }
 }

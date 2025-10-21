@@ -11,7 +11,7 @@ class CameraViewModel {
     private val _cameraState = MutableStateFlow(CameraState())
     val cameraState: StateFlow<CameraState> = _cameraState.asStateFlow()
 
-    fun updatePosition(playerX: Float, playerY: Float, mapSizeX: Int, mapSizeY: Int, tileSize: Int) {
+    fun updatePosition(playerX: Float, playerY: Float, mapSizeX: Int, mapSizeY: Int, tileSize: Float) {
         _cameraState.update { cameraState ->
 
             val clampTop = playerY < 0
@@ -30,10 +30,10 @@ class CameraViewModel {
                 else (playerY / tileSize + cameraState.height).toInt().coerceAtMost(mapSizeY)
 
             val offsetX = if (clampLeft) 0f
-                else if (clampRight) ((mapSizeX * tileSize) % tileSize).toFloat()
+                else if (clampRight) ((mapSizeX * tileSize) % tileSize)
                 else playerX % tileSize
             val offsetY = if (clampTop) 0f
-                else if (clampBottom) ((mapSizeY * tileSize) % tileSize).toFloat()
+                else if (clampBottom) ((mapSizeY * tileSize) % tileSize)
                 else playerY % tileSize
 
             val offset = Offset(
