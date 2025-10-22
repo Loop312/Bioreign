@@ -15,7 +15,7 @@ class MapViewModel {
     private val _mapState = MutableStateFlow(MapState())
     val mapState: StateFlow<MapState> = _mapState.asStateFlow()
 
-    val BASE_TILE_SIZE_DP = 100.dp
+    val BASE_TILE_SIZE_DP = 80.dp
 
     init {
         loadTestMap(30,30)
