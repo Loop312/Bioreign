@@ -226,10 +226,10 @@ class CharacterViewModel {
             val horizontalVelocity = currentState.horizontalVelocity
             val verticalVelocity = currentState.verticalVelocity
             val speed = currentState.stats.spd
-            val scaleFactor = 2F
+            val velocityScaleFactor = .25F
             currentState.copy(
-                horizontalVelocity = horizontalVelocity + dx * speed * scaleFactor,
-                verticalVelocity = verticalVelocity + dy * speed * scaleFactor
+                horizontalVelocity = horizontalVelocity + dx * speed * velocityScaleFactor,
+                verticalVelocity = verticalVelocity + dy * speed * velocityScaleFactor
             )
         }
     }
@@ -271,14 +271,17 @@ class CharacterViewModel {
         }
     }
 
-    fun handleMovement(deltaTime: Float) {
+    fun handleMovement(deltaTime: Float, tileSize: Float) {
         _characterState.update { currentState ->
             val currentPosition = currentState.position
             val sprintMultiplier = if (currentState.sprinting) 2 else 1
+            val movementFactor = deltaTime * tileSize * sprintMultiplier
+
             var horizontalPosition = currentPosition.x
-            horizontalPosition += currentState.horizontalVelocity * deltaTime * sprintMultiplier
+            horizontalPosition += currentState.horizontalVelocity * movementFactor
             var verticalPosition = currentPosition.y
-            verticalPosition +=  currentState.verticalVelocity * deltaTime * sprintMultiplier
+            verticalPosition +=  currentState.verticalVelocity * movementFactor
+
             currentState.copy(
                 position = currentPosition.copy(
                     x = horizontalPosition,
