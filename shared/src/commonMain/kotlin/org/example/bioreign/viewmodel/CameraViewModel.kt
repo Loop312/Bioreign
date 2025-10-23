@@ -11,7 +11,11 @@ class CameraViewModel {
     private val _cameraState = MutableStateFlow(CameraState())
     val cameraState: StateFlow<CameraState> = _cameraState.asStateFlow()
 
-    fun updatePosition(playerX: Float, playerY: Float, mapSizeX: Int, mapSizeY: Int, tileSize: Float) {
+    fun updatePosition(
+        playerX: Float, playerY: Float,
+        mapSizeX: Int, mapSizeY: Int,
+        width: Int, height: Int,
+        tileSize: Float) {
         _cameraState.update { cameraState ->
 
             val clampTop = playerY < 0
@@ -40,6 +44,16 @@ class CameraViewModel {
                 offsetX,
                 offsetY
             )
+
+            //offsets the map to make movement smooth
+            val x = -(cameraState.startX * tileSize + cameraState.offset.x)
+            val y = -(cameraState.startY * tileSize + cameraState.offset.y)
+            //centers the camera
+            val centerOffsetX = (cameraState.canvasWidth - width * tileSize) / 2
+            val centerOffsetY = (cameraState.canvasHeight - height * tileSize) / 2
+
+            val translateX = centerOffsetX + x
+            val translateY = centerOffsetY + y
             cameraState.copy(
                 startX = startX,
                 startY = startY,
@@ -49,7 +63,9 @@ class CameraViewModel {
                 clampTop = clampTop,
                 clampBottom = clampBottom,
                 clampLeft = clampLeft,
-                clampRight = clampRight
+                clampRight = clampRight,
+                translateX = translateX,
+                translateY = translateY
             )
         }
     }
@@ -58,22 +74,24 @@ class CameraViewModel {
         _cameraState.update { cameraState ->
             val width = (canvasWidth / tileSize).toInt()
             val height = (canvasHeight / tileSize).toInt()
+            /*
             //offsets the map to make movement smooth
             val x = -(cameraState.startX * tileSize + cameraState.offset.x)
             val y = -(cameraState.startY * tileSize + cameraState.offset.y)
             //centers the camera
-            val centerOffsetX = (cameraState.canvasWidth - cameraState.width * tileSize) / 2
-            val centerOffsetY = (cameraState.canvasHeight - cameraState.height * tileSize) / 2
+            val centerOffsetX = (cameraState.canvasWidth - width * tileSize) / 2
+            val centerOffsetY = (cameraState.canvasHeight - height * tileSize) / 2
 
             val translateX = centerOffsetX + x
             val translateY = centerOffsetY + y
+             */
             cameraState.copy(
                 width = width,
                 height = height,
                 canvasWidth = canvasWidth,
                 canvasHeight = canvasHeight,
-                translateX = translateX,
-                translateY = translateY
+                //translateX = translateX,
+                //translateY = translateY
             )
         }
     }
