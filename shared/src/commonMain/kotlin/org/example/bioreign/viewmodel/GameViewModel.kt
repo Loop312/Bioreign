@@ -46,16 +46,44 @@ class GameViewModel(
             }
         }
     }
+
+    fun updateGameSize(width: Int, height: Int) {
+        _gameState.update { gameState ->
+            val minSize = minOf(width, height)
+            val newTileSize = minSize/gameState.scaleFactor.toFloat()
+            map.setTileSize(newTileSize)
+
+            val playerState = player.characterState.value
+            val mapState = map.mapState.value
+            camera.updatePosition(
+                playerState.position.x,
+                playerState.position.y,
+                mapState.tiles.size,
+                mapState.tiles[0].size,
+                width,
+                height,
+                newTileSize // Use the newly calculated tileSize
+            )
+            camera.updateCameraSize(width.toFloat(), height.toFloat(), newTileSize)
+            gameState.copy(
+                width = width,
+                height = height,
+                minSize = minSize
+            )
+        }
+    }
     fun update(deltaTime: Float) {
         player.gainExp(1f * deltaTime)
         player.handleStamina(deltaTime)
-        player.handleMovement(deltaTime)
+        player.handleMovement(deltaTime, map.mapState.value.tileSize)
         player.handleManaRegen(deltaTime)
         camera.updatePosition(
             player.characterState.value.position.x,
                     player.characterState.value.position.y,
             map.mapState.value.tiles.size,
             map.mapState.value.tiles[0].size,
+            camera.cameraState.value.width,
+            camera.cameraState.value.height,
             map.mapState.value.tileSize
         )
     }

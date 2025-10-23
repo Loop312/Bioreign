@@ -1,9 +1,12 @@
 package org.example.bioreign.ui.components
 
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import io.github.compose_keyhandler.KeyHandlerHost
@@ -18,18 +21,23 @@ fun GameScreen(viewModel: GameViewModel) {
     val mapState = viewModel.map.mapState.collectAsState()
     val cameraState = viewModel.camera.cameraState.collectAsState()
     val overlayState = viewModel.overlay.overlayState.collectAsState()
-    val cameraViewModel = viewModel.camera
-    val mapViewModel = viewModel.map
+    //val cameraViewModel = viewModel.camera
+    //val mapViewModel = viewModel.map
     val playerViewModel = viewModel.player
     val overlayViewModel = viewModel.overlay
 
     //val focusRequester = remember { FocusRequester() }
-
-    KeyHandlerHost(keyHandler = keyHandler, contentAlignment = Alignment.Center) {
-        //background
-        LoadMap(mapState.value, mapViewModel, cameraState.value, cameraViewModel)
-        //foreground
-        Player(playerState.value, playerViewModel, cameraState.value, mapState.value)
+    BoxWithConstraints(Modifier.fillMaxSize()) {
+        LaunchedEffect(constraints.maxWidth, constraints.maxHeight) {
+            viewModel.updateGameSize(constraints.maxWidth, constraints.maxHeight)
+            println("boxWidth: ${constraints.maxWidth}, boxHeight: ${constraints.maxHeight}")
+        }
+        KeyHandlerHost(keyHandler = keyHandler, contentAlignment = Alignment.Center) {
+            //background
+            LoadMap(mapState.value, cameraState.value)
+            //foreground
+            Player(playerState.value, playerViewModel, cameraState.value, mapState.value)
+        }
     }
     //UI
     LoadOverlay(overlayState.value, overlayViewModel, playerViewModel)

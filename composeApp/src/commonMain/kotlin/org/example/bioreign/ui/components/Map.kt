@@ -9,21 +9,12 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.translate
-import androidx.compose.ui.platform.LocalDensity
 import org.example.bioreign.model.CameraState
 import org.example.bioreign.model.MapState
-import org.example.bioreign.viewmodel.CameraViewModel
-import org.example.bioreign.viewmodel.MapViewModel
 
 @Composable
-fun LoadMap(map: MapState, mapVM: MapViewModel, cameraState: CameraState, cameraVM: CameraViewModel) {
-    val density = LocalDensity.current
+fun LoadMap(map: MapState, cameraState: CameraState) {
     Canvas(Modifier.fillMaxSize()) {
-        val newTileSize = with(density) { mapVM.BASE_TILE_SIZE_DP.toPx() }
-        if (map.tileSize != newTileSize) {
-            mapVM.setTileSize(newTileSize)
-        }
-        cameraVM.updateCameraSize(size.width, size.height, map.tileSize)
         translate (cameraState.translateX, cameraState.translateY) {
             for (i in cameraState.startX until cameraState.endX) {
                 for (j in cameraState.startY until cameraState.endY) {
