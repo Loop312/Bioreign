@@ -22,7 +22,7 @@ fun DisplayHUD(state: CharacterState) {
             "Player lvl: " + stats.lvl + "\nSkill Points: " + stats.skillPoints,
             color = Color.Blue
         )
-        Text("Player Location: ${state.position}")
+        Text("Player Location: ${state.hitBox.topLeft}")
 
         if (state.spells.isNotEmpty()) {
             Text("Player Spells: " + state.spells.joinToString { it.name } + "\n" +

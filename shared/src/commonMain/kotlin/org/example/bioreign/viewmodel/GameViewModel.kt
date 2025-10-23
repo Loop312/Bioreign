@@ -56,8 +56,8 @@ class GameViewModel(
             val playerState = player.characterState.value
             val mapState = map.mapState.value
             camera.updatePosition(
-                playerState.position.x,
-                playerState.position.y,
+                playerState.hitBox.left,
+                playerState.hitBox.top,
                 mapState.tiles.size,
                 mapState.tiles[0].size,
                 width,
@@ -65,6 +65,7 @@ class GameViewModel(
                 newTileSize // Use the newly calculated tileSize
             )
             camera.updateCameraSize(width.toFloat(), height.toFloat(), newTileSize)
+            player.setCharacterSize(newTileSize)
             gameState.copy(
                 width = width,
                 height = height,
@@ -78,8 +79,8 @@ class GameViewModel(
         player.handleMovement(deltaTime, map.mapState.value.tileSize)
         player.handleManaRegen(deltaTime)
         camera.updatePosition(
-            player.characterState.value.position.x,
-                    player.characterState.value.position.y,
+            player.characterState.value.hitBox.left,
+                    player.characterState.value.hitBox.top,
             map.mapState.value.tiles.size,
             map.mapState.value.tiles[0].size,
             camera.cameraState.value.width,

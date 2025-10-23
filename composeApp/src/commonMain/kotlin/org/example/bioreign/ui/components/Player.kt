@@ -28,17 +28,19 @@ fun Player(
     cameraState: CameraState,
     mapState: MapState
 ) {
-    Box(Modifier.fillMaxSize(), Alignment.Center) {
+    Box(contentAlignment = Alignment.Center, modifier = Modifier
+        .fillMaxSize()
+        .graphicsLayer(
+            translationX = viewModel.getOffsetX(cameraState, mapState),
+            translationY = viewModel.getOffsetY(cameraState, mapState)
+        )
+    ) {
         // Renders character based on the state passed in
         Image(
             painter = painterResource(getResId(state.image)),
             contentDescription = state.stats.name,
             modifier = Modifier
-                .size(pixelToDp(mapState.tileSize))
-                .graphicsLayer(
-                    translationX = viewModel.getOffsetX(cameraState, mapState),
-                    translationY = viewModel.getOffsetY(cameraState, mapState)
-                )
+                .size(pixelToDp(state.hitBox.size.width))
         )
 
         // Renders attack based on the state passed in
@@ -47,11 +49,7 @@ fun Player(
                 painterResource(Res.drawable.BioreignTempLogo),
                 null,
                 Modifier
-                    .size(pixelToDp(mapState.tileSize))
-                    .graphicsLayer(
-                        translationX = viewModel.getOffsetX(cameraState, mapState),
-                        translationY = viewModel.getOffsetY(cameraState, mapState)
-                    )
+                    .size(pixelToDp(state.hitBox.size.width))
             )
         }
 
@@ -62,11 +60,7 @@ fun Player(
                 painterResource(getResId(currentSpell.image)),
                 currentSpell.name,
                 Modifier
-                    .size(pixelToDp(mapState.tileSize))
-                    .graphicsLayer(
-                        translationX = viewModel.getOffsetX(cameraState, mapState),
-                        translationY = viewModel.getOffsetY(cameraState, mapState)
-                    )
+                    .size(pixelToDp(state.hitBox.size.width))
             )
         }
     }

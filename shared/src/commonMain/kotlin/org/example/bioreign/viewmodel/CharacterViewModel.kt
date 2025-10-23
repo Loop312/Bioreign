@@ -1,6 +1,9 @@
 package org.example.bioreign.viewmodel
 
 //import androidx.lifecycle.ViewModel
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.geometry.Size
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -13,7 +16,6 @@ import org.example.bioreign.model.CameraState
 import org.example.bioreign.model.CharacterState
 import org.example.bioreign.model.CharacterStats
 import org.example.bioreign.model.MapState
-import org.example.bioreign.model.Position
 import org.example.bioreign.model.Race
 
 class CharacterViewModel {
@@ -21,7 +23,6 @@ class CharacterViewModel {
         CharacterState(
             race = Race.HUMAN,
             stats = createCharacterStats(Race.HUMAN),
-            position = Position(0f,0f),
             image = "compose_multiplatform"
         )
     )
@@ -67,6 +68,14 @@ class CharacterViewModel {
                 res = 5
             )
             Race.HUMAN -> CharacterStats()
+        }
+    }
+
+    //scale character size to tileSize
+    fun setCharacterSize(tileSize: Float) {
+        _characterState.update {
+            val size = Size(tileSize, tileSize)
+            it.copy(hitBox = Rect(it.hitBox.topLeft, size))
         }
     }
 
@@ -273,7 +282,7 @@ class CharacterViewModel {
 
     fun handleMovement(deltaTime: Float, tileSize: Float) {
         _characterState.update { currentState ->
-            val currentPosition = currentState.position
+            val currentPosition = currentState.hitBox.topLeft
             val sprintMultiplier = if (currentState.sprinting) 2 else 1
             val movementFactor = deltaTime * tileSize * sprintMultiplier
 
@@ -282,11 +291,9 @@ class CharacterViewModel {
             var verticalPosition = currentPosition.y
             verticalPosition +=  currentState.verticalVelocity * movementFactor
 
+            val hitbox = Rect(Offset(horizontalPosition, verticalPosition), currentState.hitBox.size)
             currentState.copy(
-                position = currentPosition.copy(
-                    x = horizontalPosition,
-                    y = verticalPosition
-                )
+                hitBox = hitbox
             )
         }
     }
@@ -295,11 +302,11 @@ class CharacterViewModel {
     fun getOffsetX(cameraState: CameraState, mapState: MapState): Float {
         //println("offset X: ${_characterState.value.position.x % (cameraState.width * mapState.tileSize)}")
         return if (cameraState.clampLeft) {
-            _characterState.value.position.x
+            _characterState.value.hitBox.left
         } else if (cameraState.clampRight) {
             val mapEnd = mapState.tiles.size * mapState.tileSize
             val cameraEnd = cameraState.width * mapState.tileSize
-            _characterState.value.position.x - (mapEnd - cameraEnd)
+            _characterState.value.hitBox.left - (mapEnd - cameraEnd)
         } else {
             0f
         }
@@ -308,11 +315,11 @@ class CharacterViewModel {
     fun getOffsetY(cameraState: CameraState, mapState: MapState): Float {
         //println("Offset Y: ${_characterState.value.position.y % (cameraState.height * mapState.tileSize)}")
         return if (cameraState.clampTop) {
-            _characterState.value.position.y
+            _characterState.value.hitBox.top
         } else if (cameraState.clampBottom) {
             val mapEnd = mapState.tiles[0].size * mapState.tileSize
             val cameraEnd = cameraState.height * mapState.tileSize
-            _characterState.value.position.y - (mapEnd - cameraEnd)
+            _characterState.value.hitBox.top - (mapEnd - cameraEnd)
         } else {
             0f
         }

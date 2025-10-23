@@ -15,8 +15,6 @@ data class CharacterState(
     val switching: Boolean = false,
     val spells: List<Spell> = listOf(Spell("Fireball", "small_stick2", 0, 0.0)),
     val currentSpell: Int = 0,
-    val position: Position,
-    val size: Size = Size(100f, 100f),
     val image: String, // Use a string to represent the resource
     val movingUp: Boolean = false,
     val movingDown: Boolean = false,
@@ -24,7 +22,7 @@ data class CharacterState(
     val movingRight: Boolean = false,
     val verticalVelocity: Float = 0f,
     val horizontalVelocity: Float = 0f,
-    val hitBox: Rect = Rect(position.toOffset(), size),
+    val hitBox: Rect = Rect(Offset(0f,0f), Size(100f,100f)),
 )
 
 data class CharacterStats (
@@ -49,10 +47,6 @@ data class CharacterStats (
     val lvl: Int = 1,
     val skillPoints: Int = 5
 )
-
-data class Position(val x: Float, val y: Float) {
-    fun toOffset() = Offset(x, y)
-}
 
 data class Spell(
     val name: String,
