@@ -11,7 +11,7 @@ import org.example.bioreign.model.CharacterState
 
 
 @Composable
-fun DisplayHUD(state: CharacterState) {
+fun DisplayHUD(state: CharacterState, fps: Float, frameTime: Float) {
     val stats = state.stats
     Column (Modifier.background(Color.White.copy(alpha = 0.5f))) {
         HealthBar(stats.hp, stats.maxHp)
@@ -31,7 +31,7 @@ fun DisplayHUD(state: CharacterState) {
         } else {
             Text("Player has no spells")
         }
-        //Text("FPS: $fps \n FrameTime: $frameTime ms")
+        Text("FPS: ${fps.toInt()} \n FrameTime: $frameTime ms")
         Text("HORIZONTAL VELOCITY: ${state.horizontalVelocity}\n" +
                 "VERTICAL VELOCITY: ${state.verticalVelocity}"
         )
