@@ -247,7 +247,7 @@ class CharacterViewModel {
     fun moveX(dx: Float) {
         _characterState.update { currentState ->
             val speed = currentState.stats.spd
-            val scaleFactor = 2F
+            val scaleFactor = .25f
             currentState.copy(
                 horizontalVelocity = dx * speed * scaleFactor
             )
@@ -257,7 +257,7 @@ class CharacterViewModel {
     fun moveY(dy: Float) {
         _characterState.update { currentState ->
             val speed = currentState.stats.spd
-            val scaleFactor = 2F
+            val scaleFactor = .25f
             currentState.copy(
                 verticalVelocity = dy * speed * scaleFactor
             )

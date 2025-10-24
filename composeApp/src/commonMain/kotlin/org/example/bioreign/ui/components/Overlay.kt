@@ -3,7 +3,6 @@ package org.example.bioreign.ui.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
@@ -45,14 +44,12 @@ fun LoadOverlay(state: OverlayState, viewModel: OverlayViewModel, player: Charac
             Box(Modifier.align(Alignment.BottomEnd).offset(-100.dp, -100.dp)) {
                 Buttons(player)
             }
-        }
-        Column (Modifier.align(Alignment.BottomEnd)) {
-            Button(onClick = { viewModel.toggleFreeStick() }) {
+            Button(onClick = { viewModel.toggleFreeStick() }, Modifier.align(Alignment.BottomEnd).offset(0.dp, -50.dp)) {
                 Text("change stick type")
             }
-            Button(onClick = { viewModel.toggleOverlay() }) {
-                Text("Toggle Overlay")
-            }
+        }
+        Button(onClick = { viewModel.toggleOverlay() }, Modifier.align(Alignment.BottomEnd)) {
+            Text("Toggle Overlay")
         }
     }
 }
@@ -88,8 +85,8 @@ fun JoyStick(state: OverlayState, viewModel: OverlayViewModel, player: Character
             Text("dx: ${state.stickX}, dy: ${state.stickY}")
         }
     }
-    player.moveX(state.stickX / 5)
-    player.moveY(state.stickY / 5)
+    player.moveX(state.stickX / 50)
+    player.moveY(state.stickY / 50)
 }
 
 @Composable
@@ -137,8 +134,8 @@ fun FreeStick(state: OverlayState, viewModel: OverlayViewModel, player: Characte
             Text("dx: ${state.stickX}, dy: ${state.stickY}")
         }
     }
-    player.moveX(state.stickX / 5)
-    player.moveY(state.stickY / 5)
+    player.moveX(state.stickX / 50)
+    player.moveY(state.stickY / 50)
 }
 
 @Composable
