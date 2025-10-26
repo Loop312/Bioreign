@@ -14,10 +14,10 @@ import org.example.bioreign.model.CharacterState
 fun DisplayHUD(state: CharacterState, fps: Float, frameTime: Float) {
     val stats = state.stats
     Column (Modifier.background(Color.White.copy(alpha = 0.5f))) {
-        HealthBar(stats.hp, stats.maxHp)
-        StaminaBar(stats.stamina, stats.maxStamina)
-        ManaBar(stats.mana, stats.maxMana)
-        ExpBar(stats.exp, stats.expLimit)
+        Bar("HP", stats.hp, stats.maxHp, Color.Green, 30, stats.maxHp * 10)
+        Bar("Stamina", stats.stamina, stats.maxStamina, Color.Yellow, 20, stats.maxStamina * 10)
+        Bar("Mana", stats.mana, stats.maxMana, Color.Cyan, 20, stats.maxMana * 10)
+        Bar("Exp", stats.exp, stats.expLimit, Color.Blue, 10, 100f)
         Text(
             "Player lvl: " + stats.lvl + "\nSkill Points: " + stats.skillPoints,
             color = Color.Blue
@@ -37,92 +37,62 @@ fun DisplayHUD(state: CharacterState, fps: Float, frameTime: Float) {
         )
     }
 }
+
 @Composable
-private fun HealthBar(hp: Int, maxHp: Int){
+fun Bar(
+    statName: String,
+    stat: Float,
+    maxStat: Float,
+    color: Color,
+    height: Int,
+    width: Float
+) {
     Column {
         Text(
-            "HP: $hp/$maxHp",
-            color = Color.Green
+            "$statName: $stat/$maxStat",
+            color = color
         )
         Box(
             modifier = Modifier
-                .height(30.dp)
-                .width((maxHp * 10).dp)
+                .height(height.dp)
+                .width(width.dp)
                 .border(width = 2.dp, color = Color.Gray)
         ) {
             Box(
                 modifier = Modifier
                     .fillMaxHeight()
-                    .width((hp * 10).dp)
-                    .background(Color.Green)
+                    .width((stat / maxStat * width).dp)
+                    .background(color)
             )
         }
     }
 }
 
 @Composable
-fun StaminaBar(stamina: Double, maxStamina: Double){
+fun Bar(
+    statName: String,
+    stat: Int,
+    maxStat: Int,
+    color: Color,
+    height: Int,
+    width: Int
+) {
     Column {
         Text(
-            "Stamina: ${stamina.toInt()}/${maxStamina.toInt()}",
-            color = Color.Yellow
+            "$statName: $stat/$maxStat",
+            color = color
         )
         Box(
             modifier = Modifier
-                .height(20.dp)
-                .width((maxStamina * 10).dp)
+                .height(height.dp)
+                .width(width.dp)
                 .border(width = 2.dp, color = Color.Gray)
         ) {
             Box(
                 modifier = Modifier
                     .fillMaxHeight()
-                    .width((stamina * 10).dp)
-                    .background(Color.Yellow)
-            )
-        }
-    }
-}
-
-@Composable
-fun ManaBar(mana: Double, maxMana: Double){
-    Column {
-        Text(
-            "Mana: ${mana.toInt()}/${maxMana.toInt()}",
-            color = Color.Cyan
-        )
-        Box(
-            modifier = Modifier
-                .height(20.dp)
-                .width((maxMana * 10).dp)
-                .border(width = 2.dp, color = Color.Gray)
-        ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .width((mana * 10).dp)
-                    .background(Color.Cyan)
-            )
-        }
-    }
-}
-@Composable
-fun ExpBar(exp: Float, expLimit: Float) {
-    Column {
-        Text(
-            "EXP: $exp/$expLimit",
-            color = Color.Blue
-        )
-        Box(
-            modifier = Modifier
-                .height(10.dp)
-                .width(100.dp)
-                .border(width = 2.dp, color = Color.Gray)
-        ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .width((exp / expLimit * 100).dp)
-                    .background(Color.Blue)
+                    .width((stat / maxStat * width).dp)
+                    .background(color)
             )
         }
     }
