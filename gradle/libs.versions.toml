@@ -21,6 +21,7 @@ ktor = "3.3.1"
 logback = "1.5.19"
 composeHotReload = "1.0.0-rc02"
 navigationCompose = "2.9.1"
+sprite = "1.1.0"
 viewModelCompose = "2.9.4"
 
 [libraries]
@@ -48,6 +49,7 @@ ktor-server-netty = { module = "io.ktor:ktor-server-netty-jvm", version.ref = "k
 navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 #ktor-server-tests = { module = "io.ktor:ktor-server-tests-jvm", version.ref = "ktor" }
 lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "viewModelCompose" }
+sprite = { module = "com.stevdza-san:sprite", version.ref = "sprite" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

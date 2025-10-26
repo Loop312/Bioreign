@@ -47,6 +47,7 @@ kotlin {
             implementation(compose.ui)
             //implementation(libs.lifecycle.viewmodel.compose)
             implementation(libs.compose.keyhandler)
+            implementation(libs.sprite)
         }
     }
 }

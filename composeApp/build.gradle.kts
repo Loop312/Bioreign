@@ -75,6 +75,7 @@ kotlin {
             implementation(libs.navigation.compose)
             implementation(libs.kotlinx.serialization.json)
             implementation(compose.material3)
+            implementation(libs.sprite)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
