@@ -5,6 +5,7 @@ import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
 
 data class CharacterState(
+    val name: String = "",
     val race: Race,
     val stats: CharacterStats,
     val alive: Boolean = true,
@@ -26,7 +27,6 @@ data class CharacterState(
 )
 
 data class CharacterStats (
-    val name: String = "",
     val maxHp: Int = 10,
     val hp: Int = 10,
     val str: Int = 10,

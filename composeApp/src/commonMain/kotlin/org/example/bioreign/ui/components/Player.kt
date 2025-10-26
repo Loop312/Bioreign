@@ -38,7 +38,7 @@ fun Player(
         // Renders character based on the state passed in
         Image(
             painter = painterResource(getResId(state.image)),
-            contentDescription = state.stats.name,
+            contentDescription = state.name,
             modifier = Modifier
                 .size(pixelToDp(state.hitBox.size.width))
         )
