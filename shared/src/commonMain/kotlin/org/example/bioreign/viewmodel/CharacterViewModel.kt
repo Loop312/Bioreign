@@ -48,8 +48,8 @@ class CharacterViewModel {
                 //strengths
                 spd = 15,
                 stealth = 15,
-                maxStamina = 15.0,
-                stamina = 15.0,
+                maxStamina = 15f,
+                stamina = 15f,
                 //weaknesses
                 str = 5,
                 def = 5,

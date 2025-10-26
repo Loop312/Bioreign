@@ -14,7 +14,7 @@ data class CharacterState(
     val attacking: Boolean = false,
     val casting: Boolean = false,
     val switching: Boolean = false,
-    val spells: List<Spell> = listOf(Spell("Fireball", "small_stick2", 0, 0.0)),
+    val spells: List<Spell> = listOf(Spell("Fireball", "small_stick2", 0f, 0f)),
     val currentSpell: Int = 0,
     val image: String, // Use a string to represent the resource
     val movingUp: Boolean = false,
@@ -34,10 +34,10 @@ data class CharacterStats (
     val def: Int = 10,
     val res: Int = 10,
     val spd: Int = 10,
-    val maxStamina: Double = 10.0,
-    val stamina: Double = 10.0,
-    val maxMana: Double = 10.0,
-    val mana: Double = 10.0,
+    val maxStamina: Float = 10f,
+    val stamina: Float = 10f,
+    val maxMana: Float = 10f,
+    val mana: Float = 10f,
     val stealth: Int = 10,
     val acc: Int = 10,
     val intel: Int = 10,
@@ -51,8 +51,8 @@ data class CharacterStats (
 data class Spell(
     val name: String,
     val image: String,
-    val size: Int,
-    val cost: Double,
+    val size: Float,
+    val cost: Float,
 )
 
 enum class Race {
