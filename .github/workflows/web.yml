@@ -33,7 +33,7 @@ jobs:
         
       - name: Build static files
         id: build
-        run: .\gradlew kotlinWasmUpgradeYarnLock composeApp:wasmJsBrowserDistribution
+        run: .\gradlew kotlinWasmStoreYarnLock kotlinWasmUpgradeYarnLock composeApp:wasmJsBrowserDistribution
 
       - name: Upload static files as artifact
         id: deployment
