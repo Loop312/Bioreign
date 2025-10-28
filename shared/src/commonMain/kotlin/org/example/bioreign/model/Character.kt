@@ -42,7 +42,7 @@ data class CharacterStats (
     val acc: Int = 10,
     val intel: Int = 10,
     val lck: Int = 10,
-    val exp: Float = 10f,
+    val exp: Float = 0f,
     val expLimit: Float = 10f,
     val lvl: Int = 1,
     val skillPoints: Int = 5
