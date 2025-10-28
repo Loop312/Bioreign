@@ -30,10 +30,22 @@ jobs:
         with:
           distribution: 'corretto'  # or 'microsoft' or 'corretto' or temurin
           java-version: '21'  # or specify a different version
+
+      - name: Setup yarn
+        id: yarn
+        run: :kotlinWasmYarnSetup
+
+      - name: Store yarn lock
+        id: yarn
+        run: .\gradlew kotlinWasmStoreYarnLock
+
+      - name: Upgrade yarn lock
+        id: yarn
+        run: .\gradlew kotlinWasmUpgradeYarnLock
         
       - name: Build static files
         id: build
-        run: .\gradlew kotlinWasmStoreYarnLock kotlinWasmUpgradeYarnLock composeApp:wasmJsBrowserDistribution
+        run: .\gradlew composeApp:wasmJsBrowserDistribution
 
       - name: Upload static files as artifact
         id: deployment
