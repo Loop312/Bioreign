@@ -33,14 +33,12 @@ jobs:
 
       - name: Setup yarn
         id: yarn
-        run: :kotlinWasmYarnSetup
+        run: .\gradlew kotlinWasmYarnSetup
 
       - name: Store yarn lock
-        id: yarn
         run: .\gradlew kotlinWasmStoreYarnLock
 
       - name: Upgrade yarn lock
-        id: yarn
         run: .\gradlew kotlinWasmUpgradeYarnLock
         
       - name: Build static files
