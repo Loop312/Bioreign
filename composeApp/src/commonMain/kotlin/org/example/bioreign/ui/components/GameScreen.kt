@@ -36,7 +36,7 @@ fun GameScreen(viewModel: GameViewModel) {
             //background
             LoadMap(mapState.value, cameraState.value)
             //foreground
-            Player(playerState.value, playerViewModel, cameraState.value, mapState.value)
+            Player(playerState.value, playerViewModel, cameraState.value)
         }
     }
     //UI

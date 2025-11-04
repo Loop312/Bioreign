@@ -10,12 +10,8 @@ data class CameraState (
     val offset: Offset = Offset(0f, 0f),
     val translateX: Float = 0f,
     val translateY: Float = 0f,
-    val width: Int = 11,
-    val height: Int = 11,
+    val width: Int = 0,
+    val height: Int = 0,
     val canvasWidth: Float = 0f,
-    val canvasHeight: Float = 0f,
-    val clampTop: Boolean = false,
-    val clampBottom: Boolean = false,
-    val clampLeft: Boolean = false,
-    val clampRight: Boolean = false
+    val canvasHeight: Float = 0f
 )

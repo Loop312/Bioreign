@@ -15,7 +15,7 @@ import org.example.bioreign.model.MapState
 @Composable
 fun LoadMap(map: MapState, cameraState: CameraState) {
     Canvas(Modifier.fillMaxSize()) {
-        translate (cameraState.translateX, cameraState.translateY) {
+        translate (cameraState.offset.x, cameraState.offset.y) {
             for (i in cameraState.startX until cameraState.endX) {
                 for (j in cameraState.startY until cameraState.endY) {
                     val offset = Offset(i * map.tileSize, j * map.tileSize)

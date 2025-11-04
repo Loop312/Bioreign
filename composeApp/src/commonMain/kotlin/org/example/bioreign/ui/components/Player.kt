@@ -14,7 +14,6 @@ import bioreign.composeapp.generated.resources.compose_multiplatform
 import bioreign.composeapp.generated.resources.small_stick2
 import org.example.bioreign.model.CameraState
 import org.example.bioreign.model.CharacterState
-import org.example.bioreign.model.MapState
 import org.example.bioreign.viewmodel.CharacterViewModel
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
@@ -22,25 +21,20 @@ import org.jetbrains.compose.resources.painterResource
 @Composable
 fun Player(
     state: CharacterState,
-    //temporary, will swap out for what's needed to calculate player offset on clamp
-    //(cameraState and mapState)
     viewModel: CharacterViewModel,
-    cameraState: CameraState,
-    mapState: MapState
+    cameraState: CameraState
 ) {
-    Box(contentAlignment = Alignment.Center, modifier = Modifier
-        .fillMaxSize()
-        .graphicsLayer(
-            translationX = viewModel.getOffsetX(cameraState, mapState),
-            translationY = viewModel.getOffsetY(cameraState, mapState)
-        )
-    ) {
+    Box(contentAlignment = Alignment.TopStart, modifier = Modifier.fillMaxSize()) {
         // Renders character based on the state passed in
         Image(
             painter = painterResource(getResId(state.image)),
             contentDescription = state.name,
             modifier = Modifier
                 .size(pixelToDp(state.hitBox.size.width))
+                .graphicsLayer(
+                    translationX = viewModel.getOffsetX(cameraState),
+                    translationY = viewModel.getOffsetY(cameraState)
+                )
         )
 
         // Renders attack based on the state passed in
@@ -50,6 +44,10 @@ fun Player(
                 null,
                 Modifier
                     .size(pixelToDp(state.hitBox.size.width))
+                    .graphicsLayer(
+                        translationX = viewModel.getOffsetX(cameraState),
+                        translationY = viewModel.getOffsetY(cameraState)
+                    )
             )
         }
 

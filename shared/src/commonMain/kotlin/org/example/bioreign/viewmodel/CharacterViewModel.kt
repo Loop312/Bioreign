@@ -15,7 +15,6 @@ import kotlinx.coroutines.launch
 import org.example.bioreign.model.CameraState
 import org.example.bioreign.model.CharacterState
 import org.example.bioreign.model.CharacterStats
-import org.example.bioreign.model.MapState
 import org.example.bioreign.model.Race
 
 class CharacterViewModel {
@@ -72,10 +71,15 @@ class CharacterViewModel {
     }
 
     //scale character size to tileSize
-    fun setCharacterSize(tileSize: Float) {
-        _characterState.update {
+    fun scaleCharacterSizeAndPosition(tileSize: Float, rescaleFactor: Float) {
+        _characterState.update { state ->
             val size = Size(tileSize, tileSize)
-            it.copy(hitBox = Rect(it.hitBox.topLeft, size))
+            val oldPosition = state.hitBox.topLeft
+            val newPosition = Offset(
+                oldPosition.x * rescaleFactor,
+                oldPosition.y * rescaleFactor
+            )
+            state.copy(hitBox = Rect(newPosition, size))
         }
     }
 
@@ -299,29 +303,26 @@ class CharacterViewModel {
     }
     //temporary, will swap out for what's needed to calculate player offset on clamp
     //(cameraState and mapState)
-    fun getOffsetX(cameraState: CameraState, mapState: MapState): Float {
-        //println("offset X: ${_characterState.value.position.x % (cameraState.width * mapState.tileSize)}")
-        return if (cameraState.clampLeft) {
-            _characterState.value.hitBox.left
-        } else if (cameraState.clampRight) {
-            val mapEnd = mapState.tiles.size * mapState.tileSize
-            val cameraEnd = cameraState.width * mapState.tileSize
-            _characterState.value.hitBox.left - (mapEnd - cameraEnd)
-        } else {
-            0f
-        }
+    fun getOffsetX(cameraState: CameraState): Float {
+        // Player World X (P_x) is the top-left of the player's hitbox
+        val playerWorldX = _characterState.value.hitBox.left
+
+        // Camera World Center X (C_x)
+        val cameraWorldX = cameraState.translateX
+
+        // Screen X = (V_width / 2) + P_x - C_x
+        // When P_x == C_x, Screen X = V_width / 2 (i.e., player is centered)
+        return cameraState.canvasWidth / 2f + playerWorldX - cameraWorldX
     }
 
-    fun getOffsetY(cameraState: CameraState, mapState: MapState): Float {
-        //println("Offset Y: ${_characterState.value.position.y % (cameraState.height * mapState.tileSize)}")
-        return if (cameraState.clampTop) {
-            _characterState.value.hitBox.top
-        } else if (cameraState.clampBottom) {
-            val mapEnd = mapState.tiles[0].size * mapState.tileSize
-            val cameraEnd = cameraState.height * mapState.tileSize
-            _characterState.value.hitBox.top - (mapEnd - cameraEnd)
-        } else {
-            0f
-        }
+    fun getOffsetY(cameraState: CameraState): Float {
+        // Player World Y (P_y)
+        val playerWorldY = _characterState.value.hitBox.top
+
+        // Camera World Center Y (C_y)
+        val cameraWorldY = cameraState.translateY
+
+        // Screen Y = (V_height / 2) + P_y - C_y
+        return cameraState.canvasHeight / 2f + playerWorldY - cameraWorldY
     }
 }

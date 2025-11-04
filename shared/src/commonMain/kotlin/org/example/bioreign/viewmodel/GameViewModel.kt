@@ -50,22 +50,22 @@ class GameViewModel(
     fun updateGameSize(width: Int, height: Int) {
         _gameState.update { gameState ->
             val minSize = minOf(width, height)
+            val oldTileSize = map.mapState.value.tileSize
             val newTileSize = minSize/gameState.scaleFactor.toFloat()
+            val rescaleFactor = if (oldTileSize == 0f) 1f else newTileSize / oldTileSize
             map.setTileSize(newTileSize)
 
             val playerState = player.characterState.value
             val mapState = map.mapState.value
+            camera.updateCameraSize(width.toFloat(), height.toFloat(), newTileSize)
+            player.scaleCharacterSizeAndPosition(newTileSize, rescaleFactor)
             camera.updatePosition(
-                playerState.hitBox.left,
-                playerState.hitBox.top,
+                playerState.hitBox.center.x,
+                playerState.hitBox.center.y,
                 mapState.tiles.size,
                 mapState.tiles[0].size,
-                width,
-                height,
-                newTileSize // Use the newly calculated tileSize
+                newTileSize
             )
-            camera.updateCameraSize(width.toFloat(), height.toFloat(), newTileSize)
-            player.setCharacterSize(newTileSize)
             gameState.copy(
                 width = width,
                 height = height,
@@ -74,17 +74,15 @@ class GameViewModel(
         }
     }
     fun update(deltaTime: Float) {
-        player.gainExp(1f * deltaTime)
+        //player.gainExp(1f * deltaTime)
         player.handleStamina(deltaTime)
         player.handleMovement(deltaTime, map.mapState.value.tileSize)
         player.handleManaRegen(deltaTime)
         camera.updatePosition(
-            player.characterState.value.hitBox.left,
-                    player.characterState.value.hitBox.top,
+            player.characterState.value.hitBox.center.x,
+                    player.characterState.value.hitBox.center.y,
             map.mapState.value.tiles.size,
             map.mapState.value.tiles[0].size,
-            camera.cameraState.value.width,
-            camera.cameraState.value.height,
             map.mapState.value.tileSize
         )
     }

@@ -3,7 +3,7 @@ package org.example.bioreign.model
 import androidx.compose.ui.graphics.Color
 
 data class MapState (
-    val tileSize: Float = 100f,
+    val tileSize: Float = 0f,
     val tiles: Array<Array<Tile>> = arrayOf(arrayOf(Tile()))
 )
 
