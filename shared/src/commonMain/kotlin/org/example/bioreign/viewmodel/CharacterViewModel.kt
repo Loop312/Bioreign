@@ -284,21 +284,88 @@ class CharacterViewModel {
         }
     }
 
-    fun handleMovement(deltaTime: Float, tileSize: Float) {
+    fun handleMovement(deltaTime: Float, tileSize: Float, mapSizeX: Int, mapSizeY: Int) {
         _characterState.update { currentState ->
-            val currentPosition = currentState.hitBox.topLeft
+            val currentHitbox = currentState.hitBox
+            val currentLeft = currentHitbox.left
+            val currentTop = currentHitbox.top
+
+            var horizontalVelocity = currentState.horizontalVelocity
+            var verticalVelocity = currentState.verticalVelocity
+
             val sprintMultiplier = if (currentState.sprinting) 2 else 1
             val movementFactor = deltaTime * tileSize * sprintMultiplier
 
-            var horizontalPosition = currentPosition.x
-            horizontalPosition += currentState.horizontalVelocity * movementFactor
-            var verticalPosition = currentPosition.y
-            verticalPosition +=  currentState.verticalVelocity * movementFactor
+            val newHorizontalPosition = currentLeft + horizontalVelocity * movementFactor
+            val newVerticalPosition = currentTop + verticalVelocity * movementFactor
 
-            val hitbox = Rect(Offset(horizontalPosition, verticalPosition), currentState.hitBox.size)
-            currentState.copy(
-                hitBox = hitbox
+            //check X direction
+            val newHitboxX = Rect(
+                Offset(
+                    newHorizontalPosition,
+                    currentTop
+                ),
+                currentHitbox.size
             )
+            val newLeft = newHitboxX.left
+            val newRight = newHitboxX.right
+
+            val finalHorizontalPosition = if (horizontalCollision(newLeft, newRight, mapSizeX, tileSize)) {
+                horizontalVelocity = 0f
+                currentLeft
+            } else {
+                newLeft
+            }
+
+            //check Y direction
+            val newHitboxY = Rect(
+                Offset(
+                    finalHorizontalPosition,
+                    newVerticalPosition
+                ),
+                currentHitbox.size
+            )
+            val newTop = newHitboxY.top
+            val newBottom = newHitboxY.bottom
+
+            val finalVerticalPosition = if (verticalCollision(newTop, newBottom, mapSizeY, tileSize)) {
+                verticalVelocity = 0f
+                currentTop
+            } else {
+                newTop
+            }
+
+            val finalHitbox = Rect(
+                Offset(
+                    finalHorizontalPosition,
+                    finalVerticalPosition
+                ),
+                currentState.hitBox.size
+            )
+
+            currentState.copy(
+                hitBox = finalHitbox,
+                horizontalVelocity = horizontalVelocity,
+                verticalVelocity = verticalVelocity
+            )
+        }
+    }
+
+    fun horizontalCollision(left: Float, right: Float, mapSizeX: Int, tileSize: Float): Boolean {
+        return if (left < 0f || right > mapSizeX * tileSize) {
+            println("HorizontalMapEdgeCollision")
+            true
+        } else {
+            false
+        }
+    }
+
+    fun verticalCollision(top: Float, bottom: Float, mapSizeY: Int, tileSize: Float): Boolean {
+        return if (top < 0f || bottom > mapSizeY * tileSize) {
+            println("VerticalMapEdgeCollision")
+            true
+        } else {
+            false
         }
     }
     //temporary, will swap out for what's needed to calculate player offset on clamp

@@ -2,7 +2,6 @@ package org.example.bioreign.viewmodel
 
 //import androidx.lifecycle.ViewModel
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -14,8 +13,6 @@ import org.example.bioreign.model.TileType
 class MapViewModel {
     private val _mapState = MutableStateFlow(MapState())
     val mapState: StateFlow<MapState> = _mapState.asStateFlow()
-
-    val BASE_TILE_SIZE_DP = 80.dp
 
     init {
         loadTestMap(30,30)
