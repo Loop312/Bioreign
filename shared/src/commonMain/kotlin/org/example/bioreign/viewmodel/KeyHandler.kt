@@ -51,16 +51,16 @@ fun KeyHandler.setupPlayer(player: CharacterViewModel) {
     }
     onRelease {
         key(Key.A, Key.DirectionLeft) {
-            player.move(1F, 0F)
+            player.stopMove(1F, 0F)
         }
         key(Key.D, Key.DirectionRight) {
-            player.move(-1F, 0F)
+            player.stopMove(-1F, 0F)
         }
         key(Key.W, Key.DirectionUp) {
-            player.move(0F, 1F)
+            player.stopMove(0F, 1F)
         }
         key(Key.S, Key.DirectionDown) {
-            player.move(0F, -1F)
+            player.stopMove(0F, -1F)
         }
         key(Key.ShiftLeft, Key.ShiftRight) {
             player.stopSprint()

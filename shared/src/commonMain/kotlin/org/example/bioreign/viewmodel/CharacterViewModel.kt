@@ -247,6 +247,17 @@ class CharacterViewModel {
         }
     }
 
+    fun stopMove(dx: Float, dy: Float) {
+        _characterState.update { currentState ->
+            val newHorizontalVelocity = if (dx != 0f) 0f else currentState.horizontalVelocity
+            val newVerticalVelocity = if (dy != 0f) 0f else currentState.verticalVelocity
+            currentState.copy(
+                horizontalVelocity = newHorizontalVelocity,
+                verticalVelocity = newVerticalVelocity
+            )
+        }
+    }
+
     //used with the Overlay/Joystick
     fun moveX(dx: Float) {
         _characterState.update { currentState ->
