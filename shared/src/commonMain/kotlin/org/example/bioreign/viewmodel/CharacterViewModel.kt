@@ -82,7 +82,16 @@ class CharacterViewModel {
                 oldPosition.x * rescaleFactor,
                 oldPosition.y * rescaleFactor
             )
-            state.copy(hitBox = Rect(newPosition, size))
+            val newHitbox = Rect(newPosition, size)
+            updateTileOffset(newHitbox, tileSize)
+            state.copy(hitBox = newHitbox)
+        }
+    }
+
+    private fun updateTileOffset(hitbox: Rect, tileSize: Float) {
+        _characterState.update { state ->
+            val newTileOffset = hitbox.center / tileSize
+            state.copy(tileOffset = newTileOffset)
         }
     }
 
@@ -359,6 +368,7 @@ class CharacterViewModel {
                 ),
                 currentState.hitBox.size
             )
+            updateTileOffset(finalHitbox, tileSize)
 
             currentState.copy(
                 hitBox = finalHitbox,

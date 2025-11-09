@@ -23,6 +23,7 @@ fun DisplayHUD(state: CharacterState, fps: Float, frameTime: Float) {
             color = Color.Blue
         )
         Text("Player Location: ${state.hitBox.topLeft}")
+        Text("Player Tile Location: ${state.tileOffset}")
 
         if (state.spells.isNotEmpty()) {
             Text("Player Spells: " + state.spells.joinToString { it.name } + "\n" +

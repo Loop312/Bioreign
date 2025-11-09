@@ -24,6 +24,7 @@ data class CharacterState(
     val verticalVelocity: Float = 0f,
     val horizontalVelocity: Float = 0f,
     val hitBox: Rect = Rect(Offset(100f,100f), Size(100f,100f)),
+    val tileOffset: Offset = Offset(0f, 0f)
 )
 
 data class CharacterStats (
