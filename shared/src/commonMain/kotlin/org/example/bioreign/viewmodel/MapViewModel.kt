@@ -34,14 +34,15 @@ class MapViewModel {
 
             for (i in 0 until sizeX ) {
                 for (j in 0 until sizeY) {
-                    when (i % 3 + j % 3) {
+                    when (i % 5 + j % 5) {
                         0 -> tiles[i][j] = Tile(color = Color.Green)
-                        1 -> tiles[i][j] = Tile(color = Color.Red)
+                        1 -> tiles[i][j] = Tile(color = Color.Red, solid = true)
                         2 -> tiles[i][j] = Tile(color = Color.Blue)
+                        3 -> tiles[i][j] = Tile(color = Color.Yellow)
+                        4 -> tiles[i][j] = Tile(color = Color.Magenta)
                     }
                 }
             }
-
             currentState.copy(tiles = tiles)
         }
     }

@@ -15,7 +15,9 @@ import kotlinx.coroutines.launch
 import org.example.bioreign.model.CameraState
 import org.example.bioreign.model.CharacterState
 import org.example.bioreign.model.CharacterStats
+import org.example.bioreign.model.MapState
 import org.example.bioreign.model.Race
+import org.example.bioreign.model.Tile
 
 class CharacterViewModel {
     private val _characterState = MutableStateFlow(
@@ -73,7 +75,8 @@ class CharacterViewModel {
     //scale character size to tileSize
     fun scaleCharacterSizeAndPosition(tileSize: Float, rescaleFactor: Float) {
         _characterState.update { state ->
-            val size = Size(tileSize, tileSize)
+            val characterSize = tileSize * .9f
+            val size = Size(characterSize, characterSize)
             val oldPosition = state.hitBox.topLeft
             val newPosition = Offset(
                 oldPosition.x * rescaleFactor,
@@ -295,8 +298,13 @@ class CharacterViewModel {
         }
     }
 
-    fun handleMovement(deltaTime: Float, tileSize: Float, mapSizeX: Int, mapSizeY: Int) {
+    fun handleMovement(deltaTime: Float, mapState: MapState) {
         _characterState.update { currentState ->
+            val tileSize = mapState.tileSize
+            val mapSizeX = mapState.tiles.size
+            val mapSizeY = mapState.tiles[0].size
+            val map = mapState.tiles
+
             val currentHitbox = currentState.hitBox
             val currentLeft = currentHitbox.left
             val currentTop = currentHitbox.top
@@ -319,9 +327,8 @@ class CharacterViewModel {
                 currentHitbox.size
             )
             val newLeft = newHitboxX.left
-            val newRight = newHitboxX.right
 
-            val finalHorizontalPosition = if (horizontalCollision(newLeft, newRight, mapSizeX, tileSize)) {
+            val finalHorizontalPosition = if (horizontalCollision(newHitboxX, mapSizeX, tileSize, map, horizontalVelocity)) {
                 horizontalVelocity = 0f
                 currentLeft
             } else {
@@ -337,9 +344,8 @@ class CharacterViewModel {
                 currentHitbox.size
             )
             val newTop = newHitboxY.top
-            val newBottom = newHitboxY.bottom
 
-            val finalVerticalPosition = if (verticalCollision(newTop, newBottom, mapSizeY, tileSize)) {
+            val finalVerticalPosition = if (verticalCollision(newHitboxY, mapSizeY, tileSize, map, verticalVelocity)) {
                 verticalVelocity = 0f
                 currentTop
             } else {
@@ -362,22 +368,72 @@ class CharacterViewModel {
         }
     }
 
-    fun horizontalCollision(left: Float, right: Float, mapSizeX: Int, tileSize: Float): Boolean {
-        return if (left < 0f || right > mapSizeX * tileSize) {
+    fun horizontalCollision(hitBox: Rect, mapSizeX: Int, tileSize: Float, map: Array<Array<Tile>>, horizontalVelocity: Float): Boolean {
+        // 1. Check Map Boundaries
+        if (hitBox.left < 0f || hitBox.right > mapSizeX * tileSize) {
             println("HorizontalMapEdgeCollision")
-            true
-        } else {
-            false
+            return true
         }
+
+        // Determine the tile indices to check
+        val yTop = (hitBox.top / tileSize).toInt().coerceAtLeast(0)
+        val yBottom = (hitBox.bottom / tileSize).toInt().coerceAtMost(map[0].size - 1)
+
+        // 2. Check for Tile Collision based on direction
+        if (horizontalVelocity > 0f) { // Moving Right
+            val xRight = (hitBox.right / tileSize).toInt().coerceAtMost(mapSizeX - 1)
+
+            // Check right-top tile and right-bottom tile
+            if (map[xRight][yTop].solid || map[xRight][yBottom].solid) {
+                println("HorizontalTileCollision - Right")
+                return true
+            }
+        } else if (horizontalVelocity < 0f) { // Moving Left
+            val xLeft = (hitBox.left / tileSize).toInt().coerceAtLeast(0)
+
+            // Check left-top tile and left-bottom tile
+            if (map[xLeft][yTop].solid || map[xLeft][yBottom].solid) {
+                println("HorizontalTileCollision - Left")
+                return true
+            }
+        }
+
+        // No collision
+        return false
     }
 
-    fun verticalCollision(top: Float, bottom: Float, mapSizeY: Int, tileSize: Float): Boolean {
-        return if (top < 0f || bottom > mapSizeY * tileSize) {
+    fun verticalCollision(hitBox: Rect, mapSizeY: Int, tileSize: Float, map: Array<Array<Tile>>, verticalVelocity: Float): Boolean {
+        // 1. Check Map Boundaries
+        if (hitBox.top < 0f || hitBox.bottom > mapSizeY * tileSize) {
             println("VerticalMapEdgeCollision")
-            true
-        } else {
-            false
+            return true
         }
+
+        // Determine the tile indices to check
+        val xLeft = (hitBox.left / tileSize).toInt().coerceAtLeast(0)
+        val xRight = (hitBox.right / tileSize).toInt().coerceAtMost(map.size - 1)
+
+        // 2. Check for Tile Collision based on direction
+        if (verticalVelocity > 0f) { // Moving Down
+            val yBottom = (hitBox.bottom / tileSize).toInt().coerceAtMost(mapSizeY - 1)
+
+            // Check bottom-left tile and bottom-right tile
+            if (map[xLeft][yBottom].solid || map[xRight][yBottom].solid) {
+                println("VerticalTileCollision - Down")
+                return true
+            }
+        } else if (verticalVelocity < 0f) { // Moving Up
+            val yTop = (hitBox.top / tileSize).toInt().coerceAtLeast(0)
+
+            // Check top-left tile and top-right tile
+            if (map[xLeft][yTop].solid || map[xRight][yTop].solid) {
+                println("VerticalTileCollision - Up")
+                return true
+            }
+        }
+
+        // No collision
+        return false
     }
     //temporary, will swap out for what's needed to calculate player offset on clamp
     //(cameraState and mapState)

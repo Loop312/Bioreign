@@ -23,7 +23,7 @@ data class CharacterState(
     val movingRight: Boolean = false,
     val verticalVelocity: Float = 0f,
     val horizontalVelocity: Float = 0f,
-    val hitBox: Rect = Rect(Offset(0f,0f), Size(100f,100f)),
+    val hitBox: Rect = Rect(Offset(100f,100f), Size(100f,100f)),
 )
 
 data class CharacterStats (

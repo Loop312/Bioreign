@@ -8,8 +8,6 @@ data class MapState (
 )
 
 data class Tile (
-    val x: Int = 0,
-    val y: Int = 0,
     val type: TileType = TileType.GRASS,
     val solid: Boolean = false,
     val color: Color = Color.Green

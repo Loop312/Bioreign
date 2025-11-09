@@ -74,12 +74,13 @@ class GameViewModel(
         }
     }
     fun update(deltaTime: Float) {
-        val tileSize = map.mapState.value.tileSize
-        val mapSizeX = map.mapState.value.tiles.size
-        val mapSizeY = map.mapState.value.tiles[0].size
+        val mapState = map.mapState.value
+        val tileSize = mapState.tileSize
+        val mapSizeX = mapState.tiles.size
+        val mapSizeY = mapState.tiles[0].size
         //player.gainExp(1f * deltaTime)
         player.handleStamina(deltaTime)
-        player.handleMovement(deltaTime, tileSize, mapSizeX, mapSizeY)
+        player.handleMovement(deltaTime, mapState)
         player.handleManaRegen(deltaTime)
         camera.updatePosition(
             player.characterState.value.hitBox.center.x,
