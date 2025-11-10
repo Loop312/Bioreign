@@ -85,8 +85,7 @@ fun JoyStick(state: OverlayState, viewModel: OverlayViewModel, player: Character
             Text("dx: ${state.stickX}, dy: ${state.stickY}")
         }
     }
-    player.moveX(state.stickX / 50)
-    player.moveY(state.stickY / 50)
+    player.stickMove(state.stickX / 50, state.stickY / 50)
 }
 
 @Composable
@@ -134,8 +133,7 @@ fun FreeStick(state: OverlayState, viewModel: OverlayViewModel, player: Characte
             Text("dx: ${state.stickX}, dy: ${state.stickY}")
         }
     }
-    player.moveX(state.stickX / 50)
-    player.moveY(state.stickY / 50)
+    player.stickMove(state.stickX / 50, state.stickY / 50)
 }
 
 @Composable

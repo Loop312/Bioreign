@@ -8,19 +8,19 @@ val keyHandler = KeyHandler()
 fun KeyHandler.setupPlayer(player: CharacterViewModel) {
     onPress {
         key(Key.A, Key.DirectionLeft) {
-            player.move(-1F, 0F)
+            player.keyMove(-1F, 0F)
             println("LEFT")
         }
         key(Key.D, Key.DirectionRight) {
-            player.move(1F, 0F)
+            player.keyMove(1F, 0F)
             println("RIGHT")
         }
         key(Key.W, Key.DirectionUp) {
-            player.move(0F, -1F)
+            player.keyMove(0F, -1F)
             println("UP")
         }
         key(Key.S, Key.DirectionDown) {
-            player.move(0F, 1F)
+            player.keyMove(0F, 1F)
             println("DOWN")
         }
         key(Key.ShiftLeft, Key.ShiftRight) {
@@ -51,16 +51,16 @@ fun KeyHandler.setupPlayer(player: CharacterViewModel) {
     }
     onRelease {
         key(Key.A, Key.DirectionLeft) {
-            player.stopMove(1F, 0F)
+            player.keyMove(1F, 0F)
         }
         key(Key.D, Key.DirectionRight) {
-            player.stopMove(-1F, 0F)
+            player.keyMove(-1F, 0F)
         }
         key(Key.W, Key.DirectionUp) {
-            player.stopMove(0F, 1F)
+            player.keyMove(0F, 1F)
         }
         key(Key.S, Key.DirectionDown) {
-            player.stopMove(0F, -1F)
+            player.keyMove(0F, -1F)
         }
         key(Key.ShiftLeft, Key.ShiftRight) {
             player.stopSprint()

@@ -17,10 +17,8 @@ data class CharacterState(
     val spells: List<Spell> = listOf(Spell("Fireball", "small_stick2", 0f, 0f)),
     val currentSpell: Int = 0,
     val image: String, // Use a string to represent the resource
-    val movingUp: Boolean = false,
-    val movingDown: Boolean = false,
-    val movingLeft: Boolean = false,
-    val movingRight: Boolean = false,
+    val xInput: Float = 0f,
+    val yInput: Float = 0f,
     val verticalVelocity: Float = 0f,
     val horizontalVelocity: Float = 0f,
     val hitBox: Rect = Rect(Offset(100f,100f), Size(100f,100f)),

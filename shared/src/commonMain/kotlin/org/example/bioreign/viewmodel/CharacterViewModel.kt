@@ -246,47 +246,22 @@ class CharacterViewModel {
     }
 
     //used with the Key Handler
-    fun move(dx: Float, dy: Float) {
+    fun keyMove(dx: Float, dy: Float) {
         _characterState.update { currentState ->
-            val horizontalVelocity = currentState.horizontalVelocity
-            val verticalVelocity = currentState.verticalVelocity
-            val speed = currentState.stats.spd
-            val velocityScaleFactor = .25F
+            val xInput = (currentState.xInput + dx).coerceIn(-1f, 1f)
+            val yInput = (currentState.yInput + dy).coerceIn(-1f, 1f)
             currentState.copy(
-                horizontalVelocity = horizontalVelocity + dx * speed * velocityScaleFactor,
-                verticalVelocity = verticalVelocity + dy * speed * velocityScaleFactor
+                xInput = xInput,
+                yInput = yInput
             )
         }
     }
 
-    fun stopMove(dx: Float, dy: Float) {
+    fun stickMove(stickX: Float, stickY: Float) {
         _characterState.update { currentState ->
-            val newHorizontalVelocity = if (dx != 0f) 0f else currentState.horizontalVelocity
-            val newVerticalVelocity = if (dy != 0f) 0f else currentState.verticalVelocity
             currentState.copy(
-                horizontalVelocity = newHorizontalVelocity,
-                verticalVelocity = newVerticalVelocity
-            )
-        }
-    }
-
-    //used with the Overlay/Joystick
-    fun moveX(dx: Float) {
-        _characterState.update { currentState ->
-            val speed = currentState.stats.spd
-            val scaleFactor = .25f
-            currentState.copy(
-                horizontalVelocity = dx * speed * scaleFactor
-            )
-        }
-    }
-
-    fun moveY(dy: Float) {
-        _characterState.update { currentState ->
-            val speed = currentState.stats.spd
-            val scaleFactor = .25f
-            currentState.copy(
-                verticalVelocity = dy * speed * scaleFactor
+                xInput = stickX,
+                yInput = stickY
             )
         }
     }
@@ -318,8 +293,12 @@ class CharacterViewModel {
             val currentLeft = currentHitbox.left
             val currentTop = currentHitbox.top
 
-            var horizontalVelocity = currentState.horizontalVelocity
-            var verticalVelocity = currentState.verticalVelocity
+            val velocityScaleFactor = .25f
+            val speed = currentState.stats.spd
+            val xInput = currentState.xInput
+            val yInput = currentState.yInput
+            val horizontalVelocity = xInput * speed * velocityScaleFactor
+            val verticalVelocity = yInput * speed * velocityScaleFactor
 
             val sprintMultiplier = if (currentState.sprinting) 2 else 1
             val movementFactor = deltaTime * tileSize * sprintMultiplier
@@ -338,7 +317,7 @@ class CharacterViewModel {
             val newLeft = newHitboxX.left
 
             val finalHorizontalPosition = if (horizontalCollision(newHitboxX, mapSizeX, tileSize, map, horizontalVelocity)) {
-                horizontalVelocity = 0f
+                //horizontalVelocity = 0f
                 currentLeft
             } else {
                 newLeft
@@ -355,7 +334,7 @@ class CharacterViewModel {
             val newTop = newHitboxY.top
 
             val finalVerticalPosition = if (verticalCollision(newHitboxY, mapSizeY, tileSize, map, verticalVelocity)) {
-                verticalVelocity = 0f
+                //verticalVelocity = 0f
                 currentTop
             } else {
                 newTop
@@ -371,9 +350,7 @@ class CharacterViewModel {
             updateTileOffset(finalHitbox, tileSize)
 
             currentState.copy(
-                hitBox = finalHitbox,
-                horizontalVelocity = horizontalVelocity,
-                verticalVelocity = verticalVelocity
+                hitBox = finalHitbox
             )
         }
     }
